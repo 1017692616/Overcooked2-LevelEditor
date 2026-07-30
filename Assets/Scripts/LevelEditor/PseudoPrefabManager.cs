@@ -1,4 +1,4 @@
-﻿using LevelEditorStub;
+using LevelEditorStub;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -104,7 +104,7 @@ namespace LevelEditor
                     {
                         GameSession gameSession1 = GameUtils.GetGameSession();
                         typeof(GameProgress)
-                            .GetField("m_sceneDirectory", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                            .GetField("m_sceneDirectory", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                             .SetValue(gameSession1.Progress, LevelConfigSetup.SetupSceneDirectoryData(stub.configTemplateSO, stub.levelInfo));
                         var sceneDirectoryVarientEntry = gameSession1.Progress.GetSceneDirectory().Scenes[0].GetSceneVarient(4);
                         gameSession1.LevelSettings = new GameSession.GameLevelSettings() { SceneDirectoryVarientEntry = sceneDirectoryVarientEntry };
@@ -163,7 +163,7 @@ namespace LevelEditor
         {
             Component component = stub.FlowManagerGO.GetComponent<LevelIntroFlowroutine>();
             LevelIntroFlowroutineData m_data = (LevelIntroFlowroutineData)component.GetType()
-                .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .GetValue(component);
             m_data.GoUIPrefab = LoadAsset(stub.GoSO);
             m_data.ReadyUIPrefab = LoadAsset(stub.ReadySO);
@@ -171,18 +171,18 @@ namespace LevelEditor
 
             component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
             component.GetType()
-                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.RecipeUISO).GetComponent<RecipeWidgetUIController>());
 
             component = stub.AudioManagerGO.GetComponent<CampaignAudioManager>();
             component.GetType()
-                .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset<AudioClip>(stub.InLevelMusicSO));
             component.GetType()
-                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, stub.InLevelAmbiences.Select(x => (GameLoopingAudioTag)x).ToArray());
             component.GetType()
-                .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset<AudioClip>(stub.RoundResultsSO));
             AudioDirectoryData[] m_audioDirectories = new AudioDirectoryData[stub.AudioDirectorySOs.Length];
             for (int i = 0; i < stub.AudioDirectorySOs.Length; i++)
@@ -193,40 +193,40 @@ namespace LevelEditor
                         audio.Volume = 0.5f;
             }
             typeof(AudioManager)
-                .GetField("m_audioDirectories", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_audioDirectories", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, m_audioDirectories);
 
             component = stub.PlayerSwitchingManagerGO.GetComponent<PlayerSwitchingManager>();
             component.GetType()
-                .GetField("m_transitionParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.PFXSOs[0]).GetComponent<ParticleSystem>());
             component.GetType()
-                .GetField("m_transitionStartParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionStartParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.PFXSOs[1]).GetComponent<ParticleSystem>());
             component.GetType()
-                .GetField("m_transitionEndParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionEndParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.PFXSOs[2]).GetComponent<ParticleSystem>());
 
             component = stub.BootstrapManagerGO.GetComponent<KitchenBootstrapManager>();
             ChefAvatarData[] chefAvatarData = GetSelectedChefAvatarData();
             ChefColourData[] chefColourData = stub.PlayerColourSOs.Select(x => LoadAsset<ChefColourData>(x)).ToArray();
             component.GetType()
-                .GetField("m_playerOneChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerOneChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[0], chefColourData[0]));
             component.GetType()
-                .GetField("m_playerTwoChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerTwoChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[1], chefColourData[1]));
             component.GetType()
-                .GetField("m_playerThreeChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerThreeChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[2], chefColourData[2]));
             component.GetType()
-                .GetField("m_playerFourChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerFourChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[3], chefColourData[3]));
             typeof(BootstrapManager)
-                .GetField("m_gameMetaEnvironmentPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_gameMetaEnvironmentPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.GameMetaEnvironmentSO));
             component.GetType()
-                .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, LevelConfigSetup.SetupConfig(stub.configTemplateSO, stub.levelInfo, 4));
 
             component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
@@ -290,7 +290,7 @@ namespace LevelEditor
 
             Component component = stub.FlowManagerGO.GetComponent<LevelIntroFlowroutine>();
             LevelIntroFlowroutineData m_data = (LevelIntroFlowroutineData)component.GetType()
-                .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .GetValue(component);
             m_data.GoUIPrefab = null;
             m_data.ReadyUIPrefab = null;
@@ -298,21 +298,21 @@ namespace LevelEditor
 
             component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
             component.GetType()
-                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
 
             component = stub.AudioManagerGO.GetComponent<CampaignAudioManager>();
             component.GetType()
-                .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_inLevelMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
             component.GetType()
-                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_inLevelAmbiences", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameLoopingAudioTag[0]);
             component.GetType()
-                .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_summaryScreenMusic", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
             AudioDirectoryData[] m_audioDirectories = (AudioDirectoryData[])typeof(AudioManager)
-                .GetField("m_audioDirectories", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_audioDirectories", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .GetValue(component);
             for (int i = 0; i < m_audioDirectories.Length; i++)
             {
@@ -321,33 +321,33 @@ namespace LevelEditor
 
             component = stub.PlayerSwitchingManagerGO.GetComponent<PlayerSwitchingManager>();
             component.GetType()
-                .GetField("m_transitionParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
             component.GetType()
-                .GetField("m_transitionStartParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionStartParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
             component.GetType()
-                .GetField("m_transitionEndParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_transitionEndParticlePrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
 
             component = stub.BootstrapManagerGO.GetComponent<KitchenBootstrapManager>();
             component.GetType()
-                .GetField("m_playerOneChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerOneChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(null, null));
             component.GetType()
-                .GetField("m_playerTwoChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerTwoChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(null, null));
             component.GetType()
-                .GetField("m_playerThreeChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerThreeChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(null, null));
             component.GetType()
-                .GetField("m_playerFourChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_playerFourChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, new GameSession.SelectedChefData(null, null));
             typeof(BootstrapManager)
-                .GetField("m_gameMetaEnvironmentPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_gameMetaEnvironmentPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
             component.GetType()
-                .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                .GetField("m_bootstrapConfig", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                 .SetValue(component, null);
 
             component = stub.KillPlaneGO.GetComponent<RespawnCollider>();

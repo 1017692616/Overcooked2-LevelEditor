@@ -48,6 +48,10 @@ The editor also checks loaded bundles for an `AssetBundleManifest` object direct
 
 编辑器还会直接从已加载 bundle 中查找 `AssetBundleManifest` 对象；这比在 domain reload 后依赖 Unity 的运行时 bundle 名称更可靠。
 
+Reflection-based setup supports both public and private fields because decompiled game scripts can expose fields differently from the original compiled assemblies.
+
+反射初始化同时支持 public 和 private 字段，因为反编译后的游戏脚本字段可见性可能和原始编译程序集不同。
+
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
 
 ```text

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
@@ -25,7 +25,7 @@ namespace LevelEditor
             if (Application.isPlaying && Application.isEditor)
             {
                 KeyboardBindings defaultKeyboardBindings = (KeyboardBindings)typeof(PCPadInputProvider)
-                    .GetField("m_DefaultKeyboardBindings", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
+                    .GetField("m_DefaultKeyboardBindings", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
                     .GetValue(null);
                 if (defaultKeyboardBindings == null || defaultKeyboardBindings.m_CombinedKeyboard == null)
                 {
