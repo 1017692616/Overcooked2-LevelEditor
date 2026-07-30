@@ -24,11 +24,13 @@ Every completed change must:
 
 ## Local Assets
 
-The editor loads the original game AssetBundles at runtime. Copy the game's `Overcooked2_Data/StreamingAssets/Windows` directory to:
+The editor loads the original game AssetBundles at runtime. The recommended setup is to open Unity and run `Tools > OC2 Setup > Auto Setup`. It finds the Steam installation and creates a local junction at:
 
 ```text
 Assets/StreamingAssets/Windows
 ```
+
+The junction points to the game's `Overcooked2_Data/StreamingAssets/Windows` directory, so the original bundles are not copied into the repository. `Tools > OC2 Setup > Check Environment` shows the detected paths and Python status.
 
 Do not commit the original game's proprietary models, textures, audio, or binary bundles to this repository.
 
@@ -75,7 +77,7 @@ Assets/StreamingAssets/Windows
 
 ## DLC References
 
-On a machine with the Steam game installed, run:
+`Tools > OC2 Setup > Auto Setup` also runs the DLC reference generator automatically. If you prefer the command line, run:
 
 ```powershell
 python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\steamapps\common\Overcooked! 2\Overcooked2_Data\StreamingAssets\Windows"

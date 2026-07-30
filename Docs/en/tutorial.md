@@ -4,7 +4,7 @@
 
 1. Download or clone the project。
 
-2. Copy the `Overcooked! 2/Overcooked2_Data/StreamingAssets/Windows` folder from the game directory into the project's `Assets/StreamingAssets` folder.
+2. Open Unity and click `Tools > OC2 Setup > Auto Setup`. The tool finds the Steam game directory, creates the local `Assets/StreamingAssets/Windows` junction, and generates DLC lightweight references. Use `Tools > OC2 Setup > Check Environment` if setup cannot find the game.
 
 3. Decompile the game code and place it into `Assets/Scripts`:
 

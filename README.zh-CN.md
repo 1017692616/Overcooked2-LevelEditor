@@ -27,6 +27,8 @@ Overcooked2_Data/StreamingAssets/Windows
 Assets/StreamingAssets/Windows
 ```
 
+推荐打开 Unity 后直接点击 `Tools > OC2 Setup > Auto Setup`。它会自动查找 Steam 游戏目录，并创建指向游戏 `Overcooked2_Data/StreamingAssets/Windows` 的本地目录链接，不会复制正版 bundle。点击 `Tools > OC2 Setup > Check Environment` 可以查看检测到的路径和 Python 状态。
+
 不要将游戏专有的模型、贴图、音频或二进制 bundle 提交到 Git 仓库。
 
 ## 文档
@@ -39,6 +41,8 @@ Assets/StreamingAssets/Windows
 ## DLC 资源引用
 
 在安装了 Steam 游戏的电脑上运行：
+
+`Tools > OC2 Setup > Auto Setup` 也会自动生成 DLC 轻量引用。如果希望使用命令行，可以运行：
 
 ```powershell
 python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\steamapps\common\Overcooked! 2\Overcooked2_Data\StreamingAssets\Windows"
