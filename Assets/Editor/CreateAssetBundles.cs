@@ -20,35 +20,43 @@ public static class CreateAssetBundles
     [MenuItem("Tools/Build AssetBundles", false, 100)]
     static void BuildAllAssetBundles()
     {
-        Scene activeScene = EditorSceneManager.GetActiveScene();
-        if (!TargetSceneSaveValidator.CheckPrepareForBuilding(activeScene))
-            return;
-
-        string assetBundleDirectory = "Assets/AssetBundles";
-        if (!Directory.Exists(assetBundleDirectory))
-        {
-            Directory.CreateDirectory(assetBundleDirectory);
-        }
-        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-                                        BuildAssetBundleOptions.None,
-                                        BuildTarget.StandaloneWindows);
+        BuildAllAssetBundlesInternal(BuildAssetBundleOptions.None);
     }
 
     [MenuItem("Tools/Build AssetBundles (ForceRebuild)", false, 101)]
     static void BuildAllAssetBundlesForceRebuild()
     {
+        BuildAllAssetBundlesInternal(BuildAssetBundleOptions.ForceRebuildAssetBundle);
+    }
+
+    static void BuildAllAssetBundlesInternal(BuildAssetBundleOptions options)
+    {
         Scene activeScene = EditorSceneManager.GetActiveScene();
         if (!TargetSceneSaveValidator.CheckPrepareForBuilding(activeScene))
             return;
+
+        List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
+        foreach (string bundleName in AssetDatabase.GetAllAssetBundleNames())
+        {
+            if (IsLocalDlcBundle(bundleName))
+            {
+                continue;
+            }
+
+            AddBundleBuild(builds, bundleName);
+        }
 
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
         {
             Directory.CreateDirectory(assetBundleDirectory);
         }
-        BuildPipeline.BuildAssetBundles(assetBundleDirectory,
-                                        BuildAssetBundleOptions.ForceRebuildAssetBundle,
-                                        BuildTarget.StandaloneWindows);
+
+        BuildPipeline.BuildAssetBundles(
+            assetBundleDirectory,
+            builds.ToArray(),
+            options,
+            BuildTarget.StandaloneWindows);
     }
 
     [MenuItem("Tools/Build Current Level AssetBundles", false, 90)]
@@ -97,6 +105,7 @@ public static class CreateAssetBundles
         }
 
         string levelBundlePrefix = sceneBundleName.Substring(0, slashIndex);
+        NormalizeCurrentLevelDlcReferences(levelBundlePrefix);
         List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
         AddBundleBuild(builds, sceneBundleName);
 
@@ -109,6 +118,10 @@ public static class CreateAssetBundles
             else if (bundleName.StartsWith(levelBundlePrefix + "/", System.StringComparison.OrdinalIgnoreCase) &&
                      IsNonSceneBundle(bundleName))
             {
+                if (IsLocalDlcBundle(bundleName))
+                {
+                    continue;
+                }
                 AddBundleBuild(builds, bundleName);
             }
         }
@@ -205,6 +218,194 @@ public static class CreateAssetBundles
         }
 
         return !assetNames.Any(x => x.EndsWith(".unity", System.StringComparison.OrdinalIgnoreCase));
+    }
+
+    static bool IsLocalDlcBundle(string bundleName)
+    {
+        return !string.IsNullOrEmpty(bundleName) &&
+            bundleName.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase);
+    }
+
+    static void NormalizeCurrentLevelDlcReferences(string levelBundlePrefix)
+    {
+        LevelEditorStub.LevelInfoSO levelInfo = FindCurrentLevelInfoForScene();
+        if (levelInfo == null)
+        {
+            return;
+        }
+
+        bool changed = false;
+        changed |= NormalizePseudoPrefabs(levelInfo.recipes, true);
+        changed |= NormalizePseudoPrefabs(levelInfo.dlcRecipeMatchListSOs, false);
+        changed |= NormalizePseudoPrefabs(levelInfo.dlcCookingStepSOs, false);
+
+        if (levelInfo.dependencies != null)
+        {
+            string localDependency = levelBundlePrefix + "/dlc_assets";
+            int before = levelInfo.dependencies.Length;
+            levelInfo.dependencies = levelInfo.dependencies
+                .Where(x => !string.Equals(x, localDependency, StringComparison.OrdinalIgnoreCase))
+                .ToArray();
+            changed |= levelInfo.dependencies.Length != before;
+        }
+
+        if (changed)
+        {
+            EditorUtility.SetDirty(levelInfo);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+    }
+
+    static bool NormalizePseudoPrefabs(ScriptableObject[] assets, bool isRecipe)
+    {
+        bool changed = false;
+        if (assets == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < assets.Length; i++)
+        {
+            LevelEditorStub.PseudoPrefabSO asset = assets[i] as LevelEditorStub.PseudoPrefabSO;
+            if (asset == null || !IsLocalDlcAsset(asset))
+            {
+                continue;
+            }
+
+            string resolvedPath = ResolveGameDlcAssetPath(asset, isRecipe);
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                Debug.LogWarning("Could not map local DLC asset to game reference: " + asset.prefabName);
+                continue;
+            }
+
+            LevelEditorStub.PseudoPrefabSO replacement = AssetDatabase.LoadAssetAtPath<LevelEditorStub.PseudoPrefabSO>(resolvedPath);
+            if (replacement == null || replacement == asset)
+            {
+                continue;
+            }
+
+            assets[i] = replacement;
+            changed = true;
+        }
+
+        return changed;
+    }
+
+    static bool NormalizePseudoPrefabs(LevelEditorStub.PseudoPrefabSO[] assets, bool isRecipe)
+    {
+        bool changed = false;
+        if (assets == null)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < assets.Length; i++)
+        {
+            LevelEditorStub.PseudoPrefabSO asset = assets[i];
+            if (asset == null || !IsLocalDlcAsset(asset))
+            {
+                continue;
+            }
+
+            string resolvedPath = ResolveGameDlcAssetPath(asset, isRecipe);
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                Debug.LogWarning("Could not map local DLC asset to game reference: " + asset.prefabName);
+                continue;
+            }
+
+            LevelEditorStub.PseudoPrefabSO replacement = AssetDatabase.LoadAssetAtPath<LevelEditorStub.PseudoPrefabSO>(resolvedPath);
+            if (replacement == null || replacement == asset)
+            {
+                continue;
+            }
+
+            assets[i] = replacement;
+            changed = true;
+        }
+
+        return changed;
+    }
+
+    static bool IsLocalDlcAsset(LevelEditorStub.PseudoPrefabSO asset)
+    {
+        return asset != null &&
+            !string.IsNullOrEmpty(asset.bundleName) &&
+            asset.bundleName.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase);
+    }
+
+    static string ResolveGameDlcAssetPath(LevelEditorStub.PseudoPrefabSO source, bool isRecipe)
+    {
+        string prefabName = source != null ? source.prefabName : null;
+        if (string.IsNullOrEmpty(prefabName))
+        {
+            return null;
+        }
+
+        string[] matches = AssetDatabase.FindAssets(prefabName, new[] { "Assets/dlc" })
+            .Select(AssetDatabase.GUIDToAssetPath)
+            .Where(path => path.EndsWith(".asset", StringComparison.OrdinalIgnoreCase))
+            .Where(path => isRecipe || !path.Contains("/Recipes/"))
+            .OrderBy(path => IsPreferredDlcReferencePath(path, source.assetPath, isRecipe) ? 0 : 1)
+            .ToArray();
+
+        foreach (string path in matches)
+        {
+            LevelEditorStub.PseudoPrefabSO prefab = AssetDatabase.LoadAssetAtPath<LevelEditorStub.PseudoPrefabSO>(path);
+            if (prefab != null && string.Equals(prefab.prefabName, prefabName, StringComparison.OrdinalIgnoreCase))
+            {
+                return path;
+            }
+        }
+
+        return null;
+    }
+
+    static bool IsPreferredDlcReferencePath(string candidatePath, string sourcePath, bool isRecipe)
+    {
+        if (isRecipe)
+        {
+            return candidatePath.Contains("/Recipes/");
+        }
+
+        if (!string.IsNullOrEmpty(sourcePath) && sourcePath.ToLowerInvariant().Contains("cookingstep"))
+        {
+            return candidatePath.Contains("/CookingSteps/");
+        }
+
+        if (!string.IsNullOrEmpty(sourcePath) && sourcePath.ToLowerInvariant().Contains("recipematchlist"))
+        {
+            return candidatePath.Contains("/RecipeMatchLists/");
+        }
+
+        return candidatePath.Contains("/RecipeMatchLists/") || candidatePath.Contains("/CookingSteps/");
+    }
+
+    static LevelEditorStub.LevelInfoSO FindCurrentLevelInfoForScene()
+    {
+        Scene activeScene = EditorSceneManager.GetActiveScene();
+        string activeSceneName = Path.GetFileNameWithoutExtension(activeScene.path);
+        if (string.IsNullOrEmpty(activeSceneName))
+        {
+            return null;
+        }
+
+        string[] candidates = AssetDatabase.FindAssets("t:LevelInfoSO", new[] { "Assets/LevelSets" })
+            .Select(AssetDatabase.GUIDToAssetPath)
+            .ToArray();
+
+        foreach (string path in candidates)
+        {
+            LevelEditorStub.LevelInfoSO levelInfo = AssetDatabase.LoadAssetAtPath<LevelEditorStub.LevelInfoSO>(path);
+            if (levelInfo != null && string.Equals(levelInfo.sceneName, activeSceneName, StringComparison.OrdinalIgnoreCase))
+            {
+                return levelInfo;
+            }
+        }
+
+        return null;
     }
 
     static string InstallBuiltLevel(string levelBundlePrefix, IEnumerable<string> builtBundleNames)
