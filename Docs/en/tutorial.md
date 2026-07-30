@@ -179,6 +179,7 @@ On the `PseudoPrefabManager > PseudoPrefabManagerStub` component:
 
 #### Important Notes
 
+- A ready-to-edit starter level set is included at `Assets/LevelSets/codex_demo`. Open `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`, then use `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` as the place to add recipes, DLC `RecipeMatchList` references, DLC cooking steps, and bundle dependencies.
 - When duplicating a scene, remember to modify the `PseudoPrefabManagerStub.levelInfo` reference on the root object `PseudoPrefabManager`.
 - Click Tools - Toggle Prepare For Building to clear temporary objects when saving and building the scene.
 - Remember to save the scene before switching scenes or closing Unity. If you forget to save, click Cancel in the confirmation dialogue to return; do not click Save.

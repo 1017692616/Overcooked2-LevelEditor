@@ -1,0 +1,32 @@
+﻿%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
+  m_Name: LevelInfo_Codex_1
+  m_EditorClassIdentifier: 
+  levelName: Codex Demo 1
+  levelNameZH: Codex 示例 1
+  screenshot: {fileID: 0}
+  sceneName: s_codex_demo_1
+  recipes:
+  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
+  useScore2: 0
+  debugRecipeCount: 0
+  optionalRecipeMatchListItems: []
+  dlcRecipeMatchListSOs: []
+  dlcCookingStepSOs: []
+  disableDynamicParenting: 1
+  config_1p: {fileID: 11400000, guid: 52da9e2790a34c30b2cba0ec36285613, type: 2}
+  config_2p: {fileID: 11400000, guid: 87e987025f714f369bc79279f05845f3, type: 2}
+  config_3p: {fileID: 11400000, guid: c94623b3bd7f48cabbd352f77f6f2fe6, type: 2}
+  config_4p: {fileID: 11400000, guid: 2422153096464813a0507c0bebee124f, type: 2}
+  dependencies:
+  - bundle47
+
