@@ -515,6 +515,14 @@ namespace LevelEditor
             {
                 string loadedName = assetBundle.name.Replace("\\", "/");
                 string loadedFileName = Path.GetFileName(loadedName);
+                if (assetBundleName == "Windows")
+                {
+                    AssetBundleManifest manifest = TryLoadManifest(assetBundle);
+                    if (manifest != null)
+                    {
+                        return assetBundle;
+                    }
+                }
                 if (assetBundleName == "Windows" && string.IsNullOrEmpty(loadedName))
                 {
                     return assetBundle;
@@ -527,6 +535,18 @@ namespace LevelEditor
                 }
             }
             return null;
+        }
+
+        private AssetBundleManifest TryLoadManifest(AssetBundle assetBundle)
+        {
+            try
+            {
+                return assetBundle.LoadAsset("AssetBundleManifest") as AssetBundleManifest;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private void UnloadAssetBundle(string assetBundleName)

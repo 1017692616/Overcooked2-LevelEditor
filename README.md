@@ -44,6 +44,10 @@ Unity 2017 can report the main `Windows` manifest bundle with an empty runtime n
 
 Unity 2017 在重载后可能会把主清单包 `Windows` 显示成空运行时名称；编辑器现在会把这个空名已加载 bundle 当作主清单包复用。
 
+The editor also checks loaded bundles for an `AssetBundleManifest` object directly, which is more reliable than relying on Unity's runtime bundle name after domain reloads.
+
+编辑器还会直接从已加载 bundle 中查找 `AssetBundleManifest` 对象；这比在 domain reload 后依赖 Unity 的运行时 bundle 名称更可靠。
+
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
 
 ```text
