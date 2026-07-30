@@ -245,13 +245,15 @@
 - 新菜谱 `Burger_Lettuce_SO, Fry_Fish_And_Chips_SO, Fry_Fish_SO, Pizza_Mushroom_80_SO, Soup_Mushroom_SO, Soup_Onion_SO, Soup_Tomato_SO, Soup_TomatoEgg_SO`。
 - 你也可以自定义菜谱（完善中）。
 
-- `dlcRecipeMatchListSOs` - DLC 官方 `RecipeMatchList` 的轻量级引用。使用 DLC 菜单或 DLC 专属组合时，请加入对应 DLC 的匹配表。
-- `dlcCookingStepSOs` - DLC 烹饪步骤的轻量级引用，例如搅拌机、火锅、煎锅和烤盘。
+- `dlcRecipeMatchListSOs` - 可选的额外菜谱匹配表轻量引用。官方 DLC 菜谱匹配表已自动包含。
+- `dlcCookingStepSOs` - 可选的额外烹饪步骤轻量引用。官方 DLC 的果汁机、火锅、煎锅、烤叉和烤盘步骤已自动包含。
 
 #### DLC 资源引用
 
 运行 `python tools/generate_dlc_assets.py --game-streaming-assets "<游戏目录>/Overcooked2_Data/StreamingAssets/Windows"`，脚本会扫描所有 `bundle*` 文件，并按 `downloadablecontent/dlcXX` 自动分组，在 `Assets/dlc` 生成菜单、食材、混合/烹饪后食材、成品、烹饪步骤、装盘步骤、图标、厨具 Prefab 与 RecipeMatchList 引用。脚本只写入 bundle 名称和资源路径，不会复制正版游戏资源。
 
 生成的菜单引用默认 `score` 为 60，需要精确分数时可在 Unity 中调整。
+
+使用 DLC 菜单时，把生成的菜单引用加入 `LevelInfoSO.recipes` 即可。编辑器会自动把已知官方 DLC 的 `RecipeMatchList` 和烹饪步骤合并进关卡配置，不需要每个关卡再手动拖这些共享 DLC 数据。
 
 搅拌器、果汁机、烤盘等厨具可使用 `PseudoPrefabCookingUtensil`，其 `allowedIngredientSOs` 同时支持 `CookableContainer` 和 `MixableContainer`。DLC 调味料机或饮料机可使用 `PseudoPrefabPlacementDispenser`，并在 `ingredientSOs` 中配置食材。

@@ -46,4 +46,6 @@ python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\ste
 
 脚本会扫描所有 `bundle*` 文件，并按 `downloadablecontent/dlcXX` 自动分组，在 `Assets/dlc` 生成 DLC 菜单、食材、烹饪步骤、装盘步骤、图标、成品、厨具 Prefab 和 `RecipeMatchList` 的轻量级引用。正版游戏 bundle 仍保留在本机，不得提交到 GitHub。
 
+关卡配置会自动包含官方 DLC 菜谱匹配表和 DLC 烹饪步骤。使用 DLC 菜单时，只需要把生成的菜单引用加入 `LevelInfoSO.recipes`；旧的 `dlcRecipeMatchListSOs` 和 `dlcCookingStepSOs` 字段只用于额外或非标准引用。
+
 搅拌器、果汁机、烤盘等厨具可使用 `PseudoPrefabCookingUtensil`，其 `allowedIngredientSOs` 同时支持 `CookableContainer` 和 `MixableContainer`。DLC 调味料机或饮料机可使用 `PseudoPrefabPlacementDispenser`，并在 `ingredientSOs` 中配置食材。

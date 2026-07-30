@@ -224,8 +224,8 @@ In the directory `common*/prefabs/art`, organized into subdirectories by theme.
   - `recipes` - All recipes in the level. ([Available Recipes](#Available-Recipes))
   - `debugRecipeCount` - Set to 0.
   - `optionalRecipeMatchListItems` - Other allowed food combinations. In pizza levels, in addition to the recipes appear in orders, other food combinations can also be plated; these must be added to this list. See `LevelInfo_OC1_Story_4_1` for reference.
-  - `dlcRecipeMatchListSOs` - Lightweight references to the official DLC `RecipeMatchList` assets. Add the matching DLC list when using DLC recipes or DLC-specific combinations.
-  - `dlcCookingStepSOs` - Lightweight references to DLC cooking-step data such as the blender, hot pot, griddle pan, and roasting tray.
+  - `dlcRecipeMatchListSOs` - Optional extra lightweight references to recipe match lists. The official DLC recipe match lists are included automatically.
+  - `dlcCookingStepSOs` - Optional extra lightweight references to cooking-step data. The official DLC blender, hot pot, griddle pan, toasting fork, and roasting tray steps are included automatically.
   - `disableDynamicParenting` - Dynamic parenting option. In levels containing moving or elevating platforms, this option should be unchecked, otherwise it should be checked.
   - `config_{x}p` - Level configuration for player count x.
   - `dependencies` - Dependent game bundles. Generally, adding just one entry `bundle47` is sufficient. If using the raft-themed BGM (`DownTheRiverSO`), an additional entry `bundle11` must be added.
@@ -252,6 +252,8 @@ In the directory `common*/prefabs/art`, organized into subdirectories by theme.
 Run `python tools/generate_dlc_assets.py --game-streaming-assets "<path to Overcooked! 2_Data/StreamingAssets/Windows>"` to scan every `bundle*` file and generate lightweight references under `Assets/dlc`. Assets are grouped automatically by `downloadablecontent/dlcXX`, including recipes, ingredients, cooked and mixed ingredients, recipe products, cooking steps, plating steps, icons, kitchen prefabs, and recipe match lists. It writes only bundle names and asset paths; original game bundles must stay local.
 
 Generated recipe references use a default score of 60. Adjust the `score` field when a level needs exact official scoring.
+
+When using DLC menus, add the generated recipe references to `LevelInfoSO.recipes`. The editor automatically merges all known official DLC `RecipeMatchList` and cooking-step assets into the level config, so each level does not need to drag those shared DLC data assets by hand.
 
 For DLC mixers, blenders, roasting trays, and other cooking utensils, use `PseudoPrefabCookingUtensil` with the generated `Kitchen` reference. Its `allowedIngredientSOs` field now supports both `CookableContainer` and `MixableContainer`. For DLC condiment or drink dispensers, use `PseudoPrefabPlacementDispenser` and configure its `ingredientSOs` list.
 

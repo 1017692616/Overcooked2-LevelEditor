@@ -83,12 +83,14 @@ python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\ste
 
 The generator scans every `bundle*` file and automatically groups assets by `downloadablecontent/dlcXX`. It generates lightweight references under `Assets/dlc` for DLC recipes, ingredients, cooking steps, plating steps, icons, recipe products, kitchen prefabs, and `RecipeMatchList` assets. The original game bundles remain local and must not be committed.
 
+Level configs automatically include the official DLC recipe match lists and DLC cooking steps. For DLC menus, add the generated recipe references to `LevelInfoSO.recipes`; the old `dlcRecipeMatchListSOs` and `dlcCookingStepSOs` fields are only needed for extra or non-standard references.
+
 ## Starter Level
 
-A starter level set is available at `Assets/LevelSets/codex_demo`. Open `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`, then edit `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` to add recipes, DLC recipe match lists, DLC cooking steps, and additional bundle dependencies.
+A starter level set is available at `Assets/LevelSets/codex_demo`. Open `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`, then edit `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` to add recipes, DLC kitchen/resource references, and any additional bundle dependencies.
 
 ## 起始关卡
 
-已提供一个起始关卡集：`Assets/LevelSets/codex_demo`。打开 `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`，然后编辑 `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` 来添加菜谱、DLC 菜谱匹配表、DLC 烹饪步骤和额外 bundle 依赖。
+已提供一个起始关卡集：`Assets/LevelSets/codex_demo`。打开 `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`，然后编辑 `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` 来添加菜谱、DLC 厨具/资源引用和额外 bundle 依赖。
 - 中文教程：[Docs/zh/tutorial.md](Docs/zh/tutorial.md)
 - 中文参考：[Docs/zh/reference.md](Docs/zh/reference.md)

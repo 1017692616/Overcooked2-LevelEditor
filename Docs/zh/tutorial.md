@@ -185,7 +185,7 @@
 
 #### 注意事项
 
-- 已提供一个可直接编辑的起始关卡集：`Assets/LevelSets/codex_demo`。打开 `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`，然后在 `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` 中添加菜谱、DLC `RecipeMatchList` 引用、DLC 烹饪步骤和 bundle 依赖。
+- 已提供一个可直接编辑的起始关卡集：`Assets/LevelSets/codex_demo`。打开 `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`，然后在 `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` 中添加菜谱、DLC 厨具/资源引用和 bundle 依赖。官方 DLC 菜谱匹配表和烹饪步骤会自动合并。
 - 复制场景时，记得修改根物体 `PseudoPrefabManager` 上的 `PseudoPrefabManagerStub.levelInfo` 引用。
 - 保存和构建场景前先点击 Tools - Toggle Prepare For Building 清除临时加载的物体。
 - 切换场景或关闭 Unity 前记得保存场景。如果忘了保存，在确认弹窗中点 Cancel 返回，不要点 Save。
