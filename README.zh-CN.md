@@ -300,13 +300,13 @@ Tools > Toggle Prepare For Building
 然后点击：
 
 ```text
-Tools > Build AssetBundles
+Tools > Build Current Level AssetBundles
 ```
 
 构建后，输出一般在：
 
 ```text
-Assets/AssetBundles
+Assets/AssetBundles/你的关卡包名
 ```
 
 把生成的关卡 bundle 放到游戏 mod 目录，例如：
@@ -314,6 +314,8 @@ Assets/AssetBundles
 ```text
 Overcooked! 2/BepInEx/plugins/OC2DIYLevel/levels/你的关卡名
 ```
+
+`Tools > Build AssetBundles` 会构建项目里所有带 AssetBundle 标记的包，通常只有维护者整理全项目资源时才需要。日常导出单个地图请用 `Tools > Build Current Level AssetBundles`。
 
 ## 常见问题
 
