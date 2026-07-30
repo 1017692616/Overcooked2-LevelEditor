@@ -515,6 +515,10 @@ namespace LevelEditor
             {
                 string loadedName = assetBundle.name.Replace("\\", "/");
                 string loadedFileName = Path.GetFileName(loadedName);
+                if (assetBundleName == "Windows" && string.IsNullOrEmpty(loadedName))
+                {
+                    return assetBundle;
+                }
                 if (string.Equals(loadedName, assetBundleName, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(loadedFileName, assetBundleName, StringComparison.OrdinalIgnoreCase) ||
                     loadedName.EndsWith("/" + assetBundleName, StringComparison.OrdinalIgnoreCase))

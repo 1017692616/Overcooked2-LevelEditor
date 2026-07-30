@@ -40,6 +40,10 @@ If duplicate bundle errors continue after a script reload, exit Play Mode and re
 
 如果脚本重载后仍然提示重复加载 bundle，请先退出 Play Mode 并重新打开项目，让 Unity 释放旧脚本版本加载过的 bundle。
 
+Unity 2017 can report the main `Windows` manifest bundle with an empty runtime name after a reload; the editor now treats that unnamed loaded bundle as the manifest bundle when reusing AssetBundles.
+
+Unity 2017 在重载后可能会把主清单包 `Windows` 显示成空运行时名称；编辑器现在会把这个空名已加载 bundle 当作主清单包复用。
+
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
 
 ```text
