@@ -1,98 +1,357 @@
-# Overcooked2 Level Editor
+# Overcooked! 2 Level Editor
 
-《胡闹厨房 2》自定义关卡编辑器项目。
+这是一个用于制作《胡闹厨房 2 / Overcooked! 2》自定义关卡的 Unity 工程。它适合想做关卡但不熟悉编程的玩家：大多数操作都在 Unity 编辑器里完成，例如摆放桌台、添加食材箱、选择菜单、测试关卡和打包关卡。
 
-This repository contains a Unity-based level editor and reference assets for creating custom Overcooked! 2 levels.
+English: This is a Unity-based custom level editor for Overcooked! 2. The main workflow is designed for creators who know the game better than programming.
 
-## Project Rules
+## 你需要准备什么
 
-Please read [PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md) before contributing.
+1. Steam 版《Overcooked! 2》。
+2. Unity `2017.4.8f1`。版本尽量一致，Unity 项目最怕版本漂移。
+3. Python 3。用于自动生成 DLC 菜谱、厨具、食材等轻量引用。
+4. AssetRipper。用于从你本机安装的游戏中导出 `Assembly-CSharp` 脚本。
+5. 本项目代码。
 
-Every completed change must:
+本仓库不会提交正版游戏的模型、贴图、音频或 AssetBundle。项目只保存代码和“资源路径引用”。真正的游戏资源仍然从你自己电脑上的正版游戏目录读取。
 
-1. Be made on the corresponding task branch.
-2. Update the relevant README and documentation.
-3. Use a commit with both Chinese and English explanations.
-4. Be pushed successfully to the corresponding remote branch.
+## 第一次打开项目
 
-每次完成修改后必须：
+1. 下载或 clone 本项目。
+2. 用 Unity Hub 或 Unity `2017.4.8f1` 打开项目根目录。
+3. 如果 Unity 提示导入资源，等待它导入完成。
+4. 先不要点 Play。第一次需要做下面的自动配置。
 
-1. 在对应任务分支上完成。
-2. 更新相关 README 和文档。
-3. 使用包含中英文说明的 commit。
-4. 成功推送到对应远端分支。
+## 一键自动配置
 
-## Local Assets
+在 Unity 顶部菜单点击：
 
-The editor loads the original game AssetBundles at runtime. The recommended setup is to open Unity and run `Tools > OC2 Setup > Auto Setup`. It finds the Steam installation and creates a local junction at:
+```text
+Tools > OC2 Setup > Auto Setup
+```
+
+它会自动做这些事：
+
+1. 查找 Steam 安装的《Overcooked! 2》。
+2. 创建本地目录链接：
 
 ```text
 Assets/StreamingAssets/Windows
 ```
 
-The junction points to the game's `Overcooked2_Data/StreamingAssets/Windows` directory, so the original bundles are not copied into the repository. `Tools > OC2 Setup > Check Environment` shows the detected paths and Python status.
-
-Do not commit the original game's proprietary models, textures, audio, or binary bundles to this repository.
-
-Runtime note: when Unity reloads scripts or re-enters Play Mode, already loaded AssetBundles are reused instead of loading duplicate bundles with the same name. If the editor reports that the `Windows` bundle cannot be loaded, verify that `Assets/StreamingAssets/Windows` points to the game's `Overcooked2_Data/StreamingAssets/Windows` folder and restart Unity before testing again.
-
-运行说明：Unity 重新加载脚本或重新进入 Play Mode 时，会复用已经加载的 AssetBundle，避免重复加载同名 bundle。如果编辑器提示无法加载 `Windows` bundle，请确认 `Assets/StreamingAssets/Windows` 指向游戏目录里的 `Overcooked2_Data/StreamingAssets/Windows` 文件夹，然后重启 Unity 再测试。
-
-If duplicate bundle errors continue after a script reload, exit Play Mode and reopen the project so Unity releases bundles that were loaded before the current scripts were compiled.
-
-如果脚本重载后仍然提示重复加载 bundle，请先退出 Play Mode 并重新打开项目，让 Unity 释放旧脚本版本加载过的 bundle。
-
-Unity 2017 can report the main `Windows` manifest bundle with an empty runtime name after a reload; the editor now treats that unnamed loaded bundle as the manifest bundle when reusing AssetBundles.
-
-Unity 2017 在重载后可能会把主清单包 `Windows` 显示成空运行时名称；编辑器现在会把这个空名已加载 bundle 当作主清单包复用。
-
-The editor also checks loaded bundles for an `AssetBundleManifest` object directly, which is more reliable than relying on Unity's runtime bundle name after domain reloads.
-
-编辑器还会直接从已加载 bundle 中查找 `AssetBundleManifest` 对象；这比在 domain reload 后依赖 Unity 的运行时 bundle 名称更可靠。
-
-Reflection-based setup supports both public and private fields because decompiled game scripts can expose fields differently from the original compiled assemblies.
-
-反射初始化同时支持 public 和 private 字段，因为反编译后的游戏脚本字段可见性可能和原始编译程序集不同。
-
-Play Mode cleanup tolerates missing template components during Unity script reloads so stale prefab state does not create a burst of secondary errors before the next run.
-
-Play Mode startup defensively initializes editor-side message mailboxes, keeps keyboard input available when the full debug manager has not bootstrapped yet, and writes score boundaries through either public or private decompiled fields.
-
-Play Mode 启动现在会防御性初始化编辑器侧消息邮箱列表；当完整 debug manager 尚未启动时仍保留键盘输入；分数星级边界也会兼容 public/private 两种反编译字段。
-
-Play Mode 清理阶段会容忍脚本重载时缺失的模板组件，避免旧 prefab 状态在下一次运行前制造大量次生错误。
-
-编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
+这个链接指向游戏目录里的：
 
 ```text
-Assets/StreamingAssets/Windows
+Overcooked2_Data/StreamingAssets/Windows
 ```
 
-不要将游戏专有的模型、贴图、音频或二进制 bundle 提交到本仓库。
+3. 运行 `tools/generate_dlc_assets.py`。
+4. 在 `Assets/dlc` 生成 DLC 菜谱、食材、厨具、图标、RecipeMatchList 等轻量引用。
+5. 刷新 Unity 资源数据库。
 
-## Documentation
+如果自动配置失败，点击：
 
-- English tutorial: [Docs/en/tutorial.md](Docs/en/tutorial.md)
-- English reference: [Docs/en/reference.md](Docs/en/reference.md)
+```text
+Tools > OC2 Setup > Check Environment
+```
 
-## DLC References
+它会显示当前项目路径、Unity 版本、找到的游戏资源路径和 Python 状态。
 
-`Tools > OC2 Setup > Auto Setup` also runs the DLC reference generator automatically. If you prefer the command line, run:
+## 如果自动配置找不到游戏
+
+请确认 Steam 版游戏已经安装。常见目录类似：
+
+```text
+F:/SteamLibrary/steamapps/common/Overcooked! 2
+C:/Program Files (x86)/Steam/steamapps/common/Overcooked! 2
+```
+
+如果你不想用自动配置，也可以手动处理：
+
+1. 找到游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows`。
+2. 把它复制到项目的 `Assets/StreamingAssets/Windows`，或自己创建目录链接。
+3. 在项目根目录运行：
 
 ```powershell
 python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\steamapps\common\Overcooked! 2\Overcooked2_Data\StreamingAssets\Windows"
 ```
 
-The generator scans every `bundle*` file and automatically groups assets by `downloadablecontent/dlcXX`. It generates lightweight references under `Assets/dlc` for DLC recipes, ingredients, cooking steps, plating steps, icons, recipe products, kitchen prefabs, and `RecipeMatchList` assets. The original game bundles remain local and must not be committed.
+## 准备 Assembly-CSharp
 
-Level configs automatically include the official DLC recipe match lists and DLC cooking steps. For DLC menus, add the generated recipe references to `LevelInfoSO.recipes`; the old `dlcRecipeMatchListSOs` and `dlcCookingStepSOs` fields are only needed for extra or non-standard references.
+这个项目需要游戏脚本类型才能在 Unity 里正常编译。你需要从自己本机游戏导出脚本：
 
-## Starter Level
+1. 下载并打开 AssetRipper。
+2. 在 AssetRipper 设置中勾选 `Skip StreamingAssets Folder`。
+3. 打开游戏目录里的 `Overcooked2_Data`。
+4. 导出 Unity Project。
+5. 将导出目录里的：
 
-A starter level set is available at `Assets/LevelSets/codex_demo`. Open `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`, then edit `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` to add recipes, DLC kitchen/resource references, and any additional bundle dependencies.
+```text
+ExportedProject/Assets/Scripts/Assembly-CSharp
+```
 
-## 起始关卡
+复制到本项目：
 
-已提供一个起始关卡集：`Assets/LevelSets/codex_demo`。打开 `Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity`，然后编辑 `Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset` 来添加菜谱、DLC 厨具/资源引用和额外 bundle 依赖。
-- 中文教程：[Docs/zh/tutorial.md](Docs/zh/tutorial.md)
-- 中文参考：[Docs/zh/reference.md](Docs/zh/reference.md)
+```text
+Assets/Scripts/Assembly-CSharp
+```
+
+6. 将本项目 `Assembly-CSharp-Patch` 目录里的文件复制到：
+
+```text
+Assets/Scripts/Assembly-CSharp
+```
+
+并覆盖同名文件。
+
+`Assets/Scripts/Assembly-CSharp` 是本机生成内容，不应该提交到公开仓库。
+
+## 打开示例关卡
+
+项目里有一个可直接编辑的起始关卡：
+
+```text
+Assets/LevelSets/codex_demo/scenes/s_codex_demo_1.unity
+```
+
+关卡配置文件在：
+
+```text
+Assets/LevelSets/codex_demo/data/Level_Codex_1/LevelInfo_Codex_1.asset
+```
+
+在 Unity 的 Project 面板双击场景文件打开。场景打开后，Hierarchy 里会有 `PseudoPrefabManager`，它负责加载游戏资源和关卡配置。
+
+## 怎么创建自己的关卡
+
+推荐先复制示例关卡，不要从空场景开始。
+
+1. 在 `Assets/LevelSets` 下复制 `codex_demo` 文件夹。
+2. 改成自己的名字，例如：
+
+```text
+Assets/LevelSets/my_first_level
+```
+
+3. 修改里面的场景名，例如：
+
+```text
+s_my_first_level_1.unity
+```
+
+4. 修改 `data` 里的 `LevelSetInfo` 和 `LevelInfo` 名字。
+5. 打开新场景。
+6. 选中 Hierarchy 里的 `PseudoPrefabManager`。
+7. 在 Inspector 里找到 `PseudoPrefabManagerStub > levelInfo`。
+8. 把你的 `LevelInfo` asset 拖进去。
+9. 点击：
+
+```text
+Tools > Reload Pseudo Assets
+```
+
+这样 Unity 会按你的配置重新加载关卡资源。
+
+## 关卡配置里最常改的字段
+
+打开你的 `LevelInfo_*.asset`，常用字段是：
+
+- `levelName`：英文关卡名。
+- `levelNameZH`：中文关卡名。
+- `sceneName`：场景名，必须和打包后的场景文件名一致，建议不要用太短的名字。
+- `recipes`：这一关会出现的菜单。
+- `debugRecipeCount`：通常填 `0`。
+- `disableDynamicParenting`：普通静态关卡一般勾选；有移动平台、升降平台时通常取消勾选。
+- `config_1p` / `config_2p` / `config_3p` / `config_4p`：不同玩家人数的时间、分数、订单参数。
+- `dependencies`：额外需要加载的游戏 bundle。普通关卡通常保留已有配置即可；如果用了特别的 BGM 或 DLC 资源，可能需要加对应 bundle。
+
+## 怎么添加菜单
+
+菜单都放在 `LevelInfoSO.recipes` 里。
+
+原版菜单一般在：
+
+```text
+Assets/common01/food/Recipes
+```
+
+DLC 菜单由自动配置生成，一般在：
+
+```text
+Assets/dlc/dlcXX/Recipes
+```
+
+操作方法：
+
+1. 选中你的 `LevelInfo_*.asset`。
+2. 在 Inspector 找到 `recipes`。
+3. 增加数组大小。
+4. 从 Project 面板把菜谱 asset 拖进去。
+5. 点击 `Tools > Reload Pseudo Assets`。
+6. 点 Play 测试。
+
+现在官方 DLC 的 `RecipeMatchList` 和烹饪步骤会自动合并。也就是说，正常添加 DLC 菜单时，不需要再手动拖 `dlcRecipeMatchListSOs` 或 `dlcCookingStepSOs`。
+
+## 怎么添加 DLC 厨具和资源
+
+自动配置会在 `Assets/dlc` 里生成轻量引用。常见目录：
+
+- `Recipes`：菜单。
+- `Ingredients`：食材。
+- `Kitchen`：厨具、桌台、机关、厨房 prefab。
+- `CookingSteps`：烹饪步骤。
+- `PlatingSteps`：装盘步骤。
+- `Icons`：图标。
+- `Products`：成品模型。
+
+如果要放 DLC 厨具，例如搅拌机、果汁机、火锅、烤盘：
+
+1. 在场景里放一个对应的占位物体或复制已有厨具。
+2. 在 Inspector 找到 `PseudoPrefab...Stub` 组件。
+3. 把 `Assets/dlc/.../Kitchen` 里的厨具引用拖到对应的 `pseudoPrefabSO` 字段。
+4. 如果厨具限制食材，在 `allowedIngredientSOs` 里加入对应食材引用。
+5. 点击 `Tools > Reload Pseudo Assets` 查看效果。
+
+DLC 调味料机、饮料机等通常使用 `PseudoPrefabPlacementDispenser`，在 `ingredientSOs` 中配置可生成的食材。
+
+## 摆放物体的基本方法
+
+对 Unity 新手来说，先记这几个就够：
+
+- 左键选中物体。
+- `W` 移动物体。
+- `E` 旋转物体。
+- `R` 缩放物体。
+- 按住 `Ctrl` 可以辅助吸附。
+- 场景视图右上角可以切换视角。
+- 修改资源引用后点 `Tools > Reload Pseudo Assets`。
+
+不要直接编辑加载出来的临时真实物体。多数真实物体是运行时从游戏 bundle 加载的，应该改它旁边或父级上的 `PseudoPrefab...Stub` 配置。
+
+## 测试关卡
+
+1. 打开你的关卡场景。
+2. 确认 `PseudoPrefabManagerStub.levelInfo` 指向你的 `LevelInfo`。
+3. 点击：
+
+```text
+Tools > Reload Pseudo Assets
+```
+
+4. 点击 Unity 顶部的 Play。
+5. 如果菜单、食材或厨具不对，退出 Play，修改配置，再 Reload。
+
+如果刚点 Play 时出现很多 warning，不一定是你的关卡错了。这个项目依赖反编译脚本，Unity 可能会显示一些原游戏脚本 warning。真正需要重点看的是红色 Error。
+
+## 打包关卡
+
+保存和构建前，先点击：
+
+```text
+Tools > Toggle Prepare For Building
+```
+
+它会清理临时加载出来的物体，避免把不该保存的运行时物体写进场景。
+
+然后点击：
+
+```text
+Tools > Build AssetBundles
+```
+
+构建后，输出一般在：
+
+```text
+Assets/AssetBundles
+```
+
+把生成的关卡 bundle 放到游戏 mod 目录，例如：
+
+```text
+Overcooked! 2/BepInEx/plugins/OC2DIYLevel/levels/你的关卡名
+```
+
+## 常见问题
+
+### 看不到物体，但地图上有
+
+通常是资源没有加载或引用没配好。先点：
+
+```text
+Tools > Reload Pseudo Assets
+```
+
+再检查 `Assets/StreamingAssets/Windows` 是否存在，以及 `PseudoPrefab...Stub` 里的资源引用是否为空。
+
+### 只有汉堡，DLC 菜单没出现
+
+检查你的 `LevelInfoSO.recipes`。菜单必须加在 `recipes` 数组里。DLC 菜单在 `Assets/dlc/dlcXX/Recipes`。
+
+不需要手动加 DLC `RecipeMatchList`，项目会自动合并已知官方 DLC 的匹配表和烹饪步骤。
+
+### Inspector 一点别的物体就切走，没法拖拽
+
+在 Inspector 右上角点小锁图标，锁住当前 Inspector。锁住后再去 Project 面板拖资源。
+
+### 提示找不到 Windows bundle
+
+运行：
+
+```text
+Tools > OC2 Setup > Check Environment
+```
+
+如果 `Assets/StreamingAssets/Windows` 不存在，运行：
+
+```text
+Tools > OC2 Setup > Auto Setup
+```
+
+### Auto Setup 没有生成 DLC 引用
+
+确认 Python 3 可以运行。也可以手动在项目根目录执行：
+
+```powershell
+python tools/generate_dlc_assets.py --game-streaming-assets "你的游戏目录\Overcooked2_Data\StreamingAssets\Windows"
+```
+
+### Play Mode 后一堆报错
+
+先看 Console 里最上面的红色 Error。大量 warning 可能来自反编译的游戏脚本，不一定影响关卡。常见处理顺序：
+
+1. 确认 Assembly-CSharp 已放到正确目录。
+2. 确认 `Assembly-CSharp-Patch` 已覆盖进去。
+3. 确认 `Assets/StreamingAssets/Windows` 可访问。
+4. 点击 `Tools > Reload Pseudo Assets`。
+5. 重启 Unity 再试。
+
+## 不要提交这些内容
+
+请不要把下面这些提交到公开仓库：
+
+- `Assets/StreamingAssets/Windows`
+- 原游戏 AssetBundle
+- 原游戏模型、贴图、音频
+- `Assets/Scripts/Assembly-CSharp`
+- 你本机生成的 `Assets/dlc` 资源引用，除非项目维护者明确决定要提交这些轻量引用
+- Unity 自动生成的 `Library`、`Temp`
+
+## 给贡献者
+
+贡献前请阅读：
+
+```text
+PROJECT_CONSTITUTION.md
+```
+
+本项目约定：
+
+1. 在对应分支上修改。
+2. 修改功能时同步更新 README 或文档。
+3. commit message 包含中文和英文说明。
+4. 修改完成后推送到对应远程分支。
+
+当前主要开发分支：
+
+```text
+release
+```
