@@ -115,6 +115,9 @@
 
 - `common01/prefabs/Player` - 玩家
   - `PseudoPrefabPlayerStub > playerID` - 玩家编号。
+- `PseudoPrefabManager > PseudoPrefabManagerStub > PlayerChefSOs` - 每个玩家使用的厨师 Avatar，可选填 4 项，资源位置在 `common01/pseudo_prefab_so/game_environment/chef_avatars`。未填写的位置会回退到 `PlayerBlackCatSO`。
+
+厨师 Avatar 资源只是对游戏原始 bundle 的轻量引用，不包含模型或贴图本体；项目仍需要按教程把游戏目录里的 `StreamingAssets/Windows` 放到 `Assets/StreamingAssets/Windows`。
 
 
 

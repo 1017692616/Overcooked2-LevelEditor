@@ -191,20 +191,20 @@ namespace LevelEditor
                 .SetValue(component, LoadAsset(stub.PFXSOs[2]).GetComponent<ParticleSystem>());
 
             component = stub.BootstrapManagerGO.GetComponent<KitchenBootstrapManager>();
-            ChefAvatarData chefAvatarData = LoadAsset<ChefAvatarData>(stub.PlayerBlackCatSO);
+            ChefAvatarData[] chefAvatarData = GetSelectedChefAvatarData();
             ChefColourData[] chefColourData = stub.PlayerColourSOs.Select(x => LoadAsset<ChefColourData>(x)).ToArray();
             component.GetType()
                 .GetField("m_playerOneChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData, chefColourData[0]));
+                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[0], chefColourData[0]));
             component.GetType()
                 .GetField("m_playerTwoChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData, chefColourData[1]));
+                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[1], chefColourData[1]));
             component.GetType()
                 .GetField("m_playerThreeChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData, chefColourData[2]));
+                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[2], chefColourData[2]));
             component.GetType()
                 .GetField("m_playerFourChef", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData, chefColourData[3]));
+                .SetValue(component, new GameSession.SelectedChefData(chefAvatarData[3], chefColourData[3]));
             typeof(BootstrapManager)
                 .GetField("m_gameMetaEnvironmentPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                 .SetValue(component, LoadAsset(stub.GameMetaEnvironmentSO));
@@ -215,6 +215,21 @@ namespace LevelEditor
             component = stub.KillPlaneGO.GetComponent<RespawnCollider>();
             if (stub.OnDeathEffectSO != null)
                 (component as RespawnCollider).m_onDeathEffect = LoadAsset(stub.OnDeathEffectSO);
+        }
+
+        private ChefAvatarData[] GetSelectedChefAvatarData()
+        {
+            ChefAvatarData[] chefAvatarData = new ChefAvatarData[4];
+            for (int i = 0; i < chefAvatarData.Length; i++)
+            {
+                PseudoPrefabSO chefSO = null;
+                if (stub.PlayerChefSOs != null && i < stub.PlayerChefSOs.Length)
+                    chefSO = stub.PlayerChefSOs[i];
+                if (chefSO == null)
+                    chefSO = stub.PlayerBlackCatSO;
+                chefAvatarData[i] = LoadAsset<ChefAvatarData>(chefSO);
+            }
+            return chefAvatarData;
         }
 
         public static void ResetAllPseudoPrefabs()
@@ -324,6 +339,8 @@ namespace LevelEditor
 
         public static AssetBundle GetAssetBundle(string bundleName)
         {
+            if (!Instance.bundleDict.ContainsKey(bundleName) || Instance.bundleDict[bundleName] == null)
+                Instance.LoadAssetBundle(bundleName);
             return Instance.bundleDict[bundleName];
         }
 

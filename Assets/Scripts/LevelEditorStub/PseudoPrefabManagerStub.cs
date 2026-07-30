@@ -29,6 +29,7 @@ namespace LevelEditorStub
         [SerializeField] public GameObject PlayerSwitchingManagerGO;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO[] PlayerColourSOs;
+        [SerializeField] public PseudoPrefabSO[] PlayerChefSOs;
         [HideInInspector]
         [SerializeField] public PseudoPrefabSO PlayerBlackCatSO;
         [HideInInspector]

@@ -115,6 +115,9 @@ In the directory `common02/prefabs/mechanisms`:
 
 - `common01/prefabs/Player` - Player
   - `PseudoPrefabPlayerStub > playerID` - Player ID.
+- `PseudoPrefabManager > PseudoPrefabManagerStub > PlayerChefSOs` - Optional per-player chef avatars. Fill up to 4 entries with assets from `common01/pseudo_prefab_so/game_environment/chef_avatars`. Empty entries fall back to `PlayerBlackCatSO`.
+
+Chef avatar assets are lightweight references to the original game bundles. They do not contain copied model or texture data, so the project's `Assets/StreamingAssets/Windows` folder must still contain the game's original bundle files as described in the tutorial.
 
 
 
