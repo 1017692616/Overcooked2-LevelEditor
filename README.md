@@ -1,0 +1,48 @@
+# Overcooked2 Level Editor
+
+《胡闹厨房 2》自定义关卡编辑器项目。
+
+This repository contains a Unity-based level editor and reference assets for creating custom Overcooked! 2 levels.
+
+## Project Rules
+
+Please read [PROJECT_CONSTITUTION.md](PROJECT_CONSTITUTION.md) before contributing.
+
+Every completed change must:
+
+1. Be made on the corresponding task branch.
+2. Update the relevant README and documentation.
+3. Use a commit with both Chinese and English explanations.
+4. Be pushed successfully to the corresponding remote branch.
+
+每次完成修改后必须：
+
+1. 在对应任务分支上完成。
+2. 更新相关 README 和文档。
+3. 使用包含中英文说明的 commit。
+4. 成功推送到对应远端分支。
+
+## Local Assets
+
+The editor loads the original game AssetBundles at runtime. Copy the game's `Overcooked2_Data/StreamingAssets/Windows` directory to:
+
+```text
+Assets/StreamingAssets/Windows
+```
+
+Do not commit the original game's proprietary models, textures, audio, or binary bundles to this repository.
+
+编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
+
+```text
+Assets/StreamingAssets/Windows
+```
+
+不要将游戏专有的模型、贴图、音频或二进制 bundle 提交到本仓库。
+
+## Documentation
+
+- English tutorial: [Docs/en/tutorial.md](Docs/en/tutorial.md)
+- English reference: [Docs/en/reference.md](Docs/en/reference.md)
+- 中文教程：[Docs/zh/tutorial.md](Docs/zh/tutorial.md)
+- 中文参考：[Docs/zh/reference.md](Docs/zh/reference.md)
