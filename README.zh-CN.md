@@ -7,19 +7,55 @@ English: This is a Unity-based custom level editor for Overcooked! 2. The main w
 ## 你需要准备什么
 
 1. Steam 版《Overcooked! 2》。
-2. Unity `2017.4.8f1`。版本尽量一致，Unity 项目最怕版本漂移。
-3. Python 3。用于自动生成 DLC 菜谱、厨具、食材等轻量引用。
-4. AssetRipper。用于从你本机安装的游戏中导出 `Assembly-CSharp` 脚本。
-5. 本项目代码。
+2. Unity `2017.4.8f1`。脚本会检测它是否存在；如果没有，仍建议通过 Unity Hub 安装这个版本。
+3. 本项目代码。
+
+Python 3 和 AssetRipper 不需要你一开始就手动准备。推荐使用下面的 PowerShell 脚本，它会检测 Python、安装 `UnityPy`、下载/打开 AssetRipper，并把 AssetRipper 导出的 `Assembly-CSharp` 自动复制和打补丁。
 
 本仓库不会提交正版游戏的模型、贴图、音频或 AssetBundle。项目只保存代码和“资源路径引用”。真正的游戏资源仍然从你自己电脑上的正版游戏目录读取。
+
+## 推荐：先运行 Windows 自动准备脚本
+
+在项目根目录打开 PowerShell，运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -InstallMissing
+```
+
+脚本会尽量自动完成：
+
+1. 查找 Steam 版《Overcooked! 2》。
+2. 检测 Unity `2017.4.8f1`。
+3. 检测 Python 3；如果加了 `-InstallMissing`，会尝试用 `winget` 安装。
+4. 安装 Python 包 `UnityPy`。
+5. 下载 AssetRipper 到工具目录。默认优先放在 `F:/OC2LevelEditorTools`；没有 F 盘时放在项目 `.oc2-tools`。
+6. 创建 `Assets/StreamingAssets/Windows` 本地目录链接。
+7. 生成 `Assets/dlc` 轻量 DLC 引用。
+
+如果脚本找不到游戏目录，可以手动指定：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -InstallMissing -GameDir "F:\SteamLibrary\steamapps\common\Overcooked! 2"
+```
+
+如果要让脚本打开 AssetRipper：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -InstallMissing -LaunchAssetRipper
+```
+
+AssetRipper 导出完成后，再把导出的 Unity Project 路径交给脚本，它会复制 `Assembly-CSharp` 并覆盖 `Assembly-CSharp-Patch`：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -AssetRipperExport "F:\AssetRipperExport\ExportedProject"
+```
 
 ## 第一次打开项目
 
 1. 下载或 clone 本项目。
 2. 用 Unity Hub 或 Unity `2017.4.8f1` 打开项目根目录。
 3. 如果 Unity 提示导入资源，等待它导入完成。
-4. 先不要点 Play。第一次需要做下面的自动配置。
+4. 先运行上面的 `tools/setup_windows.ps1`。如果你没有运行脚本，也可以在 Unity 里做下面的自动配置。
 
 ## 一键自动配置
 
@@ -78,6 +114,15 @@ python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\ste
 ## 准备 Assembly-CSharp
 
 这个项目需要游戏脚本类型才能在 Unity 里正常编译。你需要从自己本机游戏导出脚本：
+
+推荐做法是运行脚本打开 AssetRipper，导出后再让脚本复制：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -InstallMissing -LaunchAssetRipper
+powershell -ExecutionPolicy Bypass -File tools/setup_windows.ps1 -AssetRipperExport "你的导出目录\ExportedProject"
+```
+
+手动流程如下：
 
 1. 下载并打开 AssetRipper。
 2. 在 AssetRipper 设置中勾选 `Skip StreamingAssets Folder`。
