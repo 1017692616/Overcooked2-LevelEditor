@@ -35,3 +35,13 @@ Assets/StreamingAssets/Windows
 - 中文参考：[Docs/zh/reference.md](Docs/zh/reference.md)
 - English tutorial: [Docs/en/tutorial.md](Docs/en/tutorial.md)
 - English reference: [Docs/en/reference.md](Docs/en/reference.md)
+
+## DLC 资源引用
+
+在安装了 Steam 游戏的电脑上运行：
+
+```powershell
+python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\steamapps\common\Overcooked! 2\Overcooked2_Data\StreamingAssets\Windows"
+```
+
+脚本会在 `Assets/dlc` 生成 DLC 菜单、食材、烹饪步骤、成品、厨具 Prefab 和 `RecipeMatchList` 的轻量级引用。正版游戏 bundle 仍保留在本机，不得提交到 GitHub。

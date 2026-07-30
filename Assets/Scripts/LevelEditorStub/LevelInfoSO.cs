@@ -17,6 +17,8 @@ namespace LevelEditorStub
         [SerializeField] public ScriptableObject[] recipes;
         [SerializeField] public int debugRecipeCount;
         [SerializeField] public CustomRecipeSO[] optionalRecipeMatchListItems;
+        [SerializeField] public PseudoPrefabSO[] dlcRecipeMatchListSOs = new PseudoPrefabSO[0];
+        [SerializeField] public PseudoPrefabSO[] dlcCookingStepSOs = new PseudoPrefabSO[0];
 
         [SerializeField] public bool disableDynamicParenting = true;
 

@@ -36,23 +36,51 @@ namespace LevelEditor
                 .ToArray();
             configTemplate.m_rounds[0].m_recipes = recipeList;
 
-            if (config.recipes.Any(x => x is CustomRecipeSO) ||
-                config.optionalRecipeMatchListItems != null && config.optionalRecipeMatchListItems.Length > 0)
+            bool hasCustomRecipes = config.recipes != null && config.recipes.Any(x => x is CustomRecipeSO);
+            bool hasOptionalRecipes = config.optionalRecipeMatchListItems != null &&
+                config.optionalRecipeMatchListItems.Length > 0;
+            bool hasDlcRecipeMatchLists = config.dlcRecipeMatchListSOs != null &&
+                config.dlcRecipeMatchListSOs.Length > 0;
+            bool hasDlcCookingSteps = config.dlcCookingStepSOs != null &&
+                config.dlcCookingStepSOs.Length > 0;
+            if (hasCustomRecipes || hasOptionalRecipes || hasDlcRecipeMatchLists || hasDlcCookingSteps)
             {
                 RecipeMatchList theRecipeMatchList = configTemplate.m_recipeMatchingList;
                 RecipeMatchList newRecipeMatchList = ScriptableObject.CreateInstance<RecipeMatchList>();
                 newRecipeMatchList.name = "RecipeMatchList_" + config.name;
-                newRecipeMatchList.m_includeLists = new RecipeMatchList[] { theRecipeMatchList };
-                newRecipeMatchList.m_cookingSteps = new CookingStepData[0];
+                List<RecipeMatchList> includedRecipeMatchLists = new List<RecipeMatchList>
+                {
+                    theRecipeMatchList
+                };
+                if (hasDlcRecipeMatchLists)
+                {
+                    foreach (PseudoPrefabSO recipeMatchListSO in config.dlcRecipeMatchListSOs)
+                    {
+                        if (recipeMatchListSO == null) continue;
+                        includedRecipeMatchLists.Add(
+                            PseudoPrefabManager.LoadAsset<RecipeMatchList>(recipeMatchListSO));
+                    }
+                }
+                newRecipeMatchList.m_includeLists = includedRecipeMatchLists.ToArray();
+                List<CookingStepData> cookingSteps = new List<CookingStepData>();
+                if (hasDlcCookingSteps)
+                {
+                    foreach (PseudoPrefabSO cookingStepSO in config.dlcCookingStepSOs)
+                    {
+                        if (cookingStepSO == null) continue;
+                        cookingSteps.Add(PseudoPrefabManager.LoadAsset<CookingStepData>(cookingStepSO));
+                    }
+                }
+                newRecipeMatchList.m_cookingSteps = cookingSteps.ToArray();
 
                 List<OrderDefinitionNode> newRecipes = new List<OrderDefinitionNode>();
-                if (config.optionalRecipeMatchListItems != null && config.optionalRecipeMatchListItems.Length > 0)
+                if (hasOptionalRecipes)
                 {
                     newRecipes = config.optionalRecipeMatchListItems
                         .Select(x => RecipeHelper.GetOptionalRecipeNode(x))
                         .ToList();
                 }
-                if (config.recipes.Any(x => x is CustomRecipeSO))
+                if (hasCustomRecipes)
                 {
                     for (int i = 0; i < recipeList.m_recipes.Length; i++)
                     {

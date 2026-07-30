@@ -224,6 +224,8 @@ In the directory `common*/prefabs/art`, organized into subdirectories by theme.
   - `recipes` - All recipes in the level. ([Available Recipes](#Available-Recipes))
   - `debugRecipeCount` - Set to 0.
   - `optionalRecipeMatchListItems` - Other allowed food combinations. In pizza levels, in addition to the recipes appear in orders, other food combinations can also be plated; these must be added to this list. See `LevelInfo_OC1_Story_4_1` for reference.
+  - `dlcRecipeMatchListSOs` - Lightweight references to the official DLC `RecipeMatchList` assets. Add the matching DLC list when using DLC recipes or DLC-specific combinations.
+  - `dlcCookingStepSOs` - Lightweight references to DLC cooking-step data such as the blender, hot pot, griddle pan, and roasting tray.
   - `disableDynamicParenting` - Dynamic parenting option. In levels containing moving or elevating platforms, this option should be unchecked, otherwise it should be checked.
   - `config_{x}p` - Level configuration for player count x.
   - `dependencies` - Dependent game bundles. Generally, adding just one entry `bundle47` is sufficient. If using the raft-themed BGM (`DownTheRiverSO`), an additional entry `bundle11` must be added.
@@ -244,4 +246,10 @@ In the directory `common*/prefabs/art`, organized into subdirectories by theme.
 - 34 recipes from the story in directory `common01/food/Recipes`.
 - New recipes: `Burger_Lettuce_SO, Fry_Fish_And_Chips_SO, Fry_Fish_SO, Pizza_Mushroom_80_SO, Soup_Mushroom_SO, Soup_Onion_SO, Soup_Tomato_SO, Soup_TomatoEgg_SO`.
 - You can also customize recipes (under development).
+
+#### DLC Asset References
+
+Run `python tools/generate_dlc_assets.py --game-streaming-assets "<path to Overcooked! 2_Data/StreamingAssets/Windows>"` to generate lightweight references under `Assets/dlc`. The generator indexes DLC02, DLC03, DLC04, DLC05, DLC07, DLC08, DLC09, DLC10, DLC11, and DLC13 recipes, ingredients, cooked and mixed ingredients, recipe products, cooking steps, kitchen prefabs, and recipe match lists. It writes only bundle names and asset paths; original game bundles must stay local.
+
+Generated recipe references use a default score of 60. Adjust the `score` field when a level needs exact official scoring.
 

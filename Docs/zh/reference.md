@@ -245,3 +245,11 @@
 - 新菜谱 `Burger_Lettuce_SO, Fry_Fish_And_Chips_SO, Fry_Fish_SO, Pizza_Mushroom_80_SO, Soup_Mushroom_SO, Soup_Onion_SO, Soup_Tomato_SO, Soup_TomatoEgg_SO`。
 - 你也可以自定义菜谱（完善中）。
 
+- `dlcRecipeMatchListSOs` - DLC 官方 `RecipeMatchList` 的轻量级引用。使用 DLC 菜单或 DLC 专属组合时，请加入对应 DLC 的匹配表。
+- `dlcCookingStepSOs` - DLC 烹饪步骤的轻量级引用，例如搅拌机、火锅、煎锅和烤盘。
+
+#### DLC 资源引用
+
+运行 `python tools/generate_dlc_assets.py --game-streaming-assets "<游戏目录>/Overcooked2_Data/StreamingAssets/Windows"`，可在 `Assets/dlc` 生成 DLC02、DLC03、DLC04、DLC05、DLC07、DLC08、DLC09、DLC10、DLC11 和 DLC13 的菜单、食材、混合/烹饪后食材、成品、烹饪步骤、厨具 Prefab 与 RecipeMatchList 引用。脚本只写入 bundle 名称和资源路径，不会复制正版游戏资源。
+
+生成的菜单引用默认 `score` 为 60，需要精确分数时可在 Unity 中调整。
