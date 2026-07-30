@@ -315,7 +315,7 @@ Assets/AssetBundles/你的关卡包名
 Overcooked! 2/BepInEx/plugins/OC2DIYLevel/levels/你的关卡名
 ```
 
-`Tools > Build AssetBundles` 会构建项目里所有带 AssetBundle 标记的包，通常只有维护者整理全项目资源时才需要。日常导出单个地图请用 `Tools > Build Current Level AssetBundles`，它会在构建前把本地 DLC 引用换成游戏内引用，跳过 `dlc_assets` 本地包，构建后自动安装到游戏目录，并且只复制真正的 bundle 文件，不会把 `.manifest` 或 `.meta` 一起装进去。
+`Tools > Build AssetBundles` 会构建项目里所有带 AssetBundle 标记的包，通常只有维护者整理全项目资源时才需要。日常导出单个地图请用 `Tools > Build Current Level AssetBundles`，它会在构建前把本地 DLC 引用换成游戏内引用，跳过 `dlc_assets` 本地包，并自动禁用语音 HUD 中缺失贴图的静音图标，避免游戏里出现白色方块；构建后自动安装到游戏目录，并且只复制真正的 bundle 文件，不会把 `.manifest` 或 `.meta` 一起装进去。
 
 ## 常见问题
 

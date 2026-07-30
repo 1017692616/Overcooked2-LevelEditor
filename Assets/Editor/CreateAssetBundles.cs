@@ -45,6 +45,7 @@ public static class CreateAssetBundles
 
             AddBundleBuild(builds, bundleName);
         }
+        DisableBrokenVoiceChatMutedIcons(activeScene);
 
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
@@ -106,6 +107,7 @@ public static class CreateAssetBundles
 
         string levelBundlePrefix = sceneBundleName.Substring(0, slashIndex);
         NormalizeCurrentLevelDlcReferences(levelBundlePrefix);
+        DisableBrokenVoiceChatMutedIcons(activeScene);
         List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
         AddBundleBuild(builds, sceneBundleName);
 
@@ -224,6 +226,48 @@ public static class CreateAssetBundles
     {
         return !string.IsNullOrEmpty(bundleName) &&
             bundleName.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase);
+    }
+
+    static void DisableBrokenVoiceChatMutedIcons(Scene scene)
+    {
+        bool changed = false;
+        foreach (UnityEngine.UI.Image image in Resources.FindObjectsOfTypeAll<UnityEngine.UI.Image>())
+        {
+            if (image == null ||
+                image.sprite != null ||
+                image.gameObject == null ||
+                image.gameObject.scene != scene ||
+                !string.Equals(image.gameObject.name, "Muted", StringComparison.OrdinalIgnoreCase) ||
+                !HasParentNamed(image.transform, "VoiceChat"))
+            {
+                continue;
+            }
+
+            image.gameObject.SetActive(false);
+            EditorUtility.SetDirty(image.gameObject);
+            changed = true;
+        }
+
+        if (changed)
+        {
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            Debug.Log("Disabled broken VoiceChat muted icons with missing sprites before building " + scene.name + ".");
+        }
+    }
+
+    static bool HasParentNamed(Transform transform, string parentName)
+    {
+        Transform current = transform != null ? transform.parent : null;
+        while (current != null)
+        {
+            if (string.Equals(current.name, parentName, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+            current = current.parent;
+        }
+        return false;
     }
 
     static void NormalizeCurrentLevelDlcReferences(string levelBundlePrefix)
