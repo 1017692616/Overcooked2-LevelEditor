@@ -289,17 +289,24 @@ namespace LevelEditor
             }
 
             Component component = stub.FlowManagerGO.GetComponent<LevelIntroFlowroutine>();
-            LevelIntroFlowroutineData m_data = (LevelIntroFlowroutineData)component.GetType()
-                .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-                .GetValue(component);
-            m_data.GoUIPrefab = null;
-            m_data.ReadyUIPrefab = null;
-            m_data.TutorialPopup.Prefab = null;
+            if (component != null)
+            {
+                FieldInfo dataField = component.GetType()
+                    .GetField("m_data", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                LevelIntroFlowroutineData m_data = (dataField == null) ? null : (LevelIntroFlowroutineData)dataField.GetValue(component);
+                if (m_data != null)
+                {
+                    m_data.GoUIPrefab = null;
+                    m_data.ReadyUIPrefab = null;
+                    m_data.TutorialPopup.Prefab = null;
+                }
+            }
 
             component = stub.RecipeUIGO.GetComponent<RecipeFlowGUI>();
-            component.GetType()
-                .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-                .SetValue(component, null);
+            if (component != null)
+                component.GetType()
+                    .GetField("m_recipeWidgetPrefab", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                    .SetValue(component, null);
 
             component = stub.AudioManagerGO.GetComponent<CampaignAudioManager>();
             component.GetType()

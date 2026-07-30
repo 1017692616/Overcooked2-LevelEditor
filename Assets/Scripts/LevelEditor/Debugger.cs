@@ -24,9 +24,13 @@ namespace LevelEditor
             //Debug.Log("Debug.Awake." + (Application.isPlaying ? "Play" : "Edit"));
             if (Application.isPlaying && Application.isEditor)
             {
-                KeyboardBindings defaultKeyboardBindings = (KeyboardBindings)typeof(PCPadInputProvider)
-                    .GetField("m_DefaultKeyboardBindings", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
-                    .GetValue(null);
+                FieldInfo defaultKeyboardBindingsField = typeof(PCPadInputProvider)
+                    .GetField("m_DefaultKeyboardBindings", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                if (defaultKeyboardBindingsField == null)
+                {
+                    return;
+                }
+                KeyboardBindings defaultKeyboardBindings = (KeyboardBindings)defaultKeyboardBindingsField.GetValue(null);
                 if (defaultKeyboardBindings == null || defaultKeyboardBindings.m_CombinedKeyboard == null)
                 {
                     return;

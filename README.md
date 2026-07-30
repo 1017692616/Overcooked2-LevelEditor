@@ -52,6 +52,10 @@ Reflection-based setup supports both public and private fields because decompile
 
 反射初始化同时支持 public 和 private 字段，因为反编译后的游戏脚本字段可见性可能和原始编译程序集不同。
 
+Play Mode cleanup tolerates missing template components during Unity script reloads so stale prefab state does not create a burst of secondary errors before the next run.
+
+Play Mode 清理阶段会容忍脚本重载时缺失的模板组件，避免旧 prefab 状态在下一次运行前制造大量次生错误。
+
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
 
 ```text
