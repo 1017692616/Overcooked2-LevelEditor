@@ -250,6 +250,8 @@
 
 #### DLC 资源引用
 
-运行 `python tools/generate_dlc_assets.py --game-streaming-assets "<游戏目录>/Overcooked2_Data/StreamingAssets/Windows"`，可在 `Assets/dlc` 生成 DLC02、DLC03、DLC04、DLC05、DLC07、DLC08、DLC09、DLC10、DLC11 和 DLC13 的菜单、食材、混合/烹饪后食材、成品、烹饪步骤、厨具 Prefab 与 RecipeMatchList 引用。脚本只写入 bundle 名称和资源路径，不会复制正版游戏资源。
+运行 `python tools/generate_dlc_assets.py --game-streaming-assets "<游戏目录>/Overcooked2_Data/StreamingAssets/Windows"`，脚本会扫描所有 `bundle*` 文件，并按 `downloadablecontent/dlcXX` 自动分组，在 `Assets/dlc` 生成菜单、食材、混合/烹饪后食材、成品、烹饪步骤、装盘步骤、图标、厨具 Prefab 与 RecipeMatchList 引用。脚本只写入 bundle 名称和资源路径，不会复制正版游戏资源。
 
 生成的菜单引用默认 `score` 为 60，需要精确分数时可在 Unity 中调整。
+
+搅拌器、果汁机、烤盘等厨具可使用 `PseudoPrefabCookingUtensil`，其 `allowedIngredientSOs` 同时支持 `CookableContainer` 和 `MixableContainer`。DLC 调味料机或饮料机可使用 `PseudoPrefabPlacementDispenser`，并在 `ingredientSOs` 中配置食材。

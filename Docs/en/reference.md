@@ -249,7 +249,9 @@ In the directory `common*/prefabs/art`, organized into subdirectories by theme.
 
 #### DLC Asset References
 
-Run `python tools/generate_dlc_assets.py --game-streaming-assets "<path to Overcooked! 2_Data/StreamingAssets/Windows>"` to generate lightweight references under `Assets/dlc`. The generator indexes DLC02, DLC03, DLC04, DLC05, DLC07, DLC08, DLC09, DLC10, DLC11, and DLC13 recipes, ingredients, cooked and mixed ingredients, recipe products, cooking steps, kitchen prefabs, and recipe match lists. It writes only bundle names and asset paths; original game bundles must stay local.
+Run `python tools/generate_dlc_assets.py --game-streaming-assets "<path to Overcooked! 2_Data/StreamingAssets/Windows>"` to scan every `bundle*` file and generate lightweight references under `Assets/dlc`. Assets are grouped automatically by `downloadablecontent/dlcXX`, including recipes, ingredients, cooked and mixed ingredients, recipe products, cooking steps, plating steps, icons, kitchen prefabs, and recipe match lists. It writes only bundle names and asset paths; original game bundles must stay local.
 
 Generated recipe references use a default score of 60. Adjust the `score` field when a level needs exact official scoring.
+
+For DLC mixers, blenders, roasting trays, and other cooking utensils, use `PseudoPrefabCookingUtensil` with the generated `Kitchen` reference. Its `allowedIngredientSOs` field now supports both `CookableContainer` and `MixableContainer`. For DLC condiment or drink dispensers, use `PseudoPrefabPlacementDispenser` and configure its `ingredientSOs` list.
 

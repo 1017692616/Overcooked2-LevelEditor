@@ -15,19 +15,6 @@ from pathlib import Path
 import UnityPy
 
 
-DLC_BUNDLES = {
-    "dlc02": ("bundle162", "bundle167"),
-    "dlc03": ("bundle208", "bundle210"),
-    "dlc04": ("bundle225", "bundle226", "bundle417"),
-    "dlc05": ("bundle247", "bundle250"),
-    "dlc07": ("bundle293", "bundle297"),
-    "dlc08": ("bundle351", "bundle354", "bundle359"),
-    "dlc09": ("bundle404", "bundle405"),
-    "dlc10": ("bundle419", "bundle421"),
-    "dlc11": ("bundle427", "bundle428"),
-    "dlc13": ("bundle448", "bundle449"),
-}
-
 SCRIPT_GUID = {
     "reference": "0cff7c13895ab9e47a5e02d4619cc3b9",
     "recipe": "753d9e70603f6a140b05f30f176ec2dd",
@@ -74,10 +61,14 @@ def classify(path: str) -> tuple[str, bool] | None:
         return "Recipes", True
     if "/data/orderdefinitions/ingredients/" in p or "/data/orderdefinitions/mixedingredients/" in p or "/data/orderdefinitions/cookedingredients/" in p:
         return "Ingredients", False
+    if "/data/recipes/platingstepdata/" in p:
+        return "PlatingSteps", False
     if "/data/orderdefinitions/cookingstepdata/" in p or "/data/recipes/cookingstepdata/" in p:
         return "CookingSteps", False
     if "/data/recipes/" in p and "recipematchlist" in p:
         return "RecipeMatchLists", False
+    if "/gui/icons/" in p:
+        return "Icons", False
     if "/prefabs/recipes/" in p:
         return "Products", False
     if "/prefabs/ingredients/" in p:
@@ -89,6 +80,31 @@ def classify(path: str) -> tuple[str, bool] | None:
     ):
         return "Kitchen", False
     return None
+
+
+def discover_dlc_entries(game_root: Path) -> dict[str, set[tuple[str, str, str]]]:
+    entries_by_dlc: dict[str, set[tuple[str, str, str]]] = {}
+    bundle_paths = sorted(
+        path for path in game_root.iterdir()
+        if path.is_file() and path.name.startswith("bundle")
+    )
+    for bundle_path in bundle_paths:
+        try:
+            env = UnityPy.load(str(bundle_path))
+        except Exception as error:
+            print(f"warning: unable to scan {bundle_path.name}: {error}")
+            continue
+        bundle_name = bundle_path.name
+        for asset_path in env.container:
+            match = re.search(r"/downloadablecontent/(dlc\d+)(?:/|$)", asset_path.lower())
+            category = classify(asset_path)
+            if match is None or category is None:
+                continue
+            folder, _ = category
+            entries_by_dlc.setdefault(match.group(1), set()).add(
+                (folder, bundle_name, asset_path)
+            )
+    return entries_by_dlc
 
 
 def main() -> None:
@@ -106,26 +122,17 @@ def main() -> None:
     if not game_root.is_dir():
         raise SystemExit(f"StreamingAssets directory not found: {game_root}")
 
+    discovered = discover_dlc_entries(game_root)
+    print(
+        f"scanned {len(list(game_root.glob('bundle*')))} bundles; "
+        f"found {len(discovered)} DLC groups"
+    )
+
     generated = 0
     counts: dict[str, int] = {}
-    for dlc, bundles in DLC_BUNDLES.items():
-        entries: dict[tuple[str, str, str], str] = {}
+    for dlc, entries in sorted(discovered.items()):
         used_targets: set[Path] = set()
-        for bundle in bundles:
-            bundle_path = game_root / bundle
-            if not bundle_path.is_file():
-                print(f"warning: missing {bundle_path}")
-                continue
-            env = UnityPy.load(str(bundle_path))
-            for asset_path, obj in env.container.items():
-                category = classify(asset_path)
-                if category is None:
-                    continue
-                folder, is_recipe = category
-                key = (folder, bundle, asset_path)
-                entries[key] = asset_path
-
-        for (folder, bundle, asset_path), _ in sorted(entries.items()):
+        for folder, bundle, asset_path in sorted(entries):
             name = safe_name(asset_path)
             target_dir = output_root / dlc / folder
             target_dir.mkdir(parents=True, exist_ok=True)

@@ -192,9 +192,11 @@ namespace LevelEditor
             return lookup;
         }
 
-        private static IngredientOrderNode GetIngredientOrderNode(PseudoPrefabSO pseudoPrefabSO)
+        public static IngredientOrderNode GetIngredientOrderNode(PseudoPrefabSO pseudoPrefabSO)
         {
             GameObject ingredient = PseudoPrefabManager.LoadAsset<GameObject>(pseudoPrefabSO);
+            if (ingredient == null)
+                return null;
             while (ingredient.GetComponent<WorkableItem>() != null)
                 ingredient = ingredient.GetComponent<WorkableItem>().m_nextPrefab;
             IngredientPropertiesComponent ingredientPropertiesComponent = ingredient.GetComponent<IngredientPropertiesComponent>();
@@ -207,7 +209,7 @@ namespace LevelEditor
             else
             {
                 PreparationContainer preparationContainer = ingredient.GetComponent<PreparationContainer>();
-                return preparationContainer.m_ingredientOrderNode;
+                return preparationContainer != null ? preparationContainer.m_ingredientOrderNode : null;
             }
         }
     }

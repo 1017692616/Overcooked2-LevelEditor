@@ -53,6 +53,6 @@ On a machine with the Steam game installed, run:
 python tools/generate_dlc_assets.py --game-streaming-assets "F:\SteamLibrary\steamapps\common\Overcooked! 2\Overcooked2_Data\StreamingAssets\Windows"
 ```
 
-This generates lightweight references under `Assets/dlc` for DLC recipes, ingredients, cooking steps, recipe products, kitchen prefabs, and `RecipeMatchList` assets. The original game bundles remain local and must not be committed.
+The generator scans every `bundle*` file and automatically groups assets by `downloadablecontent/dlcXX`. It generates lightweight references under `Assets/dlc` for DLC recipes, ingredients, cooking steps, plating steps, icons, recipe products, kitchen prefabs, and `RecipeMatchList` assets. The original game bundles remain local and must not be committed.
 - 中文教程：[Docs/zh/tutorial.md](Docs/zh/tutorial.md)
 - 中文参考：[Docs/zh/reference.md](Docs/zh/reference.md)
