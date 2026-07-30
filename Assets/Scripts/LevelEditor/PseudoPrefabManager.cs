@@ -86,7 +86,11 @@ namespace LevelEditor
         {
             initializing = true;
 
-            EnsureLoadAllAssetBundles();
+            if (!EnsureLoadAllAssetBundles())
+            {
+                initializing = false;
+                return;
+            }
             if (GameEditState == GameEditState.Game || GameEditState == GameEditState.Edit)
             {
                 SetAssetRef();
@@ -127,18 +131,29 @@ namespace LevelEditor
             assetBundleManifest = null;
         }
 
-        private void EnsureLoadAllAssetBundles()
+        private bool EnsureLoadAllAssetBundles()
         {
-            if (assetBundleManifest != null) return;
+            if (assetBundleManifest != null) return true;
             string manifestAssetBundleName = "Windows";
             var bundle = LoadAssetBundle(manifestAssetBundleName, true);
+            if (bundle == null)
+            {
+                Debug.LogError("Unable to load AssetBundle manifest. Check Assets/StreamingAssets/Windows.");
+                return false;
+            }
             assetBundleManifest = bundle.LoadAsset("AssetBundleManifest") as AssetBundleManifest;
+            if (assetBundleManifest == null)
+            {
+                Debug.LogError("Unable to load AssetBundleManifest from Windows bundle.");
+                return false;
+            }
 
             foreach (string name in stub.levelInfo.dependencies)
             {
                 LoadAssetBundle(name, false);
             }
             Debug.Log("All loaded bundles: " + string.Join(" ", bundleDict.Select(x => x.Key).ToArray()));
+            return true;
         }
 
         // set all prefab ref in the scene
@@ -341,12 +356,16 @@ namespace LevelEditor
         {
             if (!Instance.bundleDict.ContainsKey(bundleName) || Instance.bundleDict[bundleName] == null)
                 Instance.LoadAssetBundle(bundleName);
+            if (!Instance.bundleDict.ContainsKey(bundleName))
+                return null;
             return Instance.bundleDict[bundleName];
         }
 
         public static GameObject LoadAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             GameObject asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
             if (asset == null && !Instance.initializing)
             {
@@ -354,6 +373,8 @@ namespace LevelEditor
                 Instance.Init();
             }
             bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             asset = bundle.LoadAsset<GameObject>(pseudoPrefabSO.assetPath);
             return asset;
         }
@@ -361,6 +382,8 @@ namespace LevelEditor
         public static T LoadAsset<T>(PseudoPrefabSO pseudoPrefabSO) where T : UnityEngine.Object
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             T asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
             if (asset == null && !Instance.initializing)
             {
@@ -368,6 +391,8 @@ namespace LevelEditor
                 Instance.Init();
             }
             bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             asset = bundle.LoadAsset<T>(pseudoPrefabSO.assetPath);
             return asset;
         }
@@ -375,6 +400,8 @@ namespace LevelEditor
         public static Sprite LoadSpriteSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             var sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
             Sprite sprite = sprites.Length > 0 ? sprites[0] : null;
             if (sprite == null && !Instance.initializing)
@@ -383,6 +410,8 @@ namespace LevelEditor
                 Instance.Init();
             }
             bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             sprites = bundle.LoadAssetWithSubAssets<Sprite>(pseudoPrefabSO.assetPath);
             sprite = sprites.Length > 0 ? sprites[0] : null;
             return sprite;
@@ -391,6 +420,8 @@ namespace LevelEditor
         public static Mesh LoadMeshSubAsset(PseudoPrefabSO pseudoPrefabSO)
         {
             AssetBundle bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             var meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
             Mesh mesh = meshes.Length > 0 ? meshes[0] : null;
             if (mesh == null && !Instance.initializing)
@@ -399,6 +430,8 @@ namespace LevelEditor
                 Instance.Init();
             }
             bundle = GetAssetBundle(pseudoPrefabSO.bundleName);
+            if (bundle == null)
+                return null;
             meshes = bundle.LoadAssetWithSubAssets<Mesh>(pseudoPrefabSO.assetPath);
             mesh = meshes.Length > 0 ? meshes[0] : null;
             return mesh;
@@ -418,6 +451,10 @@ namespace LevelEditor
                 return null;
             }
             LoadAssetBundleInternal(assetBundleName);
+            if (!bundleDict.ContainsKey(assetBundleName) || bundleDict[assetBundleName] == null)
+            {
+                return null;
+            }
             if (!isLoadingAssetBundleManifest)
             {
                 string[] allDependencies = assetBundleManifest.GetAllDependencies(assetBundleName);
@@ -432,6 +469,18 @@ namespace LevelEditor
 
         private void LoadAssetBundleInternal(string assetBundleName)
         {
+            if (bundleDict.ContainsKey(assetBundleName) && bundleDict[assetBundleName] != null)
+            {
+                return;
+            }
+
+            AssetBundle loadedAssetBundle = AssetBundle.GetAllLoadedAssetBundles().FirstOrDefault(x => x.name == assetBundleName);
+            if (loadedAssetBundle != null)
+            {
+                bundleDict.SafeAdd(assetBundleName, loadedAssetBundle);
+                return;
+            }
+
             string path = Path.Combine(Application.streamingAssetsPath, "Windows/" + assetBundleName).Replace("\\", "/");
 
             //FileInfo fileInfo = new FileInfo(path);
