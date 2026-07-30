@@ -622,7 +622,7 @@ namespace LevelEditor
             {
                 if (bundleDict[assetBundleName] != null && !sharedBundleNames.Contains(assetBundleName))
                 {
-                    bundleDict[assetBundleName].Unload(true);
+                    bundleDict[assetBundleName].Unload(false);
                     //Debug.Log(assetBundleName + " has been unloaded successfully.");
                 }
                 else

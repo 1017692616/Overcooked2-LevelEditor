@@ -34,6 +34,8 @@ public static class CreateAssetBundles
         Scene activeScene = EditorSceneManager.GetActiveScene();
         if (!TargetSceneSaveValidator.CheckPrepareForBuilding(activeScene))
             return;
+        if (!ValidateCurrentLevelSceneContents(activeScene))
+            return;
 
         List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
         foreach (string bundleName in AssetDatabase.GetAllAssetBundleNames())
@@ -42,10 +44,8 @@ public static class CreateAssetBundles
             {
                 continue;
             }
-
             AddBundleBuild(builds, bundleName);
         }
-        DisableBrokenVoiceChatMutedIcons(activeScene);
 
         string assetBundleDirectory = "Assets/AssetBundles";
         if (!Directory.Exists(assetBundleDirectory))
@@ -84,6 +84,11 @@ public static class CreateAssetBundles
             return;
         }
 
+        if (!ValidateCurrentLevelSceneContents(activeScene))
+        {
+            return;
+        }
+
         AssetImporter sceneImporter = AssetImporter.GetAtPath(activeScene.path);
         if (sceneImporter == null || string.IsNullOrEmpty(sceneImporter.assetBundleName))
         {
@@ -107,7 +112,6 @@ public static class CreateAssetBundles
 
         string levelBundlePrefix = sceneBundleName.Substring(0, slashIndex);
         NormalizeCurrentLevelDlcReferences(levelBundlePrefix);
-        DisableBrokenVoiceChatMutedIcons(activeScene);
         List<AssetBundleBuild> builds = new List<AssetBundleBuild>();
         AddBundleBuild(builds, sceneBundleName);
 
@@ -228,46 +232,49 @@ public static class CreateAssetBundles
             bundleName.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase);
     }
 
-    static void DisableBrokenVoiceChatMutedIcons(Scene scene)
+    static bool ValidateCurrentLevelSceneContents(Scene scene)
     {
-        bool changed = false;
-        foreach (UnityEngine.UI.Image image in Resources.FindObjectsOfTypeAll<UnityEngine.UI.Image>())
+        int chefObjectCount = 0;
+        int playerObjectCount = 0;
+        bool hasVoiceChat = false;
+
+        foreach (GameObject root in scene.GetRootGameObjects())
         {
-            if (image == null ||
-                image.sprite != null ||
-                image.gameObject == null ||
-                image.gameObject.scene != scene ||
-                !string.Equals(image.gameObject.name, "Muted", StringComparison.OrdinalIgnoreCase) ||
-                !HasParentNamed(image.transform, "VoiceChat"))
+            foreach (Transform transform in root.GetComponentsInChildren<Transform>(true))
             {
-                continue;
+                string objectName = transform.gameObject.name;
+                if (objectName.StartsWith("Chef_", StringComparison.OrdinalIgnoreCase))
+                {
+                    chefObjectCount++;
+                }
+                else if (string.Equals(objectName, "player", StringComparison.OrdinalIgnoreCase) ||
+                         objectName.StartsWith("Player_", StringComparison.OrdinalIgnoreCase))
+                {
+                    playerObjectCount++;
+                }
+                else if (string.Equals(objectName, "VoiceChat", StringComparison.OrdinalIgnoreCase))
+                {
+                    hasVoiceChat = true;
+                }
             }
-
-            image.gameObject.SetActive(false);
-            EditorUtility.SetDirty(image.gameObject);
-            changed = true;
         }
 
-        if (changed)
+        if (chefObjectCount > 8 || playerObjectCount > 4 || hasVoiceChat)
         {
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
-            Debug.Log("Disabled broken VoiceChat muted icons with missing sprites before building " + scene.name + ".");
+            string message =
+                "This scene appears to contain imported Overcooked runtime objects instead of only DIY level objects.\n\n" +
+                "Detected:\n" +
+                "- Chef objects: " + chefObjectCount + "\n" +
+                "- Player objects: " + playerObjectCount + "\n" +
+                "- VoiceChat HUD: " + (hasVoiceChat ? "yes" : "no") + "\n\n" +
+                "Building this scene can duplicate and unload shared game resources, which may make the original game levels lose objects after this custom level is loaded.\n\n" +
+                "Please rebuild the level from a clean DIY template and import only the level layout/pseudo-prefab data.";
+            EditorUtility.DisplayDialog("Unsafe Level Scene", message, "OK");
+            Debug.LogError(message);
+            return false;
         }
-    }
 
-    static bool HasParentNamed(Transform transform, string parentName)
-    {
-        Transform current = transform != null ? transform.parent : null;
-        while (current != null)
-        {
-            if (string.Equals(current.name, parentName, StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
-            current = current.parent;
-        }
-        return false;
+        return true;
     }
 
     static void NormalizeCurrentLevelDlcReferences(string levelBundlePrefix)
