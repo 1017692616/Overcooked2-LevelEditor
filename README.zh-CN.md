@@ -371,6 +371,17 @@ python tools/generate_dlc_assets.py --game-streaming-assets "你的游戏目录\
 4. 点击 `Tools > Reload Pseudo Assets`。
 5. 重启 Unity 再试。
 
+## DLC 菜单引用方式
+
+菜单、厨具、食材这些 DLC 资源本身就在游戏的 `StreamingAssets/Windows` 里。默认不要把它们重新打进关卡包，而是使用 `Assets/dlc` 里的轻量引用，例如 DLC09 会指向游戏自带的 `bundle404`。
+
+1. 打开目标关卡场景。
+2. 在 Unity 菜单点击 `Tools > OC2 DLC > Import DLC09 Assets For Current Level`。
+3. 工具会把 DLC09 菜谱、RecipeMatchList 和 CookingStepData 引用加入当前 `LevelInfoSO`。
+4. 然后使用 `Tools > Build Current Level AssetBundles` 构建当前关卡。
+
+这个默认流程不会生成 `dlc_assets` 本地包，也不会在关卡包里新增 DLC 资源副本。只有当你真的改了游戏原始资源，才使用 `Tools > OC2 DLC > Import DLC09 Assets For Current Level (Legacy Local Bundle)` 这种旧流程。
+
 ## 不要提交这些内容
 
 请不要把下面这些提交到公开仓库：

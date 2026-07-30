@@ -1,4 +1,4 @@
-﻿%YAML 1.1
+%YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Name: LevelInfo_Codex_1
   m_EditorClassIdentifier: 
   levelName: Codex Demo 1
-  levelNameZH: Codex 示例 1
+  levelNameZH: "Codex \u793A\u4F8B 1"
   screenshot: {fileID: 0}
   sceneName: s_codex_demo_1
   recipes:
-  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
-  useScore2: 0
-  debugRecipeCount: 0
+  - {fileID: 11400000, guid: f38ba58e21ef523150507245ae40e2fd, type: 2}
+  - {fileID: 11400000, guid: 20a88dcc79234b6250f5251f71ed93c0, type: 2}
+  debugRecipeCount: 3
   optionalRecipeMatchListItems: []
-  dlcRecipeMatchListSOs: []
-  dlcCookingStepSOs: []
+  dlcRecipeMatchListSOs:
+  - {fileID: 11400000, guid: db8425557b0f86debd1e76857d1d2724, type: 2}
+  dlcCookingStepSOs:
+  - {fileID: 11400000, guid: e50971ac08a507f8eda39bf4bb130b34, type: 2}
   disableDynamicParenting: 1
   config_1p: {fileID: 11400000, guid: 52da9e2790a34c30b2cba0ec36285613, type: 2}
   config_2p: {fileID: 11400000, guid: 87e987025f714f369bc79279f05845f3, type: 2}
   config_3p: {fileID: 11400000, guid: c94623b3bd7f48cabbd352f77f6f2fe6, type: 2}
   config_4p: {fileID: 11400000, guid: 2422153096464813a0507c0bebee124f, type: 2}
-  dependencies:
-  - bundle47
-
+  dependencies: []

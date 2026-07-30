@@ -139,7 +139,7 @@ public static class CreateAssetBundles
             return;
         }
 
-        string installMessage = InstallBuiltLevel(levelBundlePrefix);
+        string installMessage = InstallBuiltLevel(levelBundlePrefix, builds.Select(x => x.assetBundleName));
         EditorUtility.DisplayDialog(
             "Build Current Level",
             "Built " + builds.Count + " bundle(s) for " + levelBundlePrefix + " into Assets/AssetBundles/" + levelBundlePrefix + ".\n\n" + installMessage,
@@ -207,7 +207,7 @@ public static class CreateAssetBundles
         return !assetNames.Any(x => x.EndsWith(".unity", System.StringComparison.OrdinalIgnoreCase));
     }
 
-    static string InstallBuiltLevel(string levelBundlePrefix)
+    static string InstallBuiltLevel(string levelBundlePrefix, IEnumerable<string> builtBundleNames)
     {
         string sourceDirectory = Path.GetFullPath(Path.Combine("Assets/AssetBundles", levelBundlePrefix));
         if (!Directory.Exists(sourceDirectory))
@@ -222,10 +222,11 @@ public static class CreateAssetBundles
         }
 
         string targetDirectory = Path.Combine(Path.Combine(gameDirectory, LevelsRelativePath), levelBundlePrefix);
+        HashSet<string> installFileNames = GetInstallFileNames(levelBundlePrefix, builtBundleNames);
         bool restartedGame = false;
         try
         {
-            ReplaceDirectory(sourceDirectory, targetDirectory);
+            ReplaceDirectory(sourceDirectory, targetDirectory, installFileNames);
         }
         catch (Exception firstError)
         {
@@ -238,7 +239,7 @@ public static class CreateAssetBundles
 
             try
             {
-                ReplaceDirectory(sourceDirectory, targetDirectory);
+                ReplaceDirectory(sourceDirectory, targetDirectory, installFileNames);
             }
             catch (Exception secondError)
             {
@@ -255,17 +256,32 @@ public static class CreateAssetBundles
         return message;
     }
 
-    static void ReplaceDirectory(string sourceDirectory, string targetDirectory)
+    static HashSet<string> GetInstallFileNames(string levelBundlePrefix, IEnumerable<string> builtBundleNames)
+    {
+        HashSet<string> fileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string bundleName in builtBundleNames)
+        {
+            if (!bundleName.StartsWith(levelBundlePrefix + "/", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            fileNames.Add(bundleName.Substring(levelBundlePrefix.Length + 1));
+        }
+        return fileNames;
+    }
+
+    static void ReplaceDirectory(string sourceDirectory, string targetDirectory, HashSet<string> installFileNames)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(targetDirectory));
         if (Directory.Exists(targetDirectory))
         {
             Directory.Delete(targetDirectory, true);
         }
-        CopyDirectory(sourceDirectory, targetDirectory);
+        CopyDirectory(sourceDirectory, targetDirectory, installFileNames);
     }
 
-    static void CopyDirectory(string sourceDirectory, string targetDirectory)
+    static void CopyDirectory(string sourceDirectory, string targetDirectory, HashSet<string> installFileNames)
     {
         Directory.CreateDirectory(targetDirectory);
         foreach (string directory in Directory.GetDirectories(sourceDirectory, "*", SearchOption.AllDirectories))
@@ -276,23 +292,29 @@ public static class CreateAssetBundles
 
         foreach (string file in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
         {
-            if (ShouldSkipInstalledFile(file))
+            string relativeFile = file.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            if (ShouldSkipInstalledFile(relativeFile, installFileNames))
             {
                 continue;
             }
 
-            string relativeFile = file.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             string targetFile = Path.Combine(targetDirectory, relativeFile);
             Directory.CreateDirectory(Path.GetDirectoryName(targetFile));
             File.Copy(file, targetFile, true);
         }
     }
 
-    static bool ShouldSkipInstalledFile(string filePath)
+    static bool ShouldSkipInstalledFile(string relativeFilePath, HashSet<string> installFileNames)
     {
-        string extension = Path.GetExtension(filePath);
-        return string.Equals(extension, ".manifest", StringComparison.OrdinalIgnoreCase)
-            || string.Equals(extension, ".meta", StringComparison.OrdinalIgnoreCase);
+        string extension = Path.GetExtension(relativeFilePath);
+        if (string.Equals(extension, ".manifest", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, ".meta", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+
+        string normalizedFilePath = relativeFilePath.Replace("\\", "/");
+        return !installFileNames.Contains(normalizedFilePath);
     }
 
     static bool CloseRunningGame()

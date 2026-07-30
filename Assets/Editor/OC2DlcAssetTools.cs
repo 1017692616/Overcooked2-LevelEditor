@@ -34,6 +34,108 @@ public static class OC2DlcAssetTools
     [MenuItem("Tools/OC2 DLC/Import DLC09 Assets For Current Level", false, 0)]
     public static void ImportDlc09AssetsForCurrentLevel()
     {
+        if (AddDlc09GameReferencesForCurrentLevel())
+        {
+            return;
+        }
+    }
+
+    private static bool AddDlc09GameReferencesForCurrentLevel()
+    {
+        LevelInfoSO levelInfo = FindCurrentLevelInfo();
+        if (levelInfo == null)
+        {
+            return true;
+        }
+
+        List<ScriptableObject> recipes = levelInfo.recipes != null
+            ? levelInfo.recipes.Where(x => x != null).ToList()
+            : new List<ScriptableObject>();
+        foreach (string recipeName in Dlc09RecipeNames)
+        {
+            AddAssetIfFound(
+                recipes,
+                "Assets/dlc/dlc09/Recipes/" + ToLowerAssetName(recipeName) + ".asset");
+        }
+        levelInfo.recipes = recipes.ToArray();
+
+        List<PseudoPrefabSO> recipeMatchLists = levelInfo.dlcRecipeMatchListSOs != null
+            ? levelInfo.dlcRecipeMatchListSOs.Where(x => x != null).ToList()
+            : new List<PseudoPrefabSO>();
+        AddAssetIfFound(recipeMatchLists, "Assets/dlc/dlc09/RecipeMatchLists/dlc09_recipematchlist.asset");
+        levelInfo.dlcRecipeMatchListSOs = recipeMatchLists.ToArray();
+
+        List<PseudoPrefabSO> cookingSteps = levelInfo.dlcCookingStepSOs != null
+            ? levelInfo.dlcCookingStepSOs.Where(x => x != null).ToList()
+            : new List<PseudoPrefabSO>();
+        AddAssetIfFound(cookingSteps, "Assets/dlc/dlc09/CookingSteps/dlc09_roastingtray.asset");
+        levelInfo.dlcCookingStepSOs = cookingSteps.ToArray();
+
+        levelInfo.dependencies = RemoveLocalDlcAssetDependencies(levelInfo.dependencies);
+        EditorUtility.SetDirty(levelInfo);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        EditorUtility.DisplayDialog(
+            "Add DLC09 References",
+            "DLC09 recipes, RecipeMatchList and cooking step now point to the game's built-in bundle404 references.\n\n" +
+            "No local dlc_assets bundle is required.",
+            "OK");
+        return true;
+    }
+
+    private static LevelInfoSO FindCurrentLevelInfo()
+    {
+        string scenePath = SceneManager.GetActiveScene().path;
+        string activeSceneName = Path.GetFileNameWithoutExtension(scenePath);
+        if (string.IsNullOrEmpty(activeSceneName))
+        {
+            EditorUtility.DisplayDialog("Add DLC09 References", "Please save and open the target level scene first.", "OK");
+            return null;
+        }
+
+        string[] candidates = AssetDatabase.FindAssets("t:LevelInfoSO", new[] { "Assets/LevelSets" })
+            .Select(AssetDatabase.GUIDToAssetPath)
+            .ToArray();
+
+        foreach (string path in candidates)
+        {
+            LevelInfoSO levelInfo = AssetDatabase.LoadAssetAtPath<LevelInfoSO>(path);
+            if (levelInfo != null && string.Equals(levelInfo.sceneName, activeSceneName, StringComparison.OrdinalIgnoreCase))
+            {
+                return levelInfo;
+            }
+        }
+
+        EditorUtility.DisplayDialog("Add DLC09 References", "No LevelInfoSO matched the current scene: " + activeSceneName, "OK");
+        return null;
+    }
+
+    private static void AddAssetIfFound<T>(List<T> assets, string path) where T : UnityEngine.Object
+    {
+        T asset = AssetDatabase.LoadAssetAtPath<T>(path);
+        if (asset == null || assets.Contains(asset))
+        {
+            return;
+        }
+        assets.Add(asset);
+    }
+
+    private static string[] RemoveLocalDlcAssetDependencies(string[] dependencies)
+    {
+        if (dependencies == null)
+        {
+            return new string[0];
+        }
+
+        return dependencies
+            .Where(x => !string.IsNullOrEmpty(x) && !x.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+    }
+
+    [MenuItem("Tools/OC2 DLC/Import DLC09 Assets For Current Level (Legacy Local Bundle)", false, 50)]
+    public static void ImportDlc09AssetsForCurrentLevelLegacyLocalBundle()
+    {
         string exportAssetsRoot = Path.Combine(DefaultAssetRipperProject, "Assets").Replace("\\", "/");
         if (!Directory.Exists(exportAssetsRoot))
         {
