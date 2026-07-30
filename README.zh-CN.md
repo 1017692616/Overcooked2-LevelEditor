@@ -303,19 +303,19 @@ Tools > Toggle Prepare For Building
 Tools > Build Current Level AssetBundles
 ```
 
-构建后，输出一般在：
+构建成功后会自动把本次关卡包同步到：
 
 ```text
 Assets/AssetBundles/你的关卡包名
 ```
 
-把生成的关卡 bundle 放到游戏 mod 目录，例如：
+如果目标文件被游戏占用，工具会先关闭游戏、替换文件，再重新启动游戏。目标目录例如：
 
 ```text
 Overcooked! 2/BepInEx/plugins/OC2DIYLevel/levels/你的关卡名
 ```
 
-`Tools > Build AssetBundles` 会构建项目里所有带 AssetBundle 标记的包，通常只有维护者整理全项目资源时才需要。日常导出单个地图请用 `Tools > Build Current Level AssetBundles`。
+`Tools > Build AssetBundles` 会构建项目里所有带 AssetBundle 标记的包，通常只有维护者整理全项目资源时才需要。日常导出单个地图请用 `Tools > Build Current Level AssetBundles`，它会在构建后自动安装到游戏目录。
 
 ## 常见问题
 

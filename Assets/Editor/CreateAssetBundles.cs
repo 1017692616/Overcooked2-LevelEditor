@@ -1,4 +1,6 @@
 ﻿using LevelEditor;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +12,11 @@ using UnityEngine.SceneManagement;
 
 public static class CreateAssetBundles
 {
+    private const string GameFolderName = "Overcooked! 2";
+    private const string GameExeName = "Overcooked2.exe";
+    private const string GameProcessName = "Overcooked2";
+    private const string LevelsRelativePath = "BepInEx/plugins/OC2DIYLevel/levels";
+
     [MenuItem("Tools/Build AssetBundles", false, 100)]
     static void BuildAllAssetBundles()
     {
@@ -117,15 +124,25 @@ public static class CreateAssetBundles
             Directory.CreateDirectory(assetBundleDirectory);
         }
 
-        BuildPipeline.BuildAssetBundles(
+        AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(
             assetBundleDirectory,
             builds.ToArray(),
             options,
             BuildTarget.StandaloneWindows);
 
+        if (manifest == null)
+        {
+            EditorUtility.DisplayDialog(
+                "Build Current Level",
+                "AssetBundle build failed. The game level folder was not changed.",
+                "OK");
+            return;
+        }
+
+        string installMessage = InstallBuiltLevel(levelBundlePrefix);
         EditorUtility.DisplayDialog(
             "Build Current Level",
-            "Built " + builds.Count + " bundle(s) for " + levelBundlePrefix + " into Assets/AssetBundles/" + levelBundlePrefix + ".",
+            "Built " + builds.Count + " bundle(s) for " + levelBundlePrefix + " into Assets/AssetBundles/" + levelBundlePrefix + ".\n\n" + installMessage,
             "OK");
     }
 
@@ -190,6 +207,202 @@ public static class CreateAssetBundles
         return !assetNames.Any(x => x.EndsWith(".unity", System.StringComparison.OrdinalIgnoreCase));
     }
 
+    static string InstallBuiltLevel(string levelBundlePrefix)
+    {
+        string sourceDirectory = Path.GetFullPath(Path.Combine("Assets/AssetBundles", levelBundlePrefix));
+        if (!Directory.Exists(sourceDirectory))
+        {
+            return "Auto install skipped: build output folder was not found:\n" + sourceDirectory;
+        }
+
+        string gameDirectory = FindGameDirectory();
+        if (string.IsNullOrEmpty(gameDirectory))
+        {
+            return "Auto install skipped: Overcooked! 2 was not found. Copy the folder manually to BepInEx/plugins/OC2DIYLevel/levels.";
+        }
+
+        string targetDirectory = Path.Combine(Path.Combine(gameDirectory, LevelsRelativePath), levelBundlePrefix);
+        bool restartedGame = false;
+        try
+        {
+            ReplaceDirectory(sourceDirectory, targetDirectory);
+        }
+        catch (Exception firstError)
+        {
+            bool closedGame = CloseRunningGame();
+            restartedGame = closedGame;
+            if (!closedGame)
+            {
+                return "Auto install failed:\n" + firstError.Message;
+            }
+
+            try
+            {
+                ReplaceDirectory(sourceDirectory, targetDirectory);
+            }
+            catch (Exception secondError)
+            {
+                return "Auto install failed after closing the game:\n" + secondError.Message;
+            }
+        }
+
+        string message = "Installed to:\n" + targetDirectory;
+        if (restartedGame)
+        {
+            message += "\n\nThe running game was closed because the old level files were locked.";
+            message += RestartGame(gameDirectory);
+        }
+        return message;
+    }
+
+    static void ReplaceDirectory(string sourceDirectory, string targetDirectory)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(targetDirectory));
+        if (Directory.Exists(targetDirectory))
+        {
+            Directory.Delete(targetDirectory, true);
+        }
+        CopyDirectory(sourceDirectory, targetDirectory);
+    }
+
+    static void CopyDirectory(string sourceDirectory, string targetDirectory)
+    {
+        Directory.CreateDirectory(targetDirectory);
+        foreach (string directory in Directory.GetDirectories(sourceDirectory, "*", SearchOption.AllDirectories))
+        {
+            string relativeDirectory = directory.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            Directory.CreateDirectory(Path.Combine(targetDirectory, relativeDirectory));
+        }
+
+        foreach (string file in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
+        {
+            string relativeFile = file.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            string targetFile = Path.Combine(targetDirectory, relativeFile);
+            Directory.CreateDirectory(Path.GetDirectoryName(targetFile));
+            File.Copy(file, targetFile, true);
+        }
+    }
+
+    static bool CloseRunningGame()
+    {
+        bool closedAny = false;
+        foreach (System.Diagnostics.Process process in System.Diagnostics.Process.GetProcessesByName(GameProcessName))
+        {
+            closedAny = true;
+            try
+            {
+                if (!process.HasExited && process.CloseMainWindow())
+                {
+                    process.WaitForExit(10000);
+                }
+                if (!process.HasExited)
+                {
+                    process.Kill();
+                    process.WaitForExit(10000);
+                }
+            }
+            catch (Exception error)
+            {
+                Debug.LogWarning("Failed to close " + GameProcessName + ": " + error.Message);
+            }
+        }
+        return closedAny;
+    }
+
+    static string RestartGame(string gameDirectory)
+    {
+        string exePath = Path.Combine(gameDirectory, GameExeName);
+        if (!File.Exists(exePath))
+        {
+            return "\nGame restart skipped: executable was not found:\n" + exePath;
+        }
+
+        try
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = exePath,
+                WorkingDirectory = gameDirectory,
+            });
+            return "\nGame restarted.";
+        }
+        catch (Exception error)
+        {
+            return "\nGame restart failed:\n" + error.Message;
+        }
+    }
+
+    static string FindGameDirectory()
+    {
+        foreach (string steamRoot in FindSteamRoots())
+        {
+            string candidate = Path.Combine(steamRoot, "steamapps/common/" + GameFolderName);
+            if (File.Exists(Path.Combine(candidate, GameExeName)))
+            {
+                return candidate;
+            }
+
+            string libraryFolders = Path.Combine(steamRoot, "steamapps/libraryfolders.vdf");
+            if (File.Exists(libraryFolders))
+            {
+                string text = File.ReadAllText(libraryFolders);
+                foreach (System.Text.RegularExpressions.Match match in System.Text.RegularExpressions.Regex.Matches(text, "\\\"path\\\"\\s+\\\"([^\\\"]+)\\\""))
+                {
+                    candidate = Path.Combine(match.Groups[1].Value.Replace("\\\\", "\\"), "steamapps/common/" + GameFolderName);
+                    if (File.Exists(Path.Combine(candidate, GameExeName)))
+                    {
+                        return candidate;
+                    }
+                }
+            }
+        }
+
+        foreach (string drive in Directory.GetLogicalDrives())
+        {
+            string candidate = Path.Combine(drive, "SteamLibrary/steamapps/common/" + GameFolderName);
+            if (File.Exists(Path.Combine(candidate, GameExeName)))
+            {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
+    static IEnumerable<string> FindSteamRoots()
+    {
+        List<string> roots = new List<string>();
+        string[] registryPaths =
+        {
+            @"HKEY_CURRENT_USER\Software\Valve\Steam",
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam",
+            @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam",
+        };
+        foreach (string registryPath in registryPaths)
+        {
+            try
+            {
+                object value = Registry.GetValue(registryPath, "SteamPath", null);
+                if (value == null)
+                {
+                    value = Registry.GetValue(registryPath, "InstallPath", null);
+                }
+                if (value != null)
+                {
+                    roots.Add(value.ToString().Replace("/", "\\"));
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        roots.Add(@"C:\Program Files (x86)\Steam");
+        roots.Add(@"C:\Program Files\Steam");
+        roots.Add(@"D:\SteamLibrary");
+        roots.Add(@"E:\SteamLibrary");
+        roots.Add(@"F:\SteamLibrary");
+        return roots;
+    }
     [MenuItem("Tools/Reload Pseudo Assets", false, 10)]
     static void ReloadPseudoAssets()
     {
