@@ -85,6 +85,7 @@ namespace LevelEditor
 
         public void Init()
         {
+            EnsureRuntimeCollections();
             initializing = true;
 
             if (!EnsureLoadAllAssetBundles())
@@ -120,17 +121,28 @@ namespace LevelEditor
 
         public void DeInit()
         {
+            EnsureRuntimeCollections();
             UnSetAssetRef();
             ClearAllPseudoPrefabs();
             RuntimePrefabManager.ClearAllRuntimePrefabs();
-            foreach (var key in bundleDict.Keys.ToArray())
+            if (bundleDict != null)
             {
-                UnloadAssetBundle(key);
+                foreach (var key in bundleDict.Keys.ToArray())
+                {
+                    UnloadAssetBundle(key);
+                }
+                bundleDict.Clear();
             }
-            bundleDict.Clear();
-            sharedBundleNames.Clear();
-            editedMaterials.Clear();
+            if (sharedBundleNames != null) sharedBundleNames.Clear();
+            if (editedMaterials != null) editedMaterials.Clear();
             assetBundleManifest = null;
+        }
+
+        private void EnsureRuntimeCollections()
+        {
+            if (bundleDict == null) bundleDict = new Dictionary<string, AssetBundle>();
+            if (sharedBundleNames == null) sharedBundleNames = new HashSet<string>();
+            if (editedMaterials == null) editedMaterials = new Dictionary<string, Material>();
         }
 
         private bool EnsureLoadAllAssetBundles()
@@ -448,6 +460,7 @@ namespace LevelEditor
 
         private AssetBundle LoadAssetBundle(string assetBundleName, bool isLoadingAssetBundleManifest = false)
         {
+            EnsureRuntimeCollections();
             if (bundleDict.ContainsKey(assetBundleName) && bundleDict[assetBundleName] != null)
             {
                 //Debug.Log("Loaded Asset Bundle : " + assetBundleName);
@@ -466,7 +479,7 @@ namespace LevelEditor
             }
             if (!isLoadingAssetBundleManifest)
             {
-                string[] allDependencies = assetBundleManifest.GetAllDependencies(assetBundleName);
+                string[] allDependencies = GetBundleDependencies(assetBundleName);
                 for (int j = 0; j < allDependencies.Length; j++)
                 {
                     if (!bundleDict.ContainsKey(allDependencies[j]) || bundleDict[allDependencies[j]] == null)
@@ -476,8 +489,36 @@ namespace LevelEditor
             return bundleDict[assetBundleName];
         }
 
+        private string[] GetBundleSearchRoots()
+        {
+            return new[]
+            {
+                Path.Combine(Application.streamingAssetsPath, "Windows").Replace("\\", "/"),
+                Path.GetFullPath(Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Assets/AssetBundles")).Replace("\\", "/"),
+            };
+        }
+
+        private string[] GetBundleDependencies(string assetBundleName)
+        {
+            if (assetBundleManifest == null)
+            {
+                return new string[0];
+            }
+
+            try
+            {
+                return assetBundleManifest.GetAllDependencies(assetBundleName) ?? new string[0];
+            }
+            catch (Exception error)
+            {
+                Debug.LogWarning("Skipping AssetBundle manifest dependencies for " + assetBundleName + ": " + error.Message);
+                return new string[0];
+            }
+        }
+
         private void LoadAssetBundleInternal(string assetBundleName)
         {
+            EnsureRuntimeCollections();
             if (bundleDict.ContainsKey(assetBundleName) && bundleDict[assetBundleName] != null)
             {
                 return;
@@ -491,14 +532,25 @@ namespace LevelEditor
                 return;
             }
 
-            string path = Path.Combine(Application.streamingAssetsPath, "Windows/" + assetBundleName).Replace("\\", "/");
+            AssetBundle assetBundle = null;
+            string loadedPath = null;
+            string[] bundleSearchRoots = GetBundleSearchRoots();
+            foreach (string root in bundleSearchRoots)
+            {
+                string path = Path.Combine(root, assetBundleName).Replace("\\", "/");
+                if (!File.Exists(path))
+                {
+                    continue;
+                }
 
-            //FileInfo fileInfo = new FileInfo(path);
-            //long fileSizeInBytes = fileInfo.Length;
-            //double fileSizeInMB = fileSizeInBytes / 1024.0 / 1024.0;
-            //Debug.Log(string.Format("Loading bundle: {0}, size (MB): {1:F1}", assetBundleName, fileSizeInMB));
+                assetBundle = AssetBundle.LoadFromFile(path);
+                if (assetBundle != null)
+                {
+                    loadedPath = path;
+                    break;
+                }
+            }
 
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
             if (assetBundle == null)
             {
                 loadedAssetBundle = FindLoadedAssetBundle(assetBundleName);
@@ -508,11 +560,19 @@ namespace LevelEditor
                     sharedBundleNames.Add(assetBundleName);
                     return;
                 }
-                Debug.LogError(string.Format("{0} is not a valid asset bundle. Loaded bundles: {1}", assetBundleName, string.Join(" ", AssetBundle.GetAllLoadedAssetBundles().Select(x => x.name).ToArray())));
+                Debug.LogError(string.Format(
+                    "{0} is not a valid asset bundle. Tried: {1}. Loaded bundles: {2}",
+                    assetBundleName,
+                    string.Join(" | ", bundleSearchRoots.Select(root => Path.Combine(root, assetBundleName).Replace("\\", "/")).ToArray()),
+                    string.Join(" ", AssetBundle.GetAllLoadedAssetBundles().Select(x => x.name).ToArray())));
             }
             else
             {
                 bundleDict.SafeAdd(assetBundleName, assetBundle);
+                if (!string.IsNullOrEmpty(loadedPath))
+                {
+                    Debug.Log("Loaded asset bundle " + assetBundleName + " from " + loadedPath);
+                }
             }
         }
 
