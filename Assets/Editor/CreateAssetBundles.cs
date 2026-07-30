@@ -276,11 +276,23 @@ public static class CreateAssetBundles
 
         foreach (string file in Directory.GetFiles(sourceDirectory, "*", SearchOption.AllDirectories))
         {
+            if (ShouldSkipInstalledFile(file))
+            {
+                continue;
+            }
+
             string relativeFile = file.Substring(sourceDirectory.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             string targetFile = Path.Combine(targetDirectory, relativeFile);
             Directory.CreateDirectory(Path.GetDirectoryName(targetFile));
             File.Copy(file, targetFile, true);
         }
+    }
+
+    static bool ShouldSkipInstalledFile(string filePath)
+    {
+        string extension = Path.GetExtension(filePath);
+        return string.Equals(extension, ".manifest", StringComparison.OrdinalIgnoreCase)
+            || string.Equals(extension, ".meta", StringComparison.OrdinalIgnoreCase);
     }
 
     static bool CloseRunningGame()
