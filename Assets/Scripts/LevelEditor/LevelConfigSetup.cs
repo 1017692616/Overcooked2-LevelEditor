@@ -145,15 +145,23 @@ namespace LevelEditor
                     //sceneVarients.SceneName = string.Format("DIYLevel/{0}/{1}", levelSetInfo.levelSetName, levelInfo.sceneName);
                     sceneVarients.Screenshot = levelInfo.screenshot;
                     LevelConfigSetupPerPlayerCountSO configSetupPerPlayerCount = GetConfigPerPlayerCount(levelInfo, i + 1);
-                    sceneVarients.GetType()
-                        .GetField("m_PCStarBoundaries", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
-                        .SetValue(sceneVarients, new SceneDirectoryData.StarBoundaries
+                    FieldInfo pcStarBoundariesField = sceneVarients.GetType()
+                        .GetField("m_PCStarBoundaries", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+                    SceneDirectoryData.StarBoundaries starBoundaries = new SceneDirectoryData.StarBoundaries
                         {
                             m_OneStarScore = configSetupPerPlayerCount.m_OneStarScore,
                             m_TwoStarScore = configSetupPerPlayerCount.m_TwoStarScore,
                             m_ThreeStarScore = configSetupPerPlayerCount.m_ThreeStarScore,
                             m_FourStarScore = configSetupPerPlayerCount.m_FourStarScore,
-                        });
+                        };
+                    if (pcStarBoundariesField != null)
+                    {
+                        pcStarBoundariesField.SetValue(sceneVarients, starBoundaries);
+                    }
+                    else
+                    {
+                        sceneVarients.m_PCStarBoundaries = starBoundaries;
+                    }
                     entry.SceneVarients[i] = sceneVarients;
                 }
                 entries.Add(entry);

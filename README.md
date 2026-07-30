@@ -54,6 +54,10 @@ Reflection-based setup supports both public and private fields because decompile
 
 Play Mode cleanup tolerates missing template components during Unity script reloads so stale prefab state does not create a burst of secondary errors before the next run.
 
+Play Mode startup defensively initializes editor-side message mailboxes, keeps keyboard input available when the full debug manager has not bootstrapped yet, and writes score boundaries through either public or private decompiled fields.
+
+Play Mode 启动现在会防御性初始化编辑器侧消息邮箱列表；当完整 debug manager 尚未启动时仍保留键盘输入；分数星级边界也会兼容 public/private 两种反编译字段。
+
 Play Mode 清理阶段会容忍脚本重载时缺失的模板组件，避免旧 prefab 状态在下一次运行前制造大量次生错误。
 
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
