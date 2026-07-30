@@ -371,6 +371,23 @@ python tools/generate_dlc_assets.py --game-streaming-assets "你的游戏目录\
 4. 点击 `Tools > Reload Pseudo Assets`。
 5. 重启 Unity 再试。
 
+## 现在的 DLC 本地打包流程
+
+如果你想把真实 DLC 菜谱打进当前关卡包，而不是继续引用 `bundle404` 这类原始 DLC 指针，可以这样做：
+
+1. 打开目标关卡场景，确认它已经设置好自己的 `AssetBundle` 名称。
+2. 在 Unity 菜单点击 `Tools > OC2 DLC > Import DLC09 Assets For Current Level`。
+3. 工具会从你本机的 AssetRipper 导出目录复制真实 DLC09 菜谱、RecipeMatchList、CookingStepData 和依赖资源到：
+
+   ```text
+   Assets/LevelSets/你的关卡/dlc_assets_local
+   ```
+
+4. 工具会自动生成对应的 `PseudoPrefabSORecipe` 参考文件，后面把这些参考文件拖进 `LevelInfoSO.recipes` 即可。
+5. 然后使用 `Tools > Build Current Level AssetBundles`，会同时构建当前场景、`info_*` 和 `dlc_assets` bundle。
+
+这个流程只会生成当前关卡自己的本地 DLC 包，不会影响原有 `common01` / `common02`。
+
 ## 不要提交这些内容
 
 请不要把下面这些提交到公开仓库：

@@ -99,6 +99,11 @@ public static class CreateAssetBundles
             {
                 AddBundleBuild(builds, bundleName);
             }
+            else if (bundleName.StartsWith(levelBundlePrefix + "/", System.StringComparison.OrdinalIgnoreCase) &&
+                     IsNonSceneBundle(bundleName))
+            {
+                AddBundleBuild(builds, bundleName);
+            }
         }
 
         if (builds.Count <= 1)
@@ -126,6 +131,11 @@ public static class CreateAssetBundles
 
     static void AddBundleBuild(List<AssetBundleBuild> builds, string bundleName)
     {
+        if (builds.Any(x => x.assetBundleName == bundleName))
+        {
+            return;
+        }
+
         string[] assetNames = AssetDatabase.GetAssetPathsFromAssetBundle(bundleName);
         if (assetNames == null || assetNames.Length == 0)
         {
@@ -167,6 +177,17 @@ public static class CreateAssetBundles
             }
         }
         return expandedPaths.ToArray();
+    }
+
+    static bool IsNonSceneBundle(string bundleName)
+    {
+        string[] assetNames = AssetDatabase.GetAssetPathsFromAssetBundle(bundleName);
+        if (assetNames == null || assetNames.Length == 0)
+        {
+            return false;
+        }
+
+        return !assetNames.Any(x => x.EndsWith(".unity", System.StringComparison.OrdinalIgnoreCase));
     }
 
     [MenuItem("Tools/Reload Pseudo Assets", false, 10)]

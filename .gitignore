@@ -12,6 +12,8 @@
 /[Aa]ssets/Testing/
 /[Aa]ssets/Testing.meta
 /.oc2-tools/
+/[Aa]ssets/[Ll]evel[Ss]ets/*/dlc_assets_local/
+/[Aa]ssets/[Ll]evel[Ss]ets/*/dlc_assets_local.meta
 
 .utmp/
 /[Ll]ibrary/
