@@ -27,6 +27,10 @@ namespace LevelEditor
                 KeyboardBindings defaultKeyboardBindings = (KeyboardBindings)typeof(PCPadInputProvider)
                     .GetField("m_DefaultKeyboardBindings", BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic)
                     .GetValue(null);
+                if (defaultKeyboardBindings == null || defaultKeyboardBindings.m_CombinedKeyboard == null)
+                {
+                    return;
+                }
                 defaultKeyboardBindings.m_CombinedKeyboard.m_ButtonBindings[ControlPadInput.Button.A] = new List<Key> { debugKeyPickup };
                 defaultKeyboardBindings.m_CombinedKeyboard.m_ButtonBindings[ControlPadInput.Button.X] = new List<Key> { debugKeyInteract };
                 defaultKeyboardBindings.m_CombinedKeyboard.m_ButtonBindings[ControlPadInput.Button.B] = new List<Key> { debugKeyDash };

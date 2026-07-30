@@ -36,6 +36,10 @@ Runtime note: when Unity reloads scripts or re-enters Play Mode, already loaded 
 
 运行说明：Unity 重新加载脚本或重新进入 Play Mode 时，会复用已经加载的 AssetBundle，避免重复加载同名 bundle。如果编辑器提示无法加载 `Windows` bundle，请确认 `Assets/StreamingAssets/Windows` 指向游戏目录里的 `Overcooked2_Data/StreamingAssets/Windows` 文件夹，然后重启 Unity 再测试。
 
+If duplicate bundle errors continue after a script reload, exit Play Mode and reopen the project so Unity releases bundles that were loaded before the current scripts were compiled.
+
+如果脚本重载后仍然提示重复加载 bundle，请先退出 Play Mode 并重新打开项目，让 Unity 释放旧脚本版本加载过的 bundle。
+
 编辑器运行时会加载游戏原始 AssetBundle。请将游戏目录中的 `Overcooked2_Data/StreamingAssets/Windows` 复制到：
 
 ```text

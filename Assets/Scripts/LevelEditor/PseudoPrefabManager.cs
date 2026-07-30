@@ -27,6 +27,7 @@ namespace LevelEditor
         public static PseudoPrefabManager Instance;
 
         private Dictionary<string, AssetBundle> bundleDict = new Dictionary<string, AssetBundle>();
+        private HashSet<string> sharedBundleNames = new HashSet<string>();
         private AssetBundleManifest assetBundleManifest = null;
 
         public Dictionary<string, Material> editedMaterials = new Dictionary<string, Material>();
@@ -127,6 +128,7 @@ namespace LevelEditor
                 UnloadAssetBundle(key);
             }
             bundleDict.Clear();
+            sharedBundleNames.Clear();
             editedMaterials.Clear();
             assetBundleManifest = null;
         }
@@ -474,10 +476,11 @@ namespace LevelEditor
                 return;
             }
 
-            AssetBundle loadedAssetBundle = AssetBundle.GetAllLoadedAssetBundles().FirstOrDefault(x => x.name == assetBundleName);
+            AssetBundle loadedAssetBundle = FindLoadedAssetBundle(assetBundleName);
             if (loadedAssetBundle != null)
             {
                 bundleDict.SafeAdd(assetBundleName, loadedAssetBundle);
+                sharedBundleNames.Add(assetBundleName);
                 return;
             }
 
@@ -491,7 +494,14 @@ namespace LevelEditor
             AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
             if (assetBundle == null)
             {
-                Debug.LogError(string.Format("{0} is not a valid asset bundle.", assetBundleName));
+                loadedAssetBundle = FindLoadedAssetBundle(assetBundleName);
+                if (loadedAssetBundle != null)
+                {
+                    bundleDict.SafeAdd(assetBundleName, loadedAssetBundle);
+                    sharedBundleNames.Add(assetBundleName);
+                    return;
+                }
+                Debug.LogError(string.Format("{0} is not a valid asset bundle. Loaded bundles: {1}", assetBundleName, string.Join(" ", AssetBundle.GetAllLoadedAssetBundles().Select(x => x.name).ToArray())));
             }
             else
             {
@@ -499,11 +509,27 @@ namespace LevelEditor
             }
         }
 
+        private AssetBundle FindLoadedAssetBundle(string assetBundleName)
+        {
+            foreach (AssetBundle assetBundle in AssetBundle.GetAllLoadedAssetBundles())
+            {
+                string loadedName = assetBundle.name.Replace("\\", "/");
+                string loadedFileName = Path.GetFileName(loadedName);
+                if (string.Equals(loadedName, assetBundleName, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(loadedFileName, assetBundleName, StringComparison.OrdinalIgnoreCase) ||
+                    loadedName.EndsWith("/" + assetBundleName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return assetBundle;
+                }
+            }
+            return null;
+        }
+
         private void UnloadAssetBundle(string assetBundleName)
         {
             if (bundleDict.ContainsKey(assetBundleName))
             {
-                if (bundleDict[assetBundleName] != null)
+                if (bundleDict[assetBundleName] != null && !sharedBundleNames.Contains(assetBundleName))
                 {
                     bundleDict[assetBundleName].Unload(true);
                     //Debug.Log(assetBundleName + " has been unloaded successfully.");
@@ -513,6 +539,7 @@ namespace LevelEditor
                     //Debug.Log(assetBundleName + " to be unloaded is null.");
                 }
                 bundleDict.Remove(assetBundleName);
+                sharedBundleNames.Remove(assetBundleName);
             }
             else
             {
