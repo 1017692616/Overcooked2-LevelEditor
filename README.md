@@ -380,6 +380,16 @@ python tools/generate_dlc_assets.py --game-streaming-assets "你的游戏目录\
 4. 点击 `Tools > Reload Pseudo Assets`。
 5. 重启 Unity 再试。
 
+如果 Console 一直刷：
+
+```text
+transform.position assign attempt for 'MultiplayerGameCamera' is not valid. Input position is { NaN, NaN, NaN }.
+```
+
+这是 Play 刚启动时玩家对象还没生成，相机脚本拿空玩家列表计算位置导致的。项目已经在 `Assembly-CSharp-Patch/MultiplayerCamera.cs` 做了保护：没有玩家时相机会先保持稳定位置，等玩家出现后再跟随。如果你是刚下载项目的新用户，重新运行 `tools/setup_windows.ps1`，或手动把 `Assembly-CSharp-Patch` 覆盖到 `Assets/Scripts/Assembly-CSharp`，然后退出 Play 再重新进入。
+
+If the Console keeps printing `MultiplayerGameCamera` NaN position errors, the camera is running before any player avatar exists. The patch in `Assembly-CSharp-Patch/MultiplayerCamera.cs` guards that startup state. Re-run `tools/setup_windows.ps1`, or copy `Assembly-CSharp-Patch` over `Assets/Scripts/Assembly-CSharp`, then exit and enter Play Mode again.
+
 ## DLC 菜单引用方式
 
 菜单、厨具、食材这些 DLC 资源本身就在游戏的 `StreamingAssets/Windows` 里。默认不要把它们重新打进关卡包，而是使用轻量引用，例如 DLC09 会指向游戏自带的 `bundle404`。
