@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
+  m_Name: LevelInfo_Clean_Kitchen_1
+  m_EditorClassIdentifier:
+  levelName: Clean Kitchen
+  levelNameZH: 干净厨房
+  screenshot: {fileID: 0}
+  sceneName: s_clean_kitchen_1
+  recipes:
+  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
+  useScore2: 0
+  debugRecipeCount: 0
+  optionalRecipeMatchListItems: []
+  disableDynamicParenting: 1
+  config_1p: {fileID: 11400000, guid: 349a2ff4e21d4e3f8783234795e37db2, type: 2}
+  config_2p: {fileID: 11400000, guid: ca6d64c932cf4bf6a37aab51f207fcfb, type: 2}
+  config_3p: {fileID: 11400000, guid: e4ffa1403cd546a79d55807f74dfb24d, type: 2}
+  config_4p: {fileID: 11400000, guid: 326de0b4ae9c4161ad88fec1db025b51, type: 2}
+  dependencies:
+  - bundle47

@@ -272,6 +272,15 @@ DLC 调味料机、饮料机等通常使用 `PseudoPrefabPlacementDispenser`，�
 
 不要直接编辑加载出来的临时真实物体。多数真实物体是运行时从游戏 bundle 加载的，应该改它旁边或父级上的 `PseudoPrefab...Stub` 配置。
 
+
+Clean starter map:
+
+```text
+Assets/LevelSets/clean_kitchen/scenes/s_clean_kitchen_1.unity
+```
+
+`Clean Kitchen` / `干净厨房` is a small clean template level with the default floor, base manager setup, and the burger recipe. Use it as the safe starting point for a new custom level.
+
 ## 测试关卡
 
 1. 打开你的关卡场景。

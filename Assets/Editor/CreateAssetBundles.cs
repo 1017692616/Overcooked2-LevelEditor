@@ -234,36 +234,41 @@ public static class CreateAssetBundles
 
     static bool ValidateCurrentLevelSceneContents(Scene scene)
     {
+        if (string.IsNullOrEmpty(scene.path) || !File.Exists(scene.path))
+        {
+            return true;
+        }
+
+        int lineCount = 0;
         int chefObjectCount = 0;
         int playerObjectCount = 0;
         bool hasVoiceChat = false;
 
-        foreach (GameObject root in scene.GetRootGameObjects())
+        foreach (string line in File.ReadLines(scene.path))
         {
-            foreach (Transform transform in root.GetComponentsInChildren<Transform>(true))
+            lineCount++;
+            string trimmed = line.Trim();
+            if (trimmed.StartsWith("m_Name: Chef_", StringComparison.OrdinalIgnoreCase))
             {
-                string objectName = transform.gameObject.name;
-                if (objectName.StartsWith("Chef_", StringComparison.OrdinalIgnoreCase))
-                {
-                    chefObjectCount++;
-                }
-                else if (string.Equals(objectName, "player", StringComparison.OrdinalIgnoreCase) ||
-                         objectName.StartsWith("Player_", StringComparison.OrdinalIgnoreCase))
-                {
-                    playerObjectCount++;
-                }
-                else if (string.Equals(objectName, "VoiceChat", StringComparison.OrdinalIgnoreCase))
-                {
-                    hasVoiceChat = true;
-                }
+                chefObjectCount++;
+            }
+            else if (trimmed.Equals("m_Name: player", StringComparison.OrdinalIgnoreCase) ||
+                     trimmed.StartsWith("m_Name: Player_", StringComparison.OrdinalIgnoreCase))
+            {
+                playerObjectCount++;
+            }
+            else if (trimmed.Equals("m_Name: VoiceChat", StringComparison.OrdinalIgnoreCase))
+            {
+                hasVoiceChat = true;
             }
         }
 
-        if (chefObjectCount > 8 || playerObjectCount > 4 || hasVoiceChat)
+        if (lineCount > 20000 && (chefObjectCount > 20 || playerObjectCount > 4 || hasVoiceChat))
         {
             string message =
                 "This scene appears to contain imported Overcooked runtime objects instead of only DIY level objects.\n\n" +
                 "Detected:\n" +
+                "- Scene file lines: " + lineCount + "\n" +
                 "- Chef objects: " + chefObjectCount + "\n" +
                 "- Player objects: " + playerObjectCount + "\n" +
                 "- VoiceChat HUD: " + (hasVoiceChat ? "yes" : "no") + "\n\n" +
