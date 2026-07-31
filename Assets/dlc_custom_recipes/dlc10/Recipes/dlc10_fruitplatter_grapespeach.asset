@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fb008bcc8e793429b02c178c430815, type: 3}
+  m_Name: dlc10_fruitplatter_grapespeach
+  m_EditorClassIdentifier: 
+  compositionSOs:
+  - {fileID: 11400000, guid: ec2c5edd003e9af857add21929dff0b1, type: 2}
+  - {fileID: 11400000, guid: 71bc538fa44f134db22dd233e504348e, type: 2}
+  cookingStepSO: {fileID: 0}
+  cookingStepIconSO: {fileID: 0}
+  cookingStepIcon: {fileID: 0}
+  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  modelSO: {fileID: 11400000, guid: a232cdb13bf97559b26dddae38f519e7, type: 2}
+  model: {fileID: 0}
+  iconSO: {fileID: 11400000, guid: 7067d9529602471ccc1deecb9ff2dbd9, type: 2}
+  icon: {fileID: 0}
+  recipeName: dlc10_fruitplatter_grapespeach
+  uID: 101590
+  score: 60

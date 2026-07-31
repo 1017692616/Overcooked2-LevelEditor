@@ -382,12 +382,20 @@ python tools/generate_dlc_assets.py --game-streaming-assets "你的游戏目录\
 
 ## DLC 菜单引用方式
 
-菜单、厨具、食材这些 DLC 资源本身就在游戏的 `StreamingAssets/Windows` 里。默认不要把它们重新打进关卡包，而是使用 `Assets/dlc` 里的轻量引用，例如 DLC09 会指向游戏自带的 `bundle404`。
+菜单、厨具、食材这些 DLC 资源本身就在游戏的 `StreamingAssets/Windows` 里。默认不要把它们重新打进关卡包，而是使用轻量引用，例如 DLC09 会指向游戏自带的 `bundle404`。
+
+如果只是想给关卡添加 DLC 顶部订单，推荐直接使用：
+
+```text
+Assets/dlc_custom_recipes/dlcXX/Recipes
+```
+
+这里的每个 `.asset` 都是项目生成好的 `CustomRecipeSO` 包装资产。它只保存菜谱名、分数、UID、bundle 名、游戏内资源路径和轻量引用，不包含 DLC 模型、贴图、音频或原始 AssetBundle。把这些资产拖到当前关卡 `LevelInfoSO.recipes` 数组里，构建后旧版 `OC2DIYLevel` 也能识别并显示顶部菜单。
 
 1. 打开目标关卡场景。
-2. 在 Unity 菜单点击 `Tools > OC2 DLC > Import DLC09 Assets For Current Level`。
-3. 工具会把 DLC09 菜谱、RecipeMatchList 和 CookingStepData 引用加入当前 `LevelInfoSO`。
-4. 然后使用 `Tools > Build Current Level AssetBundles` 构建当前关卡。
+2. 在 Project 面板打开 `Assets/dlc_custom_recipes/dlcXX/Recipes`。
+3. 选中当前关卡的 `LevelInfoSO`，把需要的 DLC 菜谱拖进 `recipes`。
+4. 使用 `Tools > Build Current Level AssetBundles` 构建当前关卡。
 
 这个默认流程不会生成 `dlc_assets` 本地包，也不会在关卡包里新增 DLC 资源副本。只有当你真的改了游戏原始资源，才使用 `Tools > OC2 DLC > Import DLC09 Assets For Current Level (Legacy Local Bundle)` 这种旧流程。
 
@@ -423,10 +431,26 @@ PROJECT_CONSTITUTION.md
 release
 ```
 
-## Dependency note
+## 依赖自动处理 / Dependency note
 
-If a level references DLC recipes or other game-bundled pseudo assets, the build step now auto-adds each referenced bundle name to `LevelInfoSO.dependencies`.
+如果关卡引用了 DLC 菜谱或其他游戏内 pseudo asset，构建步骤会自动把这些资源所在的 bundle 名加入 `LevelInfoSO.dependencies`。
 
-That means creators can keep using game-owned assets from `Assets/dlc/...` and `Assets/common...` without manually remembering to add the bundle by hand.
+If a level references DLC recipes or other game-bundled pseudo assets, the build step auto-adds each referenced bundle name to `LevelInfoSO.dependencies`.
 
-For the current `Clean Kitchen` sample, the level now depends on both `bundle47` and `bundle247`, so the DLC05 recipe can load in Play mode and in the built level package.
+这意味着作者可以继续使用 `Assets/dlc_custom_recipes`、`Assets/dlc/...` 和 `Assets/common...` 里的轻量引用，不需要手动记住每个资源在哪个 `bundleXXX` 里。
+
+That means creators can keep using lightweight references from `Assets/dlc_custom_recipes`, `Assets/dlc/...`, and `Assets/common...` without manually remembering the source bundle for each resource.
+
+## DLC CustomRecipe 转换 / DLC CustomRecipe conversion
+
+`Tools > Build Current Level AssetBundles` 会在构建前运行 `tools/generate_dlc_custom_recipes.py`。脚本会扫描本机已安装游戏的 bundle，并在 `Assets/dlc_custom_recipes` 下生成轻量 `CustomRecipeSO` 包装资产。
+
+`Tools > Build Current Level AssetBundles` runs `tools/generate_dlc_custom_recipes.py` before building. The script scans the locally installed game bundles and generates lightweight `CustomRecipeSO` wrappers under `Assets/dlc_custom_recipes`.
+
+构建时，如果 `LevelInfoSO.recipes` 里仍然放着 DLC `PseudoPrefabSORecipe`，工具会自动替换成对应的生成版 `CustomRecipeSO`。这样构建出的关卡可以兼容原始 `OC2DIYLevel` 运行时，因为它认识 `CustomRecipeSO` 和 `optionalRecipeMatchListItems`，但不认识项目后来新增的 `dlcRecipeMatchListSOs` 辅助字段。
+
+During the same build step, DLC `PseudoPrefabSORecipe` entries in `LevelInfoSO.recipes` are replaced with the generated `CustomRecipeSO` assets. This keeps built levels compatible with the original OC2DIYLevel runtime, which already understands `CustomRecipeSO` and `optionalRecipeMatchListItems`, but does not understand the newer `dlcRecipeMatchListSOs` helper field.
+
+当前已生成所有带固定配方组成、可以作为顶部订单显示的 DLC 菜谱。少数 `optional...` 和 `permutation...` 资源是匹配辅助模板，不是完整顶部订单，因此不会直接出现在 `recipes` 里。
+
+All DLC recipes with fixed compositions and real top-order UI are generated. A small number of `optional...` and `permutation...` assets are match-list helper templates rather than complete top-order recipes, so they are not added directly to `recipes`.

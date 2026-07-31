@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fb008bcc8e793429b02c178c430815, type: 3}
+  m_Name: onioncarrotpotatosoup
+  m_EditorClassIdentifier: 
+  compositionSOs:
+  - {fileID: 11400000, guid: 4a137a377ab788c3092e4fbafd561bdd, type: 2}
+  - {fileID: 11400000, guid: d52fbdbe5abb90f5f8e17c5e1a665533, type: 2}
+  - {fileID: 11400000, guid: 283c758be4cc5ff93dc9a15085cf235b, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 8687a65ff3d0dd94c91818e822af0aa4, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  cookingStepIcon: {fileID: 0}
+  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  modelSO: {fileID: 11400000, guid: e3a48bd3d7d677b2443defe64b065648, type: 2}
+  model: {fileID: 0}
+  iconSO: {fileID: 11400000, guid: f7d048f31e2c98e7690fa4a01dd96dad, type: 2}
+  icon: {fileID: 0}
+  recipeName: onioncarrotpotatosoup
+  uID: 11773
+  score: 60

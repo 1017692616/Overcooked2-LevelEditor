@@ -290,10 +290,14 @@ public static class CreateAssetBundles
             return;
         }
 
+        RunDlcCustomRecipeGenerator();
+        AssetDatabase.Refresh();
+
         bool changed = false;
         changed |= NormalizePseudoPrefabs(levelInfo.recipes, true);
         changed |= NormalizePseudoPrefabs(levelInfo.dlcRecipeMatchListSOs, false);
         changed |= NormalizePseudoPrefabs(levelInfo.dlcCookingStepSOs, false);
+        changed |= ReplaceDlcRecipesWithGeneratedCustomRecipes(levelInfo);
         changed |= EnsureReferencedBundleDependencies(levelInfo);
 
         if (levelInfo.dependencies != null)
@@ -314,6 +318,115 @@ public static class CreateAssetBundles
         }
     }
 
+    static void RunDlcCustomRecipeGenerator()
+    {
+        string gameDirectory = FindGameDirectory();
+        if (string.IsNullOrEmpty(gameDirectory))
+        {
+            Debug.LogWarning("DLC CustomRecipeSO generation skipped: Overcooked! 2 was not found.");
+            return;
+        }
+
+        string streamingAssets = Path.Combine(gameDirectory, "Overcooked2_Data/StreamingAssets/Windows");
+        if (!Directory.Exists(streamingAssets))
+        {
+            Debug.LogWarning("DLC CustomRecipeSO generation skipped: StreamingAssets/Windows was not found: " + streamingAssets);
+            return;
+        }
+
+        string python = FindPythonCommand();
+        if (string.IsNullOrEmpty(python))
+        {
+            Debug.LogWarning("DLC CustomRecipeSO generation skipped: Python was not found.");
+            return;
+        }
+
+        string projectRoot = Directory.GetParent(Application.dataPath).FullName;
+        string scriptPath = Path.Combine(projectRoot, "tools/generate_dlc_custom_recipes.py");
+        if (!File.Exists(scriptPath))
+        {
+            Debug.LogWarning("DLC CustomRecipeSO generation skipped: script was not found: " + scriptPath);
+            return;
+        }
+
+        string arguments =
+            (python == "py" ? "-3 " : string.Empty) +
+            Quote(scriptPath) +
+            " --game-streaming-assets " + Quote(streamingAssets) +
+            " --project-assets " + Quote(Application.dataPath) +
+            " --output " + Quote(Path.Combine(projectRoot, "Assets/dlc_custom_recipes"));
+        ProcessResult result = RunProcess(python, arguments, projectRoot);
+        if (result.ExitCode != 0)
+        {
+            Debug.LogWarning("DLC CustomRecipeSO generation failed:\n" + result.Output);
+            return;
+        }
+
+        Debug.Log("DLC CustomRecipeSO generation complete:\n" + LastLines(result.Output, 6));
+    }
+
+    static bool ReplaceDlcRecipesWithGeneratedCustomRecipes(LevelEditorStub.LevelInfoSO levelInfo)
+    {
+        if (levelInfo == null || levelInfo.recipes == null)
+        {
+            return false;
+        }
+
+        bool changed = false;
+        for (int i = 0; i < levelInfo.recipes.Length; i++)
+        {
+            LevelEditorStub.PseudoPrefabSORecipe recipe = levelInfo.recipes[i] as LevelEditorStub.PseudoPrefabSORecipe;
+            if (recipe == null || string.IsNullOrEmpty(recipe.assetPath))
+            {
+                continue;
+            }
+
+            string generatedPath = GetGeneratedCustomRecipePath(recipe.assetPath);
+            if (string.IsNullOrEmpty(generatedPath))
+            {
+                continue;
+            }
+
+            LevelEditorStub.CustomRecipeSO customRecipe = AssetDatabase.LoadAssetAtPath<LevelEditorStub.CustomRecipeSO>(generatedPath);
+            if (customRecipe == null)
+            {
+                Debug.LogWarning("DLC recipe has no generated CustomRecipeSO yet: " + recipe.assetPath);
+                continue;
+            }
+
+            levelInfo.recipes[i] = customRecipe;
+            changed = true;
+        }
+
+        if (changed)
+        {
+            EditorUtility.SetDirty(levelInfo);
+        }
+
+        return changed;
+    }
+
+    static string GetGeneratedCustomRecipePath(string assetPath)
+    {
+        string normalized = assetPath.Replace("\\", "/");
+        System.Text.RegularExpressions.Match match = System.Text.RegularExpressions.Regex.Match(
+            normalized,
+            @"/downloadablecontent/(dlc\d+)(?:/|$)",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        if (!match.Success)
+        {
+            return null;
+        }
+
+        string recipeName = Path.GetFileNameWithoutExtension(normalized);
+        if (string.IsNullOrEmpty(recipeName))
+        {
+            return null;
+        }
+
+        return "Assets/dlc_custom_recipes/" + match.Groups[1].Value.ToLowerInvariant() + "/Recipes/" + recipeName + ".asset";
+    }
+
     static bool EnsureReferencedBundleDependencies(LevelEditorStub.LevelInfoSO levelInfo)
     {
         if (levelInfo == null)
@@ -326,27 +439,26 @@ public static class CreateAssetBundles
             : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         bool changed = false;
-        IEnumerable<ScriptableObject> referencedAssets = Enumerable.Empty<ScriptableObject>();
+        List<LevelEditorStub.PseudoPrefabSO> referencedAssets = new List<LevelEditorStub.PseudoPrefabSO>();
         if (levelInfo.recipes != null)
         {
-            referencedAssets = referencedAssets.Concat(levelInfo.recipes);
+            AddReferencedPseudoPrefabs(referencedAssets, levelInfo.recipes);
         }
         if (levelInfo.optionalRecipeMatchListItems != null)
         {
-            referencedAssets = referencedAssets.Concat(levelInfo.optionalRecipeMatchListItems);
+            AddReferencedPseudoPrefabs(referencedAssets, levelInfo.optionalRecipeMatchListItems);
         }
         if (levelInfo.dlcRecipeMatchListSOs != null)
         {
-            referencedAssets = referencedAssets.Concat(levelInfo.dlcRecipeMatchListSOs);
+            referencedAssets.AddRange(levelInfo.dlcRecipeMatchListSOs.Where(x => x != null));
         }
         if (levelInfo.dlcCookingStepSOs != null)
         {
-            referencedAssets = referencedAssets.Concat(levelInfo.dlcCookingStepSOs);
+            referencedAssets.AddRange(levelInfo.dlcCookingStepSOs.Where(x => x != null));
         }
 
-        foreach (ScriptableObject referencedAsset in referencedAssets)
+        foreach (LevelEditorStub.PseudoPrefabSO pseudoPrefabSO in referencedAssets)
         {
-            LevelEditorStub.PseudoPrefabSO pseudoPrefabSO = referencedAsset as LevelEditorStub.PseudoPrefabSO;
             if (pseudoPrefabSO == null)
             {
                 continue;
@@ -372,6 +484,45 @@ public static class CreateAssetBundles
         }
 
         return changed;
+    }
+
+    static void AddReferencedPseudoPrefabs(List<LevelEditorStub.PseudoPrefabSO> referencedAssets, IEnumerable<ScriptableObject> assets)
+    {
+        if (assets == null)
+        {
+            return;
+        }
+
+        foreach (ScriptableObject asset in assets)
+        {
+            LevelEditorStub.PseudoPrefabSO pseudoPrefab = asset as LevelEditorStub.PseudoPrefabSO;
+            if (pseudoPrefab != null)
+            {
+                referencedAssets.Add(pseudoPrefab);
+                continue;
+            }
+
+            LevelEditorStub.CustomRecipeSO customRecipe = asset as LevelEditorStub.CustomRecipeSO;
+            if (customRecipe == null)
+            {
+                continue;
+            }
+
+            AddReferencedPseudoPrefabs(referencedAssets, customRecipe.compositionSOs);
+            if (customRecipe.cookingStepSO != null) referencedAssets.Add(customRecipe.cookingStepSO);
+            if (customRecipe.cookingStepIconSO != null) referencedAssets.Add(customRecipe.cookingStepIconSO);
+            if (customRecipe.platingStepSO != null) referencedAssets.Add(customRecipe.platingStepSO);
+            if (customRecipe.modelSO != null) referencedAssets.Add(customRecipe.modelSO);
+            if (customRecipe.iconSO != null) referencedAssets.Add(customRecipe.iconSO);
+
+            LevelEditorStub.CustomRecipeOptionalPizzaSO optionalPizza = customRecipe as LevelEditorStub.CustomRecipeOptionalPizzaSO;
+            if (optionalPizza != null)
+            {
+                if (optionalPizza.doughSO != null) referencedAssets.Add(optionalPizza.doughSO);
+                if (optionalPizza.rawPizzaIngredientPrefabSOs != null) referencedAssets.AddRange(optionalPizza.rawPizzaIngredientPrefabSOs.Where(x => x != null));
+                if (optionalPizza.cookedPizzaIngredientPrefabSOs != null) referencedAssets.AddRange(optionalPizza.cookedPizzaIngredientPrefabSOs.Where(x => x != null));
+            }
+        }
     }
 
     static bool NormalizePseudoPrefabs(ScriptableObject[] assets, bool isRecipe)
@@ -755,6 +906,70 @@ public static class CreateAssetBundles
         roots.Add(@"F:\SteamLibrary");
         return roots;
     }
+
+    static string FindPythonCommand()
+    {
+        ProcessResult python = RunProcess("python", "--version");
+        if (python.ExitCode == 0)
+        {
+            return "python";
+        }
+
+        ProcessResult py = RunProcess("py", "-3 --version");
+        return py.ExitCode == 0 ? "py" : null;
+    }
+
+    static ProcessResult RunProcess(string fileName, string arguments, string workingDirectory = null)
+    {
+        try
+        {
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = fileName,
+                Arguments = arguments,
+                WorkingDirectory = string.IsNullOrEmpty(workingDirectory) ? Directory.GetCurrentDirectory() : workingDirectory,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true,
+            };
+            using (System.Diagnostics.Process process = System.Diagnostics.Process.Start(startInfo))
+            {
+                string output = process.StandardOutput.ReadToEnd() + process.StandardError.ReadToEnd();
+                process.WaitForExit();
+                return new ProcessResult(process.ExitCode, output);
+            }
+        }
+        catch (Exception error)
+        {
+            return new ProcessResult(-1, error.Message);
+        }
+    }
+
+    static string Quote(string value)
+    {
+        return "\"" + value.Replace("\"", "\\\"") + "\"";
+    }
+
+    static string LastLines(string text, int count)
+    {
+        string[] lines = text.Replace("\r", string.Empty).Split('\n');
+        int start = Math.Max(0, lines.Length - count - 1);
+        return string.Join("\n", lines, start, lines.Length - start);
+    }
+
+    private struct ProcessResult
+    {
+        public int ExitCode;
+        public string Output;
+
+        public ProcessResult(int exitCode, string output)
+        {
+            ExitCode = exitCode;
+            Output = output ?? string.Empty;
+        }
+    }
+
     [MenuItem("Tools/Reload Pseudo Assets", false, 10)]
     static void ReloadPseudoAssets()
     {

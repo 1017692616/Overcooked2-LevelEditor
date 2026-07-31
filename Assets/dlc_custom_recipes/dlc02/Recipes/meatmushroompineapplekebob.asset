@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fb008bcc8e793429b02c178c430815, type: 3}
+  m_Name: meatmushroompineapplekebob
+  m_EditorClassIdentifier: 
+  compositionSOs:
+  - {fileID: 11400000, guid: 41b8b4260bae18a56556ab3f0f0b57d6, type: 2}
+  - {fileID: 11400000, guid: a47a62513ed1e2e90b3c7fa7fb9d6ca1, type: 2}
+  - {fileID: 11400000, guid: c46abebc58aee0e0c219d30bb258238e, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 9da2f1b1da6ca42646bc83e7974f198f, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: b0d5c41c8e5ca9cfc3ba39eeac0b071b, type: 2}
+  cookingStepIcon: {fileID: 0}
+  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  modelSO: {fileID: 11400000, guid: 75b6cdd7913de795ad6e4ee103dee2b8, type: 2}
+  model: {fileID: 0}
+  iconSO: {fileID: 11400000, guid: e8aecf316507e432bc988c2165408a7a, type: 2}
+  icon: {fileID: 0}
+  recipeName: meatmushroompineapplekebob
+  uID: 288662
+  score: 60
