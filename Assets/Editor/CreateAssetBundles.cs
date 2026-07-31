@@ -244,7 +244,7 @@ public static class CreateAssetBundles
         int playerObjectCount = 0;
         bool hasVoiceChat = false;
 
-        foreach (string line in File.ReadLines(scene.path))
+        foreach (string line in File.ReadAllLines(scene.path))
         {
             lineCount++;
             string trimmed = line.Trim();
