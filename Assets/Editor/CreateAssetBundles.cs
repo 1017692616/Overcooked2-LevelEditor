@@ -294,6 +294,7 @@ public static class CreateAssetBundles
         changed |= NormalizePseudoPrefabs(levelInfo.recipes, true);
         changed |= NormalizePseudoPrefabs(levelInfo.dlcRecipeMatchListSOs, false);
         changed |= NormalizePseudoPrefabs(levelInfo.dlcCookingStepSOs, false);
+        changed |= EnsureReferencedBundleDependencies(levelInfo);
 
         if (levelInfo.dependencies != null)
         {
@@ -311,6 +312,66 @@ public static class CreateAssetBundles
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
+    }
+
+    static bool EnsureReferencedBundleDependencies(LevelEditorStub.LevelInfoSO levelInfo)
+    {
+        if (levelInfo == null)
+        {
+            return false;
+        }
+
+        HashSet<string> dependencies = levelInfo.dependencies != null
+            ? new HashSet<string>(levelInfo.dependencies.Where(x => !string.IsNullOrEmpty(x)), StringComparer.OrdinalIgnoreCase)
+            : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        bool changed = false;
+        IEnumerable<ScriptableObject> referencedAssets = Enumerable.Empty<ScriptableObject>();
+        if (levelInfo.recipes != null)
+        {
+            referencedAssets = referencedAssets.Concat(levelInfo.recipes);
+        }
+        if (levelInfo.optionalRecipeMatchListItems != null)
+        {
+            referencedAssets = referencedAssets.Concat(levelInfo.optionalRecipeMatchListItems);
+        }
+        if (levelInfo.dlcRecipeMatchListSOs != null)
+        {
+            referencedAssets = referencedAssets.Concat(levelInfo.dlcRecipeMatchListSOs);
+        }
+        if (levelInfo.dlcCookingStepSOs != null)
+        {
+            referencedAssets = referencedAssets.Concat(levelInfo.dlcCookingStepSOs);
+        }
+
+        foreach (ScriptableObject referencedAsset in referencedAssets)
+        {
+            LevelEditorStub.PseudoPrefabSO pseudoPrefabSO = referencedAsset as LevelEditorStub.PseudoPrefabSO;
+            if (pseudoPrefabSO == null)
+            {
+                continue;
+            }
+
+            string bundleName = pseudoPrefabSO.bundleName;
+            if (string.IsNullOrEmpty(bundleName) ||
+                bundleName.EndsWith("/dlc_assets", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            if (dependencies.Add(bundleName))
+            {
+                changed = true;
+            }
+        }
+
+        if (changed)
+        {
+            levelInfo.dependencies = dependencies.ToArray();
+            EditorUtility.SetDirty(levelInfo);
+        }
+
+        return changed;
     }
 
     static bool NormalizePseudoPrefabs(ScriptableObject[] assets, bool isRecipe)

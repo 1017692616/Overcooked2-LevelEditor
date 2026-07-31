@@ -422,3 +422,11 @@ PROJECT_CONSTITUTION.md
 ```text
 release
 ```
+
+## Dependency note
+
+If a level references DLC recipes or other game-bundled pseudo assets, the build step now auto-adds each referenced bundle name to `LevelInfoSO.dependencies`.
+
+That means creators can keep using game-owned assets from `Assets/dlc/...` and `Assets/common...` without manually remembering to add the bundle by hand.
+
+For the current `Clean Kitchen` sample, the level now depends on both `bundle47` and `bundle247`, so the DLC05 recipe can load in Play mode and in the built level package.

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9613355741a1a7e429f1ad97a816f6de, type: 3}
   m_Name: LevelInfo_Clean_Kitchen_1
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   levelName: Clean Kitchen
-  levelNameZH: 干净厨房
+  levelNameZH: "\u5E72\u51C0\u53A8\u623F"
   screenshot: {fileID: 0}
   sceneName: s_clean_kitchen_1
   recipes:
-  - {fileID: 11400000, guid: b98d38299de379745b64461474cd7943, type: 2}
-  useScore2: 0
+  - {fileID: 11400000, guid: dddb690b268b2375f4822b7d99b45b9b, type: 2}
   debugRecipeCount: 0
   optionalRecipeMatchListItems: []
+  dlcRecipeMatchListSOs: []
+  dlcCookingStepSOs: []
   disableDynamicParenting: 1
   config_1p: {fileID: 11400000, guid: 349a2ff4e21d4e3f8783234795e37db2, type: 2}
   config_2p: {fileID: 11400000, guid: ca6d64c932cf4bf6a37aab51f207fcfb, type: 2}
@@ -27,3 +28,4 @@ MonoBehaviour:
   config_4p: {fileID: 11400000, guid: 326de0b4ae9c4161ad88fec1db025b51, type: 2}
   dependencies:
   - bundle47
+  - bundle247
