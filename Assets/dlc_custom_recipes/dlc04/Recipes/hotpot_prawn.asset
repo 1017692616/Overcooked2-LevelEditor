@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: hotpot_prawn
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: c3c7ecbc1f93c7827e9a15b97939bdf0, type: 2}
-  - {fileID: 11400000, guid: 83b1874f6ae45f594a99e1a95911146f, type: 2}
-  - {fileID: 11400000, guid: c7d4adb91b271f5ca27ca49d3abd9d0d, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 17a35b77b0702a8594d0904bc6a53ac6, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  - {fileID: 11400000, guid: 85d97b66b86e7722011729ead6882eb2, type: 2}
+  - {fileID: 11400000, guid: 5ad15ecc807181270140802889e25e75, type: 2}
+  - {fileID: 11400000, guid: 209050074cccdfc5af2fce58fff82fca, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 04bf3dfbdb969a39f1c13ed2bf95e83c, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: fe8430c33f5dc33efbb56ab8d274989a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: eb498e44e29e27d32cfd64b225f79af2, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 8033b5ee681b9d0ab8c1e86f48efca19, type: 2}
+  iconSO: {fileID: 11400000, guid: 9edebbd7e99fd3b8d500efb54603b6df, type: 2}
   icon: {fileID: 0}
   recipeName: hotpot_prawn
   uID: 413356

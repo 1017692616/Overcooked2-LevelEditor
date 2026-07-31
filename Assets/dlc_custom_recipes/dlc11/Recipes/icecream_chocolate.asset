@@ -13,15 +13,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compositionSOs:
   - {fileID: 11400000, guid: 5f6e5276e13d772c969ebb61864ab3a2, type: 2}
-  - {fileID: 11400000, guid: 4c613fe16809e53c586e20f461ac4426, type: 2}
-  - {fileID: 11400000, guid: 6c7d2491de1a6ddb9796b04016949a3a, type: 2}
+  - {fileID: 11400000, guid: 9ce1c725f57140e61a17cd225d4bb34c, type: 2}
+  - {fileID: 11400000, guid: 1b829e2818db8a718509cdc1815ce83a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: 1459593625ba0daec6b0d44e39902943, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 9d3afed8d7d00ce5d4b83d90c05ff9eb, type: 2}
+  iconSO: {fileID: 11400000, guid: 34539d5e061d5587421db1373d456862, type: 2}
   icon: {fileID: 0}
   recipeName: icecream_chocolate
   uID: 688258

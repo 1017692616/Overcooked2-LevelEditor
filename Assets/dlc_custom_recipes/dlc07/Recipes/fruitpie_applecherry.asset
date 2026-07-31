@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: fruitpie_applecherry
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b3fa841e57e0c031a39973460f6c44ed, type: 2}
+  - {fileID: 11400000, guid: 71e27972d02812b377db7f530b65fcc4, type: 2}
   cookingStepSO: {fileID: 11400000, guid: aca1f7753b64340a4ac920a135a16a35, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 3a27f93f991ae5f766fae69c4436663d, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 2b6d752fa3e251ae1d9bada9a55f7166, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 5d0f235e544581765376fa5607af9e82, type: 2}
+  iconSO: {fileID: 11400000, guid: 6186ef3f22f9dc0e381de6f998b34534, type: 2}
   icon: {fileID: 0}
   recipeName: fruitpie_applecherry
   uID: 112840

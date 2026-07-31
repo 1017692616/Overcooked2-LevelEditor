@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: mushroompineappletomatokebob
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: a47a62513ed1e2e90b3c7fa7fb9d6ca1, type: 2}
-  - {fileID: 11400000, guid: c46abebc58aee0e0c219d30bb258238e, type: 2}
-  - {fileID: 11400000, guid: 71a91201a797bf5c8ca6744f0dc92810, type: 2}
+  - {fileID: 11400000, guid: 855a3f672983bbf60cc102234b9be74d, type: 2}
+  - {fileID: 11400000, guid: d31b80a7ca6058f5570996daca2412b1, type: 2}
+  - {fileID: 11400000, guid: 687859947df5a5f175eea0b819685611, type: 2}
   cookingStepSO: {fileID: 11400000, guid: 9da2f1b1da6ca42646bc83e7974f198f, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: b0d5c41c8e5ca9cfc3ba39eeac0b071b, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 75b6cdd7913de795ad6e4ee103dee2b8, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: f08cf49c461e5cdadc342a622c25039f, type: 2}
+  iconSO: {fileID: 11400000, guid: c446d27f3a37675a0562387e40b66e44, type: 2}
   icon: {fileID: 0}
   recipeName: mushroompineappletomatokebob
   uID: 289480

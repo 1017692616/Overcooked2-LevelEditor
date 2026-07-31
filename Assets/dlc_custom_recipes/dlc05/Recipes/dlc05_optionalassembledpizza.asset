@@ -16,7 +16,7 @@ MonoBehaviour:
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 88b3420a963f9658a160ea2c9af240ae, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}

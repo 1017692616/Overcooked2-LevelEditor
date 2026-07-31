@@ -18,10 +18,10 @@ MonoBehaviour:
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: a72ee67d12b6e357e9b28a895fd8a284, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 9d3afed8d7d00ce5d4b83d90c05ff9eb, type: 2}
+  iconSO: {fileID: 11400000, guid: 34539d5e061d5587421db1373d456862, type: 2}
   icon: {fileID: 0}
   recipeName: chocolatesmoothie
   uID: 19090

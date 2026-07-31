@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: dlc13_fruitplatter_grapespeach
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 609baef977427eaed93ebf72f42aa045, type: 2}
-  - {fileID: 11400000, guid: 0613e68f049670d568a2955a76fb24a8, type: 2}
+  - {fileID: 11400000, guid: 6f8b588520b47c5394abe0c8327fe7bd, type: 2}
+  - {fileID: 11400000, guid: 6da14cf808d84a9fe9cfef9c1005901a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 67e3aa01390128d805aba6e0e6657a60, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 499093df6228f41782da46805fe93d3b, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: f21bf99f572a4d9a2e52850f0c0d52a6, type: 2}
+  iconSO: {fileID: 11400000, guid: 1cdf2b12a3b7f572d2b4c5cef0df4e55, type: 2}
   icon: {fileID: 0}
   recipeName: dlc13_fruitplatter_grapespeach
   uID: 101598

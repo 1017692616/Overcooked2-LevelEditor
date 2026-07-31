@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: smores_strawberry
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 8b576eb3d46d411419963825a295451e, type: 2}
-  - {fileID: 11400000, guid: f9e95dcd4553fc85f3283080baa49d14, type: 2}
-  - {fileID: 11400000, guid: e1d3152a49cd3782fb7381153eb165ae, type: 2}
+  - {fileID: 11400000, guid: e67b633aa217bd4320def64ea4f18d89, type: 2}
+  - {fileID: 11400000, guid: 1f7ea724577a2f98aaffb6726cb9f5a7, type: 2}
+  - {fileID: 11400000, guid: 480fd0d8c0dffea9c21f00e9f3f9a0eb, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 41bd7a210e44beec1de7f8d0296fa7cd, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 60d83c96bd8a9f2d131e4f9981987a53, type: 2}
+  iconSO: {fileID: 11400000, guid: 6f99a9ab092bcd9f399a4d49a43f0f56, type: 2}
   icon: {fileID: 0}
   recipeName: smores_strawberry
   uID: 86610

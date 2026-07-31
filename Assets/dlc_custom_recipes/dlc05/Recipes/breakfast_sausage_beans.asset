@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: breakfast_sausage_beans
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 30e4bea71b0ec7d1587d67c4a60a646f, type: 2}
-  - {fileID: 11400000, guid: c5655e92bb6100a87e3dd6072796d96f, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 24809e8a4f46676291639e4ccb81cc68, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 6c03627345a6dc6a99041e59e70fb7c4, type: 2}
+  - {fileID: 11400000, guid: 1bb53cc10a55bd308296c8f0e2039119, type: 2}
+  - {fileID: 11400000, guid: 87a891644c656f5ff18a8d73b4428498, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: de512f45f77ea22ebd86acf269850c2b, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 64368fac65b6b62f0bc55bb34f2fb925, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: ad6a6e83c2058555d038986ff2171af6, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 4ab10f0856964dce844c286c2bf6ab1c, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 415df854a2d3cb42cb37f830413d5282, type: 2}
+  iconSO: {fileID: 11400000, guid: d15479bcaca4c9dc98f0b894bc36d6e5, type: 2}
   icon: {fileID: 0}
   recipeName: breakfast_sausage_beans
   uID: 87144

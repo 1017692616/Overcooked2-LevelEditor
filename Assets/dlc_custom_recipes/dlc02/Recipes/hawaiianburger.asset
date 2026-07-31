@@ -13,16 +13,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compositionSOs:
   - {fileID: 11400000, guid: 58db007016934277047844ce8b26eed7, type: 2}
-  - {fileID: 11400000, guid: fc4d842147f88a613d3f7178cb130ad4, type: 2}
+  - {fileID: 11400000, guid: a9bbcf2fd222880e048aa944d8351d23, type: 2}
   - {fileID: 11400000, guid: 15657ea21466bac3bb056e56d67a86c9, type: 2}
   - {fileID: 11400000, guid: 15657ea21466bac3bb056e56d67a86c9, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 9776e6ff30e0b114dfe5cee61e5d13c5, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: ecfd61ef5ad4eb7e12b282afbd1463d2, type: 2}
+  iconSO: {fileID: 11400000, guid: 28b722cac348fb3413955267a220d91f, type: 2}
   icon: {fileID: 0}
   recipeName: hawaiianburger
   uID: 19464

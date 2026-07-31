@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: fruitplatter_orangegrapes
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b9eadddfc3c35e653ed1c994be9a3ac9, type: 2}
-  - {fileID: 11400000, guid: 7eba70f19a93aec51be66ab8801fa240, type: 2}
+  - {fileID: 11400000, guid: 9eb0cc418431b781f9364ae3ffce60d4, type: 2}
+  - {fileID: 11400000, guid: cfadf8d7e6a2c35a58cb286b3f986a5a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: f778bdd069c0418372ac1e3e527b249e, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 6a8e732401cd5cdbd4e095d7db13f79b, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 8964b1bc08229035cb71bde3ed4ae700, type: 2}
+  iconSO: {fileID: 11400000, guid: 809334e417f3900088cbeef13df5a30b, type: 2}
   icon: {fileID: 0}
   recipeName: fruitplatter_orangegrapes
   uID: 101591

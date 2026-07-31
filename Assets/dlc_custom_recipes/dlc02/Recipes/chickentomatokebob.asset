@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: chickentomatokebob
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: f31e2123b6a36d1137530332655f2c36, type: 2}
-  - {fileID: 11400000, guid: 71a91201a797bf5c8ca6744f0dc92810, type: 2}
+  - {fileID: 11400000, guid: 94449d05793b569eb1348ef415fd1f8b, type: 2}
+  - {fileID: 11400000, guid: 687859947df5a5f175eea0b819685611, type: 2}
   cookingStepSO: {fileID: 11400000, guid: 9da2f1b1da6ca42646bc83e7974f198f, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: b0d5c41c8e5ca9cfc3ba39eeac0b071b, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 75b6cdd7913de795ad6e4ee103dee2b8, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 0db57f7f2121ea1f0962b4de7ec4e6e4, type: 2}
+  iconSO: {fileID: 11400000, guid: 555e4df538048ddc9920a8cb2ea397bc, type: 2}
   icon: {fileID: 0}
   recipeName: chickentomatokebob
   uID: 18036

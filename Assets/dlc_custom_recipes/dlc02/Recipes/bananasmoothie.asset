@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: bananasmoothie
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 61e4d4a34bdd797616b9dd9ee85e2a53, type: 2}
-  - {fileID: 11400000, guid: 61e4d4a34bdd797616b9dd9ee85e2a53, type: 2}
-  - {fileID: 11400000, guid: 61e4d4a34bdd797616b9dd9ee85e2a53, type: 2}
+  - {fileID: 11400000, guid: 0541d53b3391099b59b16125db5cbc0c, type: 2}
+  - {fileID: 11400000, guid: 0541d53b3391099b59b16125db5cbc0c, type: 2}
+  - {fileID: 11400000, guid: 0541d53b3391099b59b16125db5cbc0c, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: 720a234d682b266f64679cb00311fa26, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 8f3c56c9224a83efab94bef1c9068f97, type: 2}
+  iconSO: {fileID: 11400000, guid: 3c47dd663155c29e1102416599bd6730, type: 2}
   icon: {fileID: 0}
   recipeName: bananasmoothie
   uID: 44994

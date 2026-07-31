@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: dlc11_optional_bun_onions_ketchup_mustard
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 61dd61bcbfa031fce1d51befab968396, type: 2}
-  - {fileID: 11400000, guid: 0586bdfee929caab83583bf176c9182e, type: 2}
-  - {fileID: 11400000, guid: 366b8ed209ca2e5f932cb293634ccf23, type: 2}
-  - {fileID: 11400000, guid: 4bbacd8b22a219b7d8ebb32982f14d63, type: 2}
+  - {fileID: 11400000, guid: 0563aa2b7ded667e6a3700fe0c5e5928, type: 2}
+  - {fileID: 11400000, guid: 4674773756c34ffd18ac2de19453f395, type: 2}
+  - {fileID: 11400000, guid: ad55aeb51d97c952a3bff323f5d46af2, type: 2}
+  - {fileID: 11400000, guid: 0b1d61df68d4a7870ee63651912abf38, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 2e0921230a6edbe841964e335b723bc6, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}

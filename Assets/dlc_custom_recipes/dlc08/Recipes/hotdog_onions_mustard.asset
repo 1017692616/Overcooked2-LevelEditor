@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: hotdog_onions_mustard
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: a21b5a243f873abd31cbf76b7229ffa7, type: 2}
-  - {fileID: 11400000, guid: 52fab49d22e0fcea632c2c7a7ec31e46, type: 2}
-  - {fileID: 11400000, guid: 67a4fa518f12270b220aa34af1528f2b, type: 2}
-  - {fileID: 11400000, guid: 29ff9a73a65a8f7d34d6cc52c69e0842, type: 2}
+  - {fileID: 11400000, guid: 7a6633f499c2aeec8804dd1499edb0b6, type: 2}
+  - {fileID: 11400000, guid: 52ffa01a94157be2d036e249a1f0a1b9, type: 2}
+  - {fileID: 11400000, guid: f4ef695a1249612af6cd3bbed6a60d8d, type: 2}
+  - {fileID: 11400000, guid: 8b430c8e81b1977aaefb866dcdba3580, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: bc341fbbdc34fceed8f23f51d6b9e0d6, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 81b9f63fa3acb3d5922cab19a99e77f6, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 4a5b3aacadaf7b4e8483162b7688b420, type: 2}
+  iconSO: {fileID: 11400000, guid: ce2e56e4405204d3c6c31125ac9004d3, type: 2}
   icon: {fileID: 0}
   recipeName: hotdog_onions_mustard
   uID: 47642

@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: dlc09_beefpotatocarrotbroccoliroast
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 3442a6df67143735a643af940ec899c8, type: 2}
-  - {fileID: 11400000, guid: 51056a7f97904fc0c7ccdd83f9979518, type: 2}
-  - {fileID: 11400000, guid: 59fa3aa43713b20b573284e2ecbbb0c3, type: 2}
-  - {fileID: 11400000, guid: 4b94c47556dce09c633af63e533c87a0, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: e50971ac08a507f8eda39bf4bb130b34, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 6a9631c411d5a694296cb9f20c5f2308, type: 2}
+  - {fileID: 11400000, guid: c566590f02c9fc6e3e9ce992f3c46f10, type: 2}
+  - {fileID: 11400000, guid: d45ec970189c38b79ba7334515cf7679, type: 2}
+  - {fileID: 11400000, guid: cf425fd76ee2c2cc597ccc6aeecbaaf8, type: 2}
+  - {fileID: 11400000, guid: b1da9f969f177b19377d1e3aab7ff5bf, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: f2983d2dce839a4eab32d045251998ad, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 47cdff3e81e9c1dc5809570bf81cc364, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 0d7295020228059136c9c8c38d7f252b, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: d915e821c63738fc85a04773a8f43563, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: ae1be33bdc39412c247152692910cfff, type: 2}
+  iconSO: {fileID: 11400000, guid: 709c58d37f37abd9c7c8642636822b22, type: 2}
   icon: {fileID: 0}
   recipeName: dlc09_beefpotatocarrotbroccoliroast
   uID: 380312

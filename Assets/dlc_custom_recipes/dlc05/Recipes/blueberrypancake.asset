@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: blueberrypancake
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: e46bf1892328f8b31d36ecb4248f34ec, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 48502c8d89d4ee64fb284f1665a4df43, type: 2}
+  - {fileID: 11400000, guid: 1641d7883119570339f977ab84c872ad, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 977ef7c6e7c196f28a922f930071948d, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 236ddddca9041e598084a694ee5df608, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 32bdfb504446220c5815a1e193bb62a1, type: 2}
+  iconSO: {fileID: 11400000, guid: 92c0180cfae0895713bf62ce6c9488f2, type: 2}
   icon: {fileID: 0}
   recipeName: blueberrypancake
   uID: 64568

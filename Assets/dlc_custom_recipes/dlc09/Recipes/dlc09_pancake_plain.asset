@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Name: dlc09_pancake_plain
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 9365674d52b835a7f81d307998082ed2, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 48502c8d89d4ee64fb284f1665a4df43, type: 2}
+  - {fileID: 11400000, guid: 99d800050faeeea0a63d3685da16c3cf, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 977ef7c6e7c196f28a922f930071948d, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 725797d560e13776c925568bfbbb8cc8, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 11400000, guid: f095543fb9f9aba93e6ee0c5b9f675a1, type: 2}

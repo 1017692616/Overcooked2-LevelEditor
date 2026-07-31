@@ -13,10 +13,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compositionSOs:
   - {fileID: 11400000, guid: a603661d54bc16d7e2d8a90371f3de5f, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 23dea0bd87b35ee43922ffe5ec84d735, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 9421b5a48341d508e22813ae24ce8a3d, type: 2}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 88b3420a963f9658a160ea2c9af240ae, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}

@@ -15,14 +15,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a603661d54bc16d7e2d8a90371f3de5f, type: 2}
   - {fileID: 11400000, guid: 7d61e56a9ca284b00714ccdcfe3911b4, type: 2}
   - {fileID: 11400000, guid: c3926dbd35354c58fc650357edffc698, type: 2}
-  - {fileID: 11400000, guid: a5166ba21e3d2c3aaa89775341b2919b, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 23dea0bd87b35ee43922ffe5ec84d735, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 6a9631c411d5a694296cb9f20c5f2308, type: 2}
+  - {fileID: 11400000, guid: 2d38bc793ea829f668b93ab661931537, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 9421b5a48341d508e22813ae24ce8a3d, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 47cdff3e81e9c1dc5809570bf81cc364, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 88b3420a963f9658a160ea2c9af240ae, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: d6ad9e39740e6163b1ab2af8326b1b57, type: 2}
+  iconSO: {fileID: 11400000, guid: fb660b8fab76881cf0218af851ba4085, type: 2}
   icon: {fileID: 0}
   recipeName: pizza_olives
   uID: 44412

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: dlc11_optional_frankfurter_onions_mustard
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: e38cdd3de44770ca20c9dc625fe890ad, type: 2}
-  - {fileID: 11400000, guid: 4bbacd8b22a219b7d8ebb32982f14d63, type: 2}
-  - {fileID: 11400000, guid: 366b8ed209ca2e5f932cb293634ccf23, type: 2}
+  - {fileID: 11400000, guid: 33d7c923febd0f861c34fdc346b45e40, type: 2}
+  - {fileID: 11400000, guid: 0b1d61df68d4a7870ee63651912abf38, type: 2}
+  - {fileID: 11400000, guid: ad55aeb51d97c952a3bff323f5d46af2, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 3812af40327561d1e8887a8614155ed6, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 7884df2c6a3daddcf49bf35ad57a23b6, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}
   icon: {fileID: 0}

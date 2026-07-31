@@ -62,6 +62,14 @@ def unity_ref(guid: str | None) -> str:
     return "{fileID: 11400000, guid: " + guid + ", type: 2}"
 
 
+def is_relative_to(path: Path, root: Path) -> bool:
+    try:
+        path.resolve().relative_to(root.resolve())
+        return True
+    except ValueError:
+        return False
+
+
 def yaml_list_refs(refs: list[str]) -> str:
     if not refs:
         return " []"
@@ -138,7 +146,7 @@ def ensure_pseudo_ref(
         return None
     key = (bundle, normalize_path(asset_path))
     existing = refs.get(key)
-    if existing:
+    if existing and is_relative_to(existing[1], output_root):
         return existing[0]
 
     folder = classify_reference_folder(asset_path)
@@ -170,6 +178,47 @@ def scan_bundle_containers(game_root: Path) -> tuple[dict[int, tuple[str, str]],
             if "/downloadablecontent/" in normalize_path(asset_path) and "/data/orderdefinitions/recipeitems/" in normalize_path(asset_path):
                 recipe_objects[asset_path] = pptr
     return path_id_index, recipe_objects
+
+
+def dlc_name(path: str) -> str | None:
+    match = re.search(r"/downloadablecontent/(dlc\d+)(?:/|$)", normalize_path(path))
+    return match.group(1) if match else None
+
+
+def build_prefab_index(path_id_index: dict[int, tuple[str, str]]) -> dict[tuple[str, str], tuple[str, str]]:
+    prefab_index: dict[tuple[str, str], tuple[str, str]] = {}
+    for bundle, asset_path in path_id_index.values():
+        p = normalize_path(asset_path)
+        if "/prefabs/ingredients/" not in p or not p.endswith(".prefab"):
+            continue
+        dlc = dlc_name(p)
+        if not dlc:
+            continue
+        prefab_index.setdefault((dlc, Path(p).stem), (bundle, asset_path))
+    return prefab_index
+
+
+def resolve_composition_guid(
+    refs: dict[tuple[str, str], tuple[str, Path]],
+    output_root: Path,
+    resolved: tuple[str, str],
+    current_recipe_path: str,
+    prefab_index: dict[tuple[str, str], tuple[str, str]],
+) -> str | None:
+    bundle, asset_path = resolved
+    normalized = normalize_path(asset_path)
+    current_normalized = normalize_path(current_recipe_path)
+
+    if "/data/orderdefinitions/recipeitems/" in normalized and normalized != current_normalized:
+        return unity_guid("recipe:" + normalized)
+
+    if "/data/orderdefinitions/ingredients/" in normalized or "/data/orderdefinitions/mixedingredients/" in normalized:
+        dlc = dlc_name(normalized)
+        prefab_ref = prefab_index.get((dlc, Path(normalized).stem)) if dlc else None
+        if prefab_ref:
+            bundle, asset_path = prefab_ref
+
+    return ensure_pseudo_ref(refs, output_root, bundle, asset_path)
 
 
 def resolve_pptr(pptr: object, path_id_index: dict[int, tuple[str, str]]) -> tuple[str, str] | None:
@@ -268,6 +317,7 @@ def main() -> None:
     refs = read_existing_pseudo_refs(project_assets)
     scores = score_index(project_assets)
     path_id_index, recipe_objects = scan_bundle_containers(game_root)
+    prefab_index = build_prefab_index(path_id_index)
 
     generated = 0
     skipped = 0
@@ -293,7 +343,7 @@ def main() -> None:
             resolved = resolve_pptr(child, path_id_index)
             if not resolved:
                 continue
-            guid = ensure_pseudo_ref(refs, output_root, resolved[0], resolved[1])
+            guid = resolve_composition_guid(refs, output_root, resolved, recipe_path, prefab_index)
             if guid:
                 composition_guids.append(guid)
 

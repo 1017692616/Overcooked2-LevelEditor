@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: dlc13_moonpie_watermelon
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 310f2cf069399fa20346e6c61dcce8e0, type: 2}
+  - {fileID: 11400000, guid: 35e0cc915cc6334794ec48319e4ba543, type: 2}
   cookingStepSO: {fileID: 11400000, guid: aca1f7753b64340a4ac920a135a16a35, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: cc281dedde029d7849d300d8c4691ea4, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 5261d8a53170c71c1f3331023f494bba, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 11400000, guid: e1bb5fe277902e5cdbf8c42cc48b0118, type: 2}
   icon: {fileID: 0}

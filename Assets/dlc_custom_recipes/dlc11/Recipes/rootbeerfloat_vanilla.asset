@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: rootbeerfloat_vanilla
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 47220bf6fa5d2f1c76eff6f72b0725c3, type: 2}
-  - {fileID: 11400000, guid: a7128345a33db58409b01b5400e93bb8, type: 2}
+  - {fileID: 11400000, guid: 40834c48141381312a6aacbd9ee74856, type: 2}
+  - {fileID: 11400000, guid: 65554073fb5f5cef53ee26c695586cf0, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: 5d94558608449e7881d1e23d90142950, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 4bbfb27de069c2634fbb0dc96f848da0, type: 2}
+  iconSO: {fileID: 11400000, guid: 7ad8f76f1cfda7eee9da9676c1583d0d, type: 2}
   icon: {fileID: 0}
   recipeName: rootbeerfloat_vanilla
   uID: 999585

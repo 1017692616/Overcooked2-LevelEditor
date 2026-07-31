@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: tomato_corn_onion
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 25370b528635267db2fed420c9d5507a, type: 2}
-  - {fileID: 11400000, guid: 42fb531031ed94409e4c183ff076979f, type: 2}
-  - {fileID: 11400000, guid: b93ec84d8389401bfced76cb79a5b558, type: 2}
+  - {fileID: 11400000, guid: 5b881586936c1675d1dd0423687ad606, type: 2}
+  - {fileID: 11400000, guid: 04bfdddc886b286e30f3f7d91cb9f602, type: 2}
+  - {fileID: 11400000, guid: 225b23f4705acfd8e473f3676c43c2fe, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 2ae2ca6d7f103e29f995f377fefbefdd, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: dfc905b46e656478d9090e1a09aebce0, type: 2}
+  iconSO: {fileID: 11400000, guid: 279c616ba74ec5380eb78d40c6a49c10, type: 2}
   icon: {fileID: 0}
   recipeName: tomato_corn_onion
   uID: 77324

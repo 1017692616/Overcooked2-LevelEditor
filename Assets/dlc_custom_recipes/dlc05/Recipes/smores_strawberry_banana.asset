@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: smores_strawberry_banana
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 8b576eb3d46d411419963825a295451e, type: 2}
-  - {fileID: 11400000, guid: f9e95dcd4553fc85f3283080baa49d14, type: 2}
-  - {fileID: 11400000, guid: 5572c63baeac53eb9443b1dd8b390386, type: 2}
-  - {fileID: 11400000, guid: e1d3152a49cd3782fb7381153eb165ae, type: 2}
+  - {fileID: 11400000, guid: e67b633aa217bd4320def64ea4f18d89, type: 2}
+  - {fileID: 11400000, guid: 1f7ea724577a2f98aaffb6726cb9f5a7, type: 2}
+  - {fileID: 11400000, guid: 3f036ec652d5f60fcbcccb7ea0ced3b0, type: 2}
+  - {fileID: 11400000, guid: 480fd0d8c0dffea9c21f00e9f3f9a0eb, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 41bd7a210e44beec1de7f8d0296fa7cd, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 57a52b906f8a664958d611b9f8859a75, type: 2}
+  iconSO: {fileID: 11400000, guid: e6c7b699b2df38ffadab1ed8d5d880dc, type: 2}
   icon: {fileID: 0}
   recipeName: smores_strawberry_banana
   uID: 95300

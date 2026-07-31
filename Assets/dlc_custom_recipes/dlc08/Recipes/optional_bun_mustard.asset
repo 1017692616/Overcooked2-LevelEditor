@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: optional_bun_mustard
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: a21b5a243f873abd31cbf76b7229ffa7, type: 2}
-  - {fileID: 11400000, guid: 29ff9a73a65a8f7d34d6cc52c69e0842, type: 2}
+  - {fileID: 11400000, guid: 7a6633f499c2aeec8804dd1499edb0b6, type: 2}
+  - {fileID: 11400000, guid: 8b430c8e81b1977aaefb866dcdba3580, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 00a026ab7d5a79954d9d669df335b596, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 5837b70b849f778d08c39c067f982cbe, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}
   icon: {fileID: 0}

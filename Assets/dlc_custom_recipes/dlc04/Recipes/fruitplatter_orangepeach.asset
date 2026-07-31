@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: fruitplatter_orangepeach
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b9eadddfc3c35e653ed1c994be9a3ac9, type: 2}
-  - {fileID: 11400000, guid: 63db566edd403d949857ac505dc4881c, type: 2}
+  - {fileID: 11400000, guid: 9eb0cc418431b781f9364ae3ffce60d4, type: 2}
+  - {fileID: 11400000, guid: 0f2867e3e2cd9d577994e2c2738947a3, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 28e240686319570063e707fce7ec9ea3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 9a459e082bbfb8f11a4b64a8938a1031, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e5e8561996cd3613c3ec879103ba70fb, type: 2}
+  iconSO: {fileID: 11400000, guid: c2b686f7419ee158da4bdcbf72d559c1, type: 2}
   icon: {fileID: 0}
   recipeName: fruitplatter_orangepeach
   uID: 101592

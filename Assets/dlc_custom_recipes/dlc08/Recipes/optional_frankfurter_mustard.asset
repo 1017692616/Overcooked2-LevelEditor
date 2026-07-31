@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: optional_frankfurter_mustard
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 52fab49d22e0fcea632c2c7a7ec31e46, type: 2}
-  - {fileID: 11400000, guid: 29ff9a73a65a8f7d34d6cc52c69e0842, type: 2}
+  - {fileID: 11400000, guid: 52ffa01a94157be2d036e249a1f0a1b9, type: 2}
+  - {fileID: 11400000, guid: 8b430c8e81b1977aaefb866dcdba3580, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 7df94721ea802fdbe3a2a5e2fa8a4f74, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: d9a5d951cb713e8d4e2c66da92ae02cf, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}
   icon: {fileID: 0}

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: beefpotatocarrotroast
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 80130b8dfbe15c088d0781e69aa06572, type: 2}
-  - {fileID: 11400000, guid: d52fbdbe5abb90f5f8e17c5e1a665533, type: 2}
+  - {fileID: 11400000, guid: 0ab59d1d2c73bf40d7c5e9647b7e1f59, type: 2}
+  - {fileID: 11400000, guid: 552e3214d35ddff80822bfa7e94bb118, type: 2}
   - {fileID: 11400000, guid: 283c758be4cc5ff93dc9a15085cf235b, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 4a9d85bd7763784d190dbaf0e982d7c3, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 6a9631c411d5a694296cb9f20c5f2308, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 1f162549b367684d138e0aed4c459ed2, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 47cdff3e81e9c1dc5809570bf81cc364, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 69769b8fd0add020308991bf20ff8852, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: e6599f00ff4ec484500ae58678c41bef, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 89d196fe986482415937b48fab1c2df4, type: 2}
+  iconSO: {fileID: 11400000, guid: 9f73de0cbdde3803d4d8b52a4b0b102e, type: 2}
   icon: {fileID: 0}
   recipeName: beefpotatocarrotroast
   uID: 112658

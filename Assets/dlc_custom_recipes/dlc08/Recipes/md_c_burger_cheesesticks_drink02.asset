@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: md_c_burger_cheesesticks_drink02
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: f56e3b61cc5c75578e24cb0734c20a8b, type: 2}
-  - {fileID: 11400000, guid: 8449535a7211497d8be6e15cdda22798, type: 2}
-  - {fileID: 11400000, guid: ce7d56e5cdf19544d1b3c931377ef12f, type: 2}
-  - {fileID: 11400000, guid: bbceba1958ca45b18879448c2ea80662, type: 2}
+  - {fileID: 11400000, guid: f11d21d9fc85e5a17c7c905513fcec80, type: 2}
+  - {fileID: 11400000, guid: 3bee11eb4e0e0f12a259dfa36198d9cb, type: 2}
+  - {fileID: 11400000, guid: 73d27975aad1b92eb1bf9c3908321d28, type: 2}
+  - {fileID: 11400000, guid: 27045b1b9d41be33e6897d16d9f66103, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: a8edbd5126d14f1c0f63e2012522ca5b, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e748447a1e615704ee15baa60020be0a, type: 2}
+  iconSO: {fileID: 11400000, guid: 34f4bb0298e1f6afd949bf9118dea1d0, type: 2}
   icon: {fileID: 0}
   recipeName: md_c_burger_cheesesticks_drink02
   uID: 628694

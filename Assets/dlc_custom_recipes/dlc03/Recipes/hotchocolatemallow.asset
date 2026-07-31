@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: hotchocolatemallow
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: ec909997a6fadd82a82ce468d38541e7, type: 2}
-  - {fileID: 11400000, guid: 00ede5c96d1d6ea33c434fb3467dfdd2, type: 2}
+  - {fileID: 11400000, guid: c170e1869b821e299f024b6d61c91ee4, type: 2}
+  - {fileID: 11400000, guid: 45919ce12dc5edeef3d329f5dfb38824, type: 2}
   cookingStepSO: {fileID: 0}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f84865c6e2c915b4418a1f5ce4e202c3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 5944d5327e8caf8ad2c93514b306a2aa, type: 2}
   modelSO: {fileID: 11400000, guid: 7bff42983826791fc2cfc3a3e0329623, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e729362254f0eaa2e69ecc5ab01d2ec2, type: 2}
+  iconSO: {fileID: 11400000, guid: 7e5efea8a4d1f6af30b6b76f6d8ef980, type: 2}
   icon: {fileID: 0}
   recipeName: hotchocolatemallow
   uID: 181110

@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: dlc11_hotdog_ketchup
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 61dd61bcbfa031fce1d51befab968396, type: 2}
-  - {fileID: 11400000, guid: e38cdd3de44770ca20c9dc625fe890ad, type: 2}
-  - {fileID: 11400000, guid: 0586bdfee929caab83583bf176c9182e, type: 2}
+  - {fileID: 11400000, guid: 0563aa2b7ded667e6a3700fe0c5e5928, type: 2}
+  - {fileID: 11400000, guid: 33d7c923febd0f861c34fdc346b45e40, type: 2}
+  - {fileID: 11400000, guid: 4674773756c34ffd18ac2de19453f395, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: f6cab972f5dfbaeb96f0f62bf1ba09f3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 1b1fb033475eed1e2fbc951cc933fea2, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: fcc355fdf1252e51e2ae047ed9f58caf, type: 2}
+  iconSO: {fileID: 11400000, guid: 71286d1074463907c37e281727fdda67, type: 2}
   icon: {fileID: 0}
   recipeName: dlc11_hotdog_ketchup
   uID: 902030

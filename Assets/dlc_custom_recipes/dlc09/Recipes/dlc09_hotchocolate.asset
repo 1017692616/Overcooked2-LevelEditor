@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: dlc09_hotchocolate
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b43aaf9a7f8e6f40b15756687e2dcbcd, type: 2}
-  - {fileID: 11400000, guid: 7a9b796ee25f16fa47cb299d43e7cd9e, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 8687a65ff3d0dd94c91818e822af0aa4, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  - {fileID: 11400000, guid: f6948746a83c566931b04a4da0d2f91f, type: 2}
+  - {fileID: 11400000, guid: 96eac7a69884f7f0dcfac750aa897923, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: cbc0a5e45e1823c3366237401cdb52bb, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f84865c6e2c915b4418a1f5ce4e202c3, type: 2}
-  modelSO: {fileID: 11400000, guid: cb21cc3df2420ba41a12d8b05a0de235, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 5944d5327e8caf8ad2c93514b306a2aa, type: 2}
+  modelSO: {fileID: 11400000, guid: 99af7d8da50a4ffb5b786d632b5cf043, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 9780bafbe20ad30397b86e7e15d51e62, type: 2}
+  iconSO: {fileID: 11400000, guid: b3c501d6d114c1b45644feda696d3947, type: 2}
   icon: {fileID: 0}
   recipeName: dlc09_hotchocolate
   uID: 380120

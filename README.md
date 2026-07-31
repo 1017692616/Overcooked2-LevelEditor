@@ -454,3 +454,7 @@ During the same build step, DLC `PseudoPrefabSORecipe` entries in `LevelInfoSO.r
 当前已生成所有带固定配方组成、可以作为顶部订单显示的 DLC 菜谱。少数 `optional...` 和 `permutation...` 资源是匹配辅助模板，不是完整顶部订单，因此不会直接出现在 `recipes` 里。
 
 All DLC recipes with fixed compositions and real top-order UI are generated. A small number of `optional...` and `permutation...` assets are match-list helper templates rather than complete top-order recipes, so they are not added directly to `recipes`.
+
+生成器会把 DLC 复合菜谱里的子菜谱转成生成版 `CustomRecipeSO` 引用，并把普通食材优先映射到游戏内 ingredient prefab。这样热巧克力、煎饼、套餐等嵌套菜单在 Play Mode 和构建包里都能拿到正确的订单节点与图标。
+
+The generator maps nested DLC recipe components to generated `CustomRecipeSO` assets and maps normal ingredients to in-game ingredient prefabs where possible. This lets nested orders such as hot chocolate, pancakes, and combo meals resolve their order nodes and icons in Play Mode and built level packages.

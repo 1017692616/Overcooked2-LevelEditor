@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: breakfast_bacon_egg_sausage
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: f16d09b7eff5c68aecaaa058668240dc, type: 2}
-  - {fileID: 11400000, guid: 30643cc131fc218f5541faa07b39ee2f, type: 2}
-  - {fileID: 11400000, guid: 30e4bea71b0ec7d1587d67c4a60a646f, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 24809e8a4f46676291639e4ccb81cc68, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 6c03627345a6dc6a99041e59e70fb7c4, type: 2}
+  - {fileID: 11400000, guid: 2301e1d939ededd642be2bab9a2c3169, type: 2}
+  - {fileID: 11400000, guid: ced0689dcab0c03df0aea50dfa5abbbf, type: 2}
+  - {fileID: 11400000, guid: 1bb53cc10a55bd308296c8f0e2039119, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: de512f45f77ea22ebd86acf269850c2b, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: 64368fac65b6b62f0bc55bb34f2fb925, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: eb44d5ea3fd604d7907575066f3fcdb6, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 54e431b2f385dadb943df06a057348be, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 20afd06c12f495f719f1232ccd4b7eab, type: 2}
+  iconSO: {fileID: 11400000, guid: 68018bff4fcd4e9b76212bb4d4c1a188, type: 2}
   icon: {fileID: 0}
   recipeName: breakfast_bacon_egg_sausage
   uID: 61750

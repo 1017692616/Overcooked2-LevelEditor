@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: optional_frankfurter_mustard_ketchup
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 52fab49d22e0fcea632c2c7a7ec31e46, type: 2}
-  - {fileID: 11400000, guid: 29ff9a73a65a8f7d34d6cc52c69e0842, type: 2}
-  - {fileID: 11400000, guid: 1b33268c93fdae6033d51cc4b7696d19, type: 2}
+  - {fileID: 11400000, guid: 52ffa01a94157be2d036e249a1f0a1b9, type: 2}
+  - {fileID: 11400000, guid: 8b430c8e81b1977aaefb866dcdba3580, type: 2}
+  - {fileID: 11400000, guid: def8fdcf1e72f43f840286cf98270618, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: df973f1721bcf59cd5e2200eb2587c3e, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: e326a3443a2b0b16eecbc028cf8ed1ea, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 0}
   icon: {fileID: 0}

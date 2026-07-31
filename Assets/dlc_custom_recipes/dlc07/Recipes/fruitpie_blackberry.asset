@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: fruitpie_blackberry
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 75a480f355289d9187461accccfeac50, type: 2}
+  - {fileID: 11400000, guid: ffc4d610da544e98b92ac5635d36f982, type: 2}
   cookingStepSO: {fileID: 11400000, guid: aca1f7753b64340a4ac920a135a16a35, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 974dc17945fc4d575a18fc1b8dbd4884, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 56e2a6f01eb9b4c358af7986eb163c11, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e8ea7b22493b966ecaa94966b0bf492b, type: 2}
+  iconSO: {fileID: 11400000, guid: 94e8c6d38e4780274676f6e22920571d, type: 2}
   icon: {fileID: 0}
   recipeName: fruitpie_blackberry
   uID: 26020

@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: dlc13_fruitplatter_orangepeach
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: c5e9ee672e97d278a697dbd52e302ff0, type: 2}
-  - {fileID: 11400000, guid: 0613e68f049670d568a2955a76fb24a8, type: 2}
+  - {fileID: 11400000, guid: 7ae326eae0ff4071f530306ba107730a, type: 2}
+  - {fileID: 11400000, guid: 6da14cf808d84a9fe9cfef9c1005901a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 28e240686319570063e707fce7ec9ea3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 9a459e082bbfb8f11a4b64a8938a1031, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e5e8561996cd3613c3ec879103ba70fb, type: 2}
+  iconSO: {fileID: 11400000, guid: c2b686f7419ee158da4bdcbf72d559c1, type: 2}
   icon: {fileID: 0}
   recipeName: dlc13_fruitplatter_orangepeach
   uID: 101600

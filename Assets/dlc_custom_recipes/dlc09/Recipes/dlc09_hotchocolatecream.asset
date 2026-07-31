@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: dlc09_hotchocolatecream
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 4ab7842e3bdb699aba8f432484cf0940, type: 2}
-  - {fileID: 11400000, guid: 9399585eb60df8d89003488a88306e45, type: 2}
+  - {fileID: 11400000, guid: f3b1d5451478dcf779a62b8d33fa2efd, type: 2}
+  - {fileID: 11400000, guid: 5dbf2addcccf5d09765b419134f747d2, type: 2}
   cookingStepSO: {fileID: 0}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f84865c6e2c915b4418a1f5ce4e202c3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 5944d5327e8caf8ad2c93514b306a2aa, type: 2}
   modelSO: {fileID: 11400000, guid: ff7328f257953741e0ce33704a29e5d6, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 583b68a38d49ff78024361ca14e9c62d, type: 2}
+  iconSO: {fileID: 11400000, guid: 771f8bfaf0a487a8c11279f352075464, type: 2}
   icon: {fileID: 0}
   recipeName: dlc09_hotchocolatecream
   uID: 380128

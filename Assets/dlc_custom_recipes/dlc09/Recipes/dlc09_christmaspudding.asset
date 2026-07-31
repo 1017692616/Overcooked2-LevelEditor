@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Name: dlc09_christmaspudding
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 87b07b0aef097de64f0d5ccbb6f39721, type: 2}
+  - {fileID: 11400000, guid: 6a4bc5957d57ac6acb8cf27be84155db, type: 2}
   cookingStepSO: {fileID: 11400000, guid: aca1f7753b64340a4ac920a135a16a35, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 79c65a050edca702aa4282e8b8794f6c, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: caf1a891c8220eb95ec9c793b8d2f718, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 13945b0348cdb4357e308038930d7e3f, type: 2}
+  iconSO: {fileID: 11400000, guid: 1a3d2e381fbe1bfaeda37dc73ac0c719, type: 2}
   icon: {fileID: 0}
   recipeName: dlc09_christmaspudding
   uID: 380104

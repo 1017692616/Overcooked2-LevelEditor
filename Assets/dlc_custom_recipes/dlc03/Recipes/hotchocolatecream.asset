@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: hotchocolatecream
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: ec909997a6fadd82a82ce468d38541e7, type: 2}
-  - {fileID: 11400000, guid: c7020c7151976cde44d1689ef5fbcb0f, type: 2}
+  - {fileID: 11400000, guid: c170e1869b821e299f024b6d61c91ee4, type: 2}
+  - {fileID: 11400000, guid: 2114fbc8c51375ba5b8928754dbedc11, type: 2}
   cookingStepSO: {fileID: 0}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f84865c6e2c915b4418a1f5ce4e202c3, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 5944d5327e8caf8ad2c93514b306a2aa, type: 2}
   modelSO: {fileID: 11400000, guid: 7bff42983826791fc2cfc3a3e0329623, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 583b68a38d49ff78024361ca14e9c62d, type: 2}
+  iconSO: {fileID: 11400000, guid: 771f8bfaf0a487a8c11279f352075464, type: 2}
   icon: {fileID: 0}
   recipeName: hotchocolatecream
   uID: 201148

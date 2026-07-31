@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Name: dlc13_moonpie_chocolatestrawberry
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b3247fa2a06e883a83ae7ceb654c8ff9, type: 2}
+  - {fileID: 11400000, guid: f30d748452a51a62c34d840a4d044970, type: 2}
   cookingStepSO: {fileID: 11400000, guid: aca1f7753b64340a4ac920a135a16a35, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 5a519b44b60043602d88e54d0ec1cf83, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 460895b3e64c1699ab527c4e48dc3830, type: 2}
   model: {fileID: 0}
   iconSO: {fileID: 11400000, guid: adc2937da32436cffe840832ab903b1a, type: 2}
   icon: {fileID: 0}

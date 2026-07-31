@@ -66,7 +66,7 @@ namespace LevelEditor
                 OrderDefinitionNode[] orderNodes = customRecipeSO.compositionSOs.Select(
                     x => x is CustomRecipeSO ? 
                     GetRecipeNode(x as CustomRecipeSO) : 
-                    GetIngredientOrderNode(x as PseudoPrefabSO)).ToArray();
+                    GetOrderDefinitionNode(x as PseudoPrefabSO)).ToArray();
                 node.m_composition = orderNodes;
 
                 RecipeWidgetUIController.RecipeTileData gui1 = new RecipeWidgetUIController.RecipeTileData();
@@ -81,7 +81,10 @@ namespace LevelEditor
                 {
                     if (customRecipeSO.compositionSOs[i] is CustomRecipeSO)
                     {
-                        children[i] = orderNodes[i].m_orderGuiDescription[1];
+                        if (orderNodes[i] != null && orderNodes[i].m_orderGuiDescription != null && orderNodes[i].m_orderGuiDescription.Length > 0)
+                        {
+                            children[i] = orderNodes[i].m_orderGuiDescription[Math.Min(1, orderNodes[i].m_orderGuiDescription.Length - 1)];
+                        }
                     }
                     else if (orderNodes[i] is IngredientOrderNode)
                     {
@@ -89,6 +92,10 @@ namespace LevelEditor
                         gui2.m_tileDefinition = new RecipeWidgetTile.TileDefinition();
                         gui2.m_tileDefinition.m_mainPictures = new List<Sprite> { (orderNodes[i] as IngredientOrderNode).m_iconSprite };
                         children[i] = gui2;
+                    }
+                    else if (orderNodes[i] != null && orderNodes[i].m_orderGuiDescription != null && orderNodes[i].m_orderGuiDescription.Length > 0)
+                    {
+                        children[i] = orderNodes[i].m_orderGuiDescription[Math.Min(1, orderNodes[i].m_orderGuiDescription.Length - 1)];
                     }
                     else
                     {
@@ -194,6 +201,13 @@ namespace LevelEditor
 
         public static IngredientOrderNode GetIngredientOrderNode(PseudoPrefabSO pseudoPrefabSO)
         {
+            if (pseudoPrefabSO == null)
+                return null;
+
+            IngredientOrderNode directNode = PseudoPrefabManager.LoadAsset<IngredientOrderNode>(pseudoPrefabSO);
+            if (directNode != null)
+                return directNode;
+
             GameObject ingredient = PseudoPrefabManager.LoadAsset<GameObject>(pseudoPrefabSO);
             if (ingredient == null)
                 return null;
@@ -211,6 +225,22 @@ namespace LevelEditor
                 PreparationContainer preparationContainer = ingredient.GetComponent<PreparationContainer>();
                 return preparationContainer != null ? preparationContainer.m_ingredientOrderNode : null;
             }
+        }
+
+        private static OrderDefinitionNode GetOrderDefinitionNode(PseudoPrefabSO pseudoPrefabSO)
+        {
+            if (pseudoPrefabSO == null)
+                return null;
+
+            PseudoPrefabSORecipe recipeSO = pseudoPrefabSO as PseudoPrefabSORecipe;
+            if (recipeSO != null)
+                return PseudoPrefabManager.LoadAsset<OrderDefinitionNode>(recipeSO);
+
+            OrderDefinitionNode directNode = PseudoPrefabManager.LoadAsset<OrderDefinitionNode>(pseudoPrefabSO);
+            if (directNode != null)
+                return directNode;
+
+            return GetIngredientOrderNode(pseudoPrefabSO);
         }
     }
 }

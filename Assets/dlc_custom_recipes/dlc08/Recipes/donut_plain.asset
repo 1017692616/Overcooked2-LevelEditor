@@ -13,13 +13,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compositionSOs:
   - {fileID: 11400000, guid: 90907cafda6ddb13e017b7d249413cf3, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 52427a7ce907faf448dced9054383b7d, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: 7b43e935b232abb347e8b34dd9363772, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: 7ea7a9749a41943bce9c1a329da6bfde, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 693fe3721b50cd6c45bce942242172eb, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 2121547c98be99b8a5143eb596a4e52d, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 63f6a446e7031472936444c0fb46ce70, type: 2}
+  iconSO: {fileID: 11400000, guid: 75904ad58ee6634bfdc9e69d375fee5b, type: 2}
   icon: {fileID: 0}
   recipeName: donut_plain
   uID: 228988

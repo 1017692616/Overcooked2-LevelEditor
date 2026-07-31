@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: meatmushroompineapplekebob
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 41b8b4260bae18a56556ab3f0f0b57d6, type: 2}
-  - {fileID: 11400000, guid: a47a62513ed1e2e90b3c7fa7fb9d6ca1, type: 2}
-  - {fileID: 11400000, guid: c46abebc58aee0e0c219d30bb258238e, type: 2}
+  - {fileID: 11400000, guid: d812be527695f067da74483d4036204b, type: 2}
+  - {fileID: 11400000, guid: 855a3f672983bbf60cc102234b9be74d, type: 2}
+  - {fileID: 11400000, guid: d31b80a7ca6058f5570996daca2412b1, type: 2}
   cookingStepSO: {fileID: 11400000, guid: 9da2f1b1da6ca42646bc83e7974f198f, type: 2}
   cookingStepIconSO: {fileID: 11400000, guid: b0d5c41c8e5ca9cfc3ba39eeac0b071b, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: 75b6cdd7913de795ad6e4ee103dee2b8, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: e8aecf316507e432bc988c2165408a7a, type: 2}
+  iconSO: {fileID: 11400000, guid: 490d61e415a2f6314865f9baeb75096f, type: 2}
   icon: {fileID: 0}
   recipeName: meatmushroompineapplekebob
   uID: 288662

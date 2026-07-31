@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: strawberrysmoothie
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: a2e6297503576e1bb0c62dc87a447200, type: 2}
-  - {fileID: 11400000, guid: a2e6297503576e1bb0c62dc87a447200, type: 2}
-  - {fileID: 11400000, guid: a2e6297503576e1bb0c62dc87a447200, type: 2}
+  - {fileID: 11400000, guid: a27e668cb69b94e99d14a77b932bc9c7, type: 2}
+  - {fileID: 11400000, guid: a27e668cb69b94e99d14a77b932bc9c7, type: 2}
+  - {fileID: 11400000, guid: a27e668cb69b94e99d14a77b932bc9c7, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: a63577f3ec2f9015d23c0bc68da621ab, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 7529a9821c9e39249d04889febb0c985, type: 2}
+  iconSO: {fileID: 11400000, guid: a28e3b0f5b7cc995c4bc7bf5481a312a, type: 2}
   icon: {fileID: 0}
   recipeName: strawberrysmoothie
   uID: 36232

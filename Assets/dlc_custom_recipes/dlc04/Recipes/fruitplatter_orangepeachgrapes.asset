@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: fruitplatter_orangepeachgrapes
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: b9eadddfc3c35e653ed1c994be9a3ac9, type: 2}
-  - {fileID: 11400000, guid: 63db566edd403d949857ac505dc4881c, type: 2}
-  - {fileID: 11400000, guid: 7eba70f19a93aec51be66ab8801fa240, type: 2}
+  - {fileID: 11400000, guid: 9eb0cc418431b781f9364ae3ffce60d4, type: 2}
+  - {fileID: 11400000, guid: 0f2867e3e2cd9d577994e2c2738947a3, type: 2}
+  - {fileID: 11400000, guid: cfadf8d7e6a2c35a58cb286b3f986a5a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 9448295e8249514cfa25293616e1a069, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 15286261b2c0ee9986cb3e485f3518df, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 4ec38724600044d6377e50fd770d15f7, type: 2}
+  iconSO: {fileID: 11400000, guid: 96da9fbe7c38e7283d25b24a05f849b3, type: 2}
   icon: {fileID: 0}
   recipeName: fruitplatter_orangepeachgrapes
   uID: 101593

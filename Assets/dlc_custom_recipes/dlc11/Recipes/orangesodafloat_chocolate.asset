@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: orangesodafloat_chocolate
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: af63509382e9f8be1014b94eb60cf32d, type: 2}
-  - {fileID: 11400000, guid: d150a30f19c76e12dbea54e56a210cb6, type: 2}
+  - {fileID: 11400000, guid: 4a1f7e68690f50b38c119b25fde7a313, type: 2}
+  - {fileID: 11400000, guid: ef7a00161e92dca3e798a7f36d0c164e, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: c25a0931c26cda097ae6d2846ec9be22, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: d489a760c4c6d21a2a66db45d8306dfb, type: 2}
+  iconSO: {fileID: 11400000, guid: 1812f65d488132f794e3372be9b755c1, type: 2}
   icon: {fileID: 0}
   recipeName: orangesodafloat_chocolate
   uID: 999578

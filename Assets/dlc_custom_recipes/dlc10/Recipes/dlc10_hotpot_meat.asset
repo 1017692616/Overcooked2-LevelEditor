@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Name: dlc10_hotpot_meat
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: af97465e34feccfb78b4a4e67a77eebd, type: 2}
-  - {fileID: 11400000, guid: 20fbbce00152d08771ffafc81fbd7289, type: 2}
-  - {fileID: 11400000, guid: 9ec4c20994ca97bfd5e6d29ded0f35c9, type: 2}
-  cookingStepSO: {fileID: 11400000, guid: 8325153d862d57f8fdb2e8e932b5124f, type: 2}
-  cookingStepIconSO: {fileID: 11400000, guid: 67d4429d9a2417746ab9ce083330f8ad, type: 2}
+  - {fileID: 11400000, guid: fde7e636ec0095a327d118481402e88a, type: 2}
+  - {fileID: 11400000, guid: ee5789a0ce9d7af8101b6ecfbca4425e, type: 2}
+  - {fileID: 11400000, guid: 3e60b2e27085f30637528d4d6c2b2888, type: 2}
+  cookingStepSO: {fileID: 11400000, guid: e835b379fcbf19dbc4b0dfeb5e789d11, type: 2}
+  cookingStepIconSO: {fileID: 11400000, guid: cf713d82dd56a33942969b67666229e1, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: 04e8d8ecd784ca5a10ceb6471b46af0e, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: 6d4ad1b63c7d8c06e97d07133f51b622, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 5a36c5b9f61102d56e4551e194fa2e79, type: 2}
+  iconSO: {fileID: 11400000, guid: ab50fc70888dd734b8348dbfa72a6700, type: 2}
   icon: {fileID: 0}
   recipeName: dlc10_hotpot_meat
   uID: 413260

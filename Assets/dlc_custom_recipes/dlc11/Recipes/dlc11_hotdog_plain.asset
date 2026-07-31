@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Name: dlc11_hotdog_plain
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 61dd61bcbfa031fce1d51befab968396, type: 2}
-  - {fileID: 11400000, guid: e38cdd3de44770ca20c9dc625fe890ad, type: 2}
+  - {fileID: 11400000, guid: 0563aa2b7ded667e6a3700fe0c5e5928, type: 2}
+  - {fileID: 11400000, guid: 33d7c923febd0f861c34fdc346b45e40, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
-  modelSO: {fileID: 11400000, guid: bb095ae8e76be3b0029032bcded4b874, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
+  modelSO: {fileID: 11400000, guid: c9d7a2d0c7f4cc9401c70c8840889574, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: d31866ea611e68486afbdc1c99111caf, type: 2}
+  iconSO: {fileID: 11400000, guid: 8023c2bc41cc37f6864d83a200cc19e3, type: 2}
   icon: {fileID: 0}
   recipeName: dlc11_hotdog_plain
   uID: 902036

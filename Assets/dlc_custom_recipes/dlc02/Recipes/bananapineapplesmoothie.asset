@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: bananapineapplesmoothie
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: 61e4d4a34bdd797616b9dd9ee85e2a53, type: 2}
-  - {fileID: 11400000, guid: 61e4d4a34bdd797616b9dd9ee85e2a53, type: 2}
-  - {fileID: 11400000, guid: 5b9a2838dac0c065f76310ce44c5cdac, type: 2}
-  - {fileID: 11400000, guid: 5b9a2838dac0c065f76310ce44c5cdac, type: 2}
+  - {fileID: 11400000, guid: 0541d53b3391099b59b16125db5cbc0c, type: 2}
+  - {fileID: 11400000, guid: 0541d53b3391099b59b16125db5cbc0c, type: 2}
+  - {fileID: 11400000, guid: 9d61594c62cebe2662239f882d46247a, type: 2}
+  - {fileID: 11400000, guid: 9d61594c62cebe2662239f882d46247a, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 11400000, guid: 4254f6067c3454fa5ca93f6f7bee0235, type: 2}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: f4fd75d8fe63bd78ce503812d172352a, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 59a7b516b4ed8b898ad88317c2d56185, type: 2}
   modelSO: {fileID: 11400000, guid: ddb603d455a9d26731ac40c91e12b2ba, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: bd0213ae2093a5faef0bbed41b675d41, type: 2}
+  iconSO: {fileID: 11400000, guid: 3a8d2b92a09b378a834d04cc9e93895e, type: 2}
   icon: {fileID: 0}
   recipeName: bananapineapplesmoothie
   uID: 28826

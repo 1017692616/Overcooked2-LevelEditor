@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Name: md_c_burger_onionrings_drink01
   m_EditorClassIdentifier: 
   compositionSOs:
-  - {fileID: 11400000, guid: f56e3b61cc5c75578e24cb0734c20a8b, type: 2}
-  - {fileID: 11400000, guid: 8449535a7211497d8be6e15cdda22798, type: 2}
-  - {fileID: 11400000, guid: f84cf183068f3f82d2ec3266f2987f82, type: 2}
-  - {fileID: 11400000, guid: 1b59b8919acd01d1bdb8ba0b5699d8ca, type: 2}
+  - {fileID: 11400000, guid: f11d21d9fc85e5a17c7c905513fcec80, type: 2}
+  - {fileID: 11400000, guid: 3bee11eb4e0e0f12a259dfa36198d9cb, type: 2}
+  - {fileID: 11400000, guid: f470586c2ffbb8cd3afcad2af749e93d, type: 2}
+  - {fileID: 11400000, guid: d8123dab37f949ef12e7507fcbedef8e, type: 2}
   cookingStepSO: {fileID: 0}
   cookingStepIconSO: {fileID: 0}
   cookingStepIcon: {fileID: 0}
-  platingStepSO: {fileID: 11400000, guid: 02b04fdf6fef0e944870fd5e06375ed1, type: 2}
+  platingStepSO: {fileID: 11400000, guid: 50f82870f9dc019c681fdc94e6af4804, type: 2}
   modelSO: {fileID: 11400000, guid: a8edbd5126d14f1c0f63e2012522ca5b, type: 2}
   model: {fileID: 0}
-  iconSO: {fileID: 11400000, guid: 44e1bcfa8a6c7fb6093e92483c38b32a, type: 2}
+  iconSO: {fileID: 11400000, guid: a05bef8ba864e861ef2107b80cf1b073, type: 2}
   icon: {fileID: 0}
   recipeName: md_c_burger_onionrings_drink01
   uID: 628686
